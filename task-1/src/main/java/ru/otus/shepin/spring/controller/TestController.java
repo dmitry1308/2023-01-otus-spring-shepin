@@ -12,18 +12,17 @@ import ru.otus.shepin.spring.service.TestService;
 public class TestController {
     private ScannerManager scannerManager;
     private PersonService  personService;
-    private TestService    testService;
-    private PrintService   resultPrintService;
+    private TestService  testService;
+    private PrintService printService;
 
     public void passTest() {
-        resultPrintService.print("\n" + "---------- Test ----------");
+        printService.print("\n" + "---------- Test ----------");
 
         Person personData = personService.getPersonData();
-        resultPrintService.print(personData.toString());
+        printService.print(personData.toString());
 
         TestResult testResult = testService.startTest();
-        resultPrintService.printResult(testResult);
-
+        printService.printResult(testResult);
 
         scannerManager.closeScanner();
     }
