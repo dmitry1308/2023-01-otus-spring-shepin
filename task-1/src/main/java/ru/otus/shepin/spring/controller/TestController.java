@@ -23,8 +23,7 @@ public class TestController {
         System.out.println(personData);
 
         TestResult testResult = testService.startTest();
-        String reportResult = resultPrintService.createReportResult(testResult);
-        System.out.println(reportResult);
+        resultPrintService.printResult(testResult);
 
         scannerManager.closeScanner();
     }
