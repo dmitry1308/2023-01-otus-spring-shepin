@@ -12,10 +12,11 @@ import java.util.List;
 public class TestService {
     private TestDataService              testDataService;
     private UserCommunicationWithService communicationUserService;
+    private PrintService printService;
 
 
     public TestResult startTest() {
-        System.out.println("\n" + "----------Start Test----------");
+        printService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.prepareDataTestByFile("Questions.csv");
         return askQuestions(testDataList);
     }

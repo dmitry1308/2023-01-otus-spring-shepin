@@ -18,6 +18,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "name = " + name + ", age = " + age;
+        return "Person data:\n" + "name = " + name + ", age = " + age;
     }
 }
