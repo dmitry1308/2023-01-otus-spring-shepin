@@ -1,7 +1,9 @@
 package ru.otus.shepin.spring.entity;
 
-public class ResultTest {
+import lombok.Builder;
+
+@Builder(toBuilder = true)
+public class TestResult {
     private int rightAnswerCount;
     private int failAnswer;
-
 }
