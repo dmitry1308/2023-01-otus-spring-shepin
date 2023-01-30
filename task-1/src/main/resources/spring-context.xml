@@ -4,8 +4,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--    <bean id="simpleEntity" class="ru.otus.shepin.spring.entity.Person"/>-->
+    <bean id="fileResourcesUtils" class="ru.otus.shepin.spring.utils.FileResourcesUtils">
+        <constructor-arg name="fileName" value="Questions.csv"/>
+    </bean>
 
 
+    <bean id="testController" class="ru.otus.shepin.spring.controller.TestController">
+        <constructor-arg index="0" ref="personService"/>
+        <constructor-arg index="1" ref="scannerManager"/>
+    </bean>
 
+    <bean id="userCommunicationWithService" class="ru.otus.shepin.spring.service.UserCommunicationWithService">
+        <constructor-arg index="0" ref="scannerManager"/>
+    </bean>
+
+    <bean id="personService" class="ru.otus.shepin.spring.service.PersonService">
+        <constructor-arg index="0" ref="userCommunicationWithService"/>
+    </bean>
+
+    <bean id="scannerManager" class="ru.otus.shepin.spring.service.ScannerManager"/>
 
 </beans>
