@@ -1,6 +1,7 @@
 package ru.otus.shepin.spring.service;
 
 import lombok.AllArgsConstructor;
+import ru.otus.shepin.spring.manager.ScannerManager;
 
 @AllArgsConstructor
 public class UserCommunicationWithService {

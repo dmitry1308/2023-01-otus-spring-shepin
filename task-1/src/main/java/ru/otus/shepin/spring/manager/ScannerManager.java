@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.manager;
 
 import java.util.Scanner;
 
