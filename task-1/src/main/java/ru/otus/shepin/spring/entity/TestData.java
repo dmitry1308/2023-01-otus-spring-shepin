@@ -7,6 +7,12 @@ import lombok.Getter;
 @Getter
 public class TestData {
     String question;
-    String answer;
+    String personAnswer;
     String rightAnswer;
+
+    @Override
+    public String toString() {
+        return String.format("\n\nQuestion:\n %s\n  answer: %s,\n  rightAnswer: %s", question, personAnswer,
+                rightAnswer);
+    }
 }

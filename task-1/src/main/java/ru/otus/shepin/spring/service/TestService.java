@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,13 +19,28 @@ public class TestService {
 
         List<TestData> testDataList = testDataService.prepareDataTestByFile("Questions.csv");
 
+        return askQuestions(testDataList);
+    }
+
+    private TestResult askQuestions(List<TestData> testDataList) {
+        int failAnswer = 0;
+        int rightAnswer = 0;
+
+        List<TestData> testDataListWithAnswer = new ArrayList<>();
+
         for (TestData testData : testDataList) {
             String personAnswer = communicationUserService.askPersonAndGetAnswer(testData.getQuestion());
-            testData.toBuilder().answer(personAnswer);
+            TestData testDataWithAnswerPerson = testData.toBuilder().personAnswer(personAnswer).build();
+            testDataListWithAnswer.add(testDataWithAnswerPerson);
+
+            if (testData.getRightAnswer().equals(personAnswer)) {
+                rightAnswer++;
+            } else {
+                failAnswer++;
+            }
         }
 
-        // TODO: 30.01.2023 тут возможно будет цикл с бегущими вопросами
-        return TestResult.builder().build();
+        return TestResult.builder().rightAnswerCount(rightAnswer).failAnswer(failAnswer).testDataList(testDataListWithAnswer).build();
     }
 
 }
