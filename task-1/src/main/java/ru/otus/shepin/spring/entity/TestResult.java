@@ -1,21 +1,22 @@
 package ru.otus.shepin.spring.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
-@Builder(toBuilder = true)
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TestResult {
-    private int rightAnswerCount;
-    private int failAnswer;
-
-    private List<TestData> testDataList;
-
+    int            failAnswer;
+    int            rightAnswer;
+    List<TestData> testDataList;
 
     @Override
     public String toString() {
         return String.format(
-                "\nRight answer count: %s;\nFail Answer: %s;\nHistory question and Answer: %s",
-                 rightAnswerCount, failAnswer, testDataList.toString());
+                "\nFail Answer:%s\nRight answer: %s,\n\nHistory questions and answers%s",
+                failAnswer, rightAnswer,testDataList.toString());
     }
 }

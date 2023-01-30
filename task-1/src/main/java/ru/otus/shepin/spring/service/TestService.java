@@ -16,9 +16,7 @@ public class TestService {
 
     public TestResult startTest() {
         System.out.println("\n" + "----------Start Test----------");
-
         List<TestData> testDataList = testDataService.prepareDataTestByFile("Questions.csv");
-
         return askQuestions(testDataList);
     }
 
@@ -40,7 +38,7 @@ public class TestService {
             }
         }
 
-        return TestResult.builder().rightAnswerCount(rightAnswer).failAnswer(failAnswer).testDataList(testDataListWithAnswer).build();
+        return TestResult.builder().rightAnswer(rightAnswer).failAnswer(failAnswer).testDataList(testDataListWithAnswer).build();
     }
 
 }
