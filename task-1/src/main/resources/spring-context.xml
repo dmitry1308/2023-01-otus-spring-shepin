@@ -11,14 +11,14 @@
     </bean>
 
     <bean id="testController" class="ru.otus.shepin.spring.controller.TestController">
-        <constructor-arg index="0" ref="scannerManager"/>
+        <constructor-arg index="0" ref="scannerService"/>
         <constructor-arg index="1" ref="personService"/>
         <constructor-arg index="2" ref="testService"/>
         <constructor-arg index="3" ref="resultPrintService"/>
     </bean>
 
     <bean id="userCommunicationWithService" class="ru.otus.shepin.spring.service.UserCommunicationWithService">
-        <constructor-arg index="0" ref="scannerManager"/>
+        <constructor-arg index="0" ref="scannerService"/>
         <constructor-arg index="1" ref="resultPrintService"/>
     </bean>
 
@@ -27,8 +27,8 @@
     </bean>
 
     <bean id="resultPrintService" class="ru.otus.shepin.spring.service.PrintService"/>
-    <bean id="scannerManager" class="ru.otus.shepin.spring.manager.ScannerManager"/>
-    <bean id="fileStreamService" class="ru.otus.shepin.spring.fileService.FileStreamService"/>
+    <bean id="scannerService" class="ru.otus.shepin.spring.service.ScannerService"/>
+    <bean id="fileStreamService" class="ru.otus.shepin.spring.service.fileService.FileStreamService"/>
 
     <bean id="testDataService" class="ru.otus.shepin.spring.service.TestDataService">
         <constructor-arg index="0" ref="fileStreamService"/>

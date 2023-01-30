@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.fileService;
+package ru.otus.shepin.spring.service.fileService;
 
 import ru.otus.shepin.spring.utils.FileResourcesUtils;
 

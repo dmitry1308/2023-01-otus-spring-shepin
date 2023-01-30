@@ -2,7 +2,7 @@ package ru.otus.shepin.spring.service;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
-import ru.otus.shepin.spring.fileService.FileService;
+import ru.otus.shepin.spring.service.fileService.FileService;
 import ru.otus.shepin.spring.utils.DataHelper;
 
 import java.io.BufferedReader;
