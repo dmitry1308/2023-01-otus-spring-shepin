@@ -1,12 +1,13 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.personDataService;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.Person;
+import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
 
 
 @AllArgsConstructor
-public class PersonService {
-    private UserCommunicationWithService communicationUserService;
+public class PersonDataServiceImpl implements PersonDataService {
+    private UserCommunicationService communicationUserService;
 
     public Person getPersonData() {
         String personName = communicationUserService.askPersonAndGetAnswer("What is your name?");

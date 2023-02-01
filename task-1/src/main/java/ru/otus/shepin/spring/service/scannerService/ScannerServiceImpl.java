@@ -1,11 +1,11 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.scannerService;
 
 import java.util.Scanner;
 
-public class ScannerService {
+public class ScannerServiceImpl implements ScannerService{
     private Scanner scanner;
 
-    private ScannerService() {}
+    private ScannerServiceImpl() {}
 
     public Scanner getScanner() {
         if (scanner == null) {

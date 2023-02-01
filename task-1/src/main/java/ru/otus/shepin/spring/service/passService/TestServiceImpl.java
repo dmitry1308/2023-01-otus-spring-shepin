@@ -1,23 +1,26 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.passService;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
+import ru.otus.shepin.spring.service.importDataService.DataImportService;
+import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
+import ru.otus.shepin.spring.service.printService.PrintService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @AllArgsConstructor
-public class TestService {
-    private TestDataService              testDataService;
-    private UserCommunicationWithService communicationUserService;
-    private PrintService printService;
+public class TestServiceImpl implements TestService {
+    private DataImportService<String> testDataService;
+    private UserCommunicationService  communicationUserService;
+    private PrintService              printService;
 
 
     public TestResult startTest() {
         printService.print("\n" + "----------Start Test----------");
-        List<TestData> testDataList = testDataService.prepareDataTestByFile("Questions.csv");
+        List<TestData> testDataList = testDataService.importData("Questions.csv");
         return askQuestions(testDataList);
     }
 

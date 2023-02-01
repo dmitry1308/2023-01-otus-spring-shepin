@@ -1,9 +1,11 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.personDataService.userCommunication;
 
 import lombok.AllArgsConstructor;
+import ru.otus.shepin.spring.service.printService.PrintService;
+import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 @AllArgsConstructor
-public class UserCommunicationWithService {
+public class UserConsoleCommunicationService implements UserCommunicationService {
     private ScannerService scannerManager;
     private PrintService   printService;
 

@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.importDataService;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-public class TestDataService {
+public class TestImportServiceFile implements DataImportService<String>{
     private FileService fileService;
 
-    List<TestData> prepareDataTestByFile(String fileName) {
+    public List<TestData> importData(String fileName) {
         InputStream fileAsStream = fileService.getFileAsStream(fileName);
         List<String> lines = getLines(fileAsStream);
         return DataHelper.convertLinesToData(lines);

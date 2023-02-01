@@ -1,8 +1,8 @@
-package ru.otus.shepin.spring.service;
+package ru.otus.shepin.spring.service.printService;
 
 import ru.otus.shepin.spring.entity.TestResult;
 
-public class PrintService {
+public class PrintServiceImpl implements PrintService{
 
     public void print(String data) {
         System.out.println(data);
