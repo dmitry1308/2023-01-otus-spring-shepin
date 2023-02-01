@@ -2,8 +2,7 @@ package ru.otus.shepin.spring.service.importDataService;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
-import ru.otus.shepin.spring.service.fileService.FileService;
-import ru.otus.shepin.spring.utils.DataHelper;
+import ru.otus.shepin.spring.utils.FileResourcesUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,12 +14,10 @@ import java.util.List;
 
 @AllArgsConstructor
 public class TestImportServiceFile implements DataImportService<String>{
-    private FileService fileService;
-
     public List<TestData> importData(String fileName) {
-        InputStream fileAsStream = fileService.getFileAsStream(fileName);
+        InputStream fileAsStream = getFileFromResourceAsStream(fileName);
         List<String> lines = getLines(fileAsStream);
-        return DataHelper.convertLinesToData(lines);
+        return convertLinesToData(lines);
     }
 
     private List<String> getLines(InputStream is) {
@@ -37,5 +34,34 @@ public class TestImportServiceFile implements DataImportService<String>{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<TestData> convertLinesToData(List<String> lines) {
+        List<TestData> testDataList = new ArrayList<>();
+
+        for (int i = 0; i < lines.size(); i++) {
+            createTestData(lines, testDataList, i);
+        }
+        return testDataList;
+    }
+
+    private static void createTestData(List<String> lines, List<TestData> testDataList, int i) {
+        String line = lines.get(i);
+        String[] questionAnswer = line.split("Answer:");
+        String question = questionAnswer[0].trim();
+        String answer = questionAnswer[1].trim();
+        TestData testData = TestData.builder().question(question).rightAnswer(answer).build();
+        testDataList.add(testData);
+    }
+
+    public  InputStream getFileFromResourceAsStream(String fileName) {
+
+        ClassLoader classLoader = FileResourcesUtils.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        }
+        return inputStream;
     }
 }
