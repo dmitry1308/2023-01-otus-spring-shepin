@@ -7,30 +7,38 @@
     <bean id="testService" class="ru.otus.shepin.spring.service.passService.TestServiceImpl">
         <constructor-arg index="0" ref="testDataService"/>
         <constructor-arg index="1" ref="userCommunicationWithService"/>
-        <constructor-arg index="2" ref="resultPrintService"/>
+        <constructor-arg index="2" ref="printStringService"/>
     </bean>
 
     <bean id="testController" class="ru.otus.shepin.spring.controller.TestController">
         <constructor-arg index="0" ref="scannerService"/>
         <constructor-arg index="1" ref="personService"/>
         <constructor-arg index="2" ref="testService"/>
-        <constructor-arg index="3" ref="resultPrintService"/>
+        <constructor-arg index="3" ref="printStringService"/>
+        <constructor-arg index="4" ref="resultPrintService"/>
     </bean>
 
     <bean id="userCommunicationWithService" class="ru.otus.shepin.spring.service.personDataService.userCommunication.UserConsoleCommunicationService">
         <constructor-arg index="0" ref="scannerService"/>
-        <constructor-arg index="1" ref="resultPrintService"/>
+        <constructor-arg index="1" ref="printStringService"/>
     </bean>
 
     <bean id="personService" class="ru.otus.shepin.spring.service.personDataService.PersonDataServiceImpl">
         <constructor-arg index="0" ref="userCommunicationWithService"/>
     </bean>
 
-    <bean id="resultPrintService" class="ru.otus.shepin.spring.service.printService.PrintServiceImpl"/>
+    <bean id="resultPrintService" class="ru.otus.shepin.spring.service.printService.PrintResultService">
+        <constructor-arg index="0" ref="reportTestResultService"/>
+    </bean>
+
+    <bean id="printStringService" class="ru.otus.shepin.spring.service.printService.PrintStringService"/>
+
     <bean id="scannerService" class="ru.otus.shepin.spring.service.scannerService.ScannerServiceImpl"/>
     <bean id="fileStreamService" class="ru.otus.shepin.spring.service.fileService.FileStreamService"/>
 
     <bean id="testDataService" class="ru.otus.shepin.spring.service.importDataService.TestImportServiceFile">
         <constructor-arg index="0" ref="fileStreamService"/>
     </bean>
+
+    <bean id="reportTestResultService" class="ru.otus.shepin.spring.service.reportService.ReportTestResultService"/>
 </beans>

@@ -13,16 +13,17 @@ public class TestController implements Controller {
     private ScannerService    scannerManager;
     private PersonDataService personService;
     private TestService       testService;
-    private PrintService      printService;
+    private PrintService      printStringService;
+    private PrintService      printResultService;
 
     public void handle() {
-        printService.print("\n" + "---------- Test ----------");
+        printStringService.print("\n" + "---------- Test ----------");
 
         Person personData = personService.getPersonData();
-        printService.print(personData.toString());
+        printStringService.print(personData.toString());
 
         TestResult testResult = testService.startTest();
-        printService.printResult(testResult);
+        printResultService.print(testResult);
 
         scannerManager.closeScanner();
     }
