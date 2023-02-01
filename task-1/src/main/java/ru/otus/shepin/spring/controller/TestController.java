@@ -9,13 +9,13 @@ import ru.otus.shepin.spring.service.ScannerService;
 import ru.otus.shepin.spring.service.TestService;
 
 @AllArgsConstructor
-public class TestController {
+public class TestController implements Controller{
     private ScannerService scannerManager;
     private PersonService  personService;
     private TestService  testService;
     private PrintService printService;
 
-    public void passTest() {
+    public void handle() {
         printService.print("\n" + "---------- Test ----------");
 
         Person personData = personService.getPersonData();
