@@ -1,19 +1,18 @@
 package ru.otus.shepin.spring.service.printService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.reportService.ReportService;
 
-@RequiredArgsConstructor
-public class PrintResultService implements PrintService<TestResult>{
-    ReportService<TestResult> reportService;
+import java.io.PrintStream;
 
-    public PrintResultService(ReportService<TestResult> reportService) {
-        this.reportService = reportService;
-    }
+@AllArgsConstructor
+public class PrintResultService implements PrintService<TestResult> {
+   private ReportService<TestResult> reportService;
+    private PrintStream stream;
 
     public void print(TestResult data) {
         String report = reportService.formReport(data);
-        System.out.println(report);
+        stream.println(report);
     }
 }
