@@ -20,7 +20,7 @@ public class TestImportServiceFile implements DataImportService<String> {
         return convertLinesToData(lines);
     }
 
-    private List<String> getLines(InputStream is) {
+    protected List<String> getLines(InputStream is) {
         try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(streamReader)) {
 
             ArrayList<String> lines = new ArrayList<>();
@@ -36,25 +36,25 @@ public class TestImportServiceFile implements DataImportService<String> {
         return null;
     }
 
-    public static List<TestData> convertLinesToData(List<String> lines) {
+    protected List<TestData> convertLinesToData(List<String> lines) {
         List<TestData> testDataList = new ArrayList<>();
 
         for (int i = 0; i < lines.size(); i++) {
-            createTestData(lines, testDataList, i);
+            String line = lines.get(i);
+            TestData testData = createTestData(line);
+            testDataList.add(testData);
         }
         return testDataList;
     }
 
-    private static void createTestData(List<String> lines, List<TestData> testDataList, int i) {
-        String line = lines.get(i);
+    protected TestData createTestData(String line) {
         String[] questionAnswer = line.split(",");
         String question = questionAnswer[0].trim();
         String answer = questionAnswer[1].trim();
-        TestData testData = TestData.builder().question(question).rightAnswer(answer).build();
-        testDataList.add(testData);
+        return TestData.builder().question(question).rightAnswer(answer).build();
     }
 
-    public InputStream getFileFromResourceAsStream(String fileName) {
+    protected InputStream getFileFromResourceAsStream(String fileName) {
 
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
