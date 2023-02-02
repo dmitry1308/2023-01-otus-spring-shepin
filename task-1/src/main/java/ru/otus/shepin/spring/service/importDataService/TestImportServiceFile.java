@@ -2,7 +2,6 @@ package ru.otus.shepin.spring.service.importDataService;
 
 import lombok.AllArgsConstructor;
 import ru.otus.shepin.spring.entity.TestData;
-import ru.otus.shepin.spring.utils.FileResourcesUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-public class TestImportServiceFile implements DataImportService<String>{
+public class TestImportServiceFile implements DataImportService<String> {
     public List<TestData> importData(String fileName) {
         InputStream fileAsStream = getFileFromResourceAsStream(fileName);
         List<String> lines = getLines(fileAsStream);
@@ -54,9 +53,9 @@ public class TestImportServiceFile implements DataImportService<String>{
         testDataList.add(testData);
     }
 
-    public  InputStream getFileFromResourceAsStream(String fileName) {
+    public InputStream getFileFromResourceAsStream(String fileName) {
 
-        ClassLoader classLoader = FileResourcesUtils.class.getClassLoader();
+        ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
         if (inputStream == null) {
