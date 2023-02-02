@@ -8,7 +8,7 @@ public class ScannerServiceImpl implements ScannerService {
     private Scanner scanner;
     private final InputStream stream;
 
-    public ScannerServiceImpl(InputStream stream) {
+    private ScannerServiceImpl(InputStream stream) {
         this.stream = stream;
     }
 
