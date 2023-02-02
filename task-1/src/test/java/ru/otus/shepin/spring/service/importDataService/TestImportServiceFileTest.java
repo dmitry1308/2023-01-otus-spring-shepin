@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestImportServiceFileTest extends TestImportServiceFile {
-    public static final String QUESTIONS_CSV = "Questions.csv";
-    private TestImportServiceFile importServiceFile;
-    private static List<String>          fullListLikeInFile;
-    private static List<String>          questionList;
-    private static List<String>          answerList;
+    public static final String                QUESTIONS_CSV = "Questions.csv";
+    private             TestImportServiceFile importServiceFile;
+    private static      List<String>          fullListLikeInFile;
+    private static      List<String>          questionList;
+    private static      List<String>          answerList;
 
     @BeforeAll
     static void beforeAll() {
