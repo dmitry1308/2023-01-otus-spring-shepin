@@ -8,7 +8,7 @@ import java.io.PrintStream;
 
 @AllArgsConstructor
 public class PrintResultService implements PrintService<TestResult> {
-   private ReportService<TestResult> reportService;
+    private ReportService<TestResult> reportService;
     private PrintStream stream;
 
     public void print(TestResult data) {

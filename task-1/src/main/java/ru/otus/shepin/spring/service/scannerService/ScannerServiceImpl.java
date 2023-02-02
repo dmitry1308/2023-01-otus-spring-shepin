@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ScannerServiceImpl implements ScannerService {
     private Scanner scanner;
-    private InputStream stream;
+    private final InputStream stream;
 
     public ScannerServiceImpl(InputStream stream) {
         this.stream = stream;

@@ -7,6 +7,7 @@ import ru.otus.shepin.spring.service.importDataService.DataImportService;
 import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
 import ru.otus.shepin.spring.service.printService.PrintService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class TestServiceImpl implements TestService {
     private PrintService<String> printService;
 
 
-    public TestResult startTest() {
+    public TestResult startTest() throws IOException {
         printService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);

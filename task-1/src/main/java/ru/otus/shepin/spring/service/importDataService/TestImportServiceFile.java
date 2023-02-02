@@ -15,12 +15,12 @@ import java.util.List;
 public class TestImportServiceFile implements DataImportService {
     private String fileName;
 
-    public List<TestData> importData() {
+    public List<TestData> importData() throws IOException {
         List<String> lines = getLines();
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines() {
+    protected List<String> getLines() throws IOException {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(this.fileName)) {
@@ -40,10 +40,7 @@ public class TestImportServiceFile implements DataImportService {
                 }
                 return lines;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return null;
     }
 
     protected List<TestData> convertLinesToData(List<String> lines) {
