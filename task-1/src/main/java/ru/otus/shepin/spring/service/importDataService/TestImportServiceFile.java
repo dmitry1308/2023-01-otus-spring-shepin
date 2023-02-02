@@ -12,20 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-public class TestImportServiceFile implements DataImportService<String> {
+public class TestImportServiceFile implements DataImportService {
+    private String fileName;
 
-    public List<TestData> importData(String fileName) {
-        List<String> lines = getLines(fileName);
+    public List<TestData> importData() {
+        List<String> lines = getLines();
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines(String fileName) {
+    protected List<String> getLines() {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(this.fileName)) {
 
             if (inputStream == null) {
-                throw new IllegalArgumentException("file not found! " + fileName);
+                throw new IllegalArgumentException("file not found! " + this.fileName);
             }
 
             try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);

@@ -8,7 +8,6 @@
         <constructor-arg index="0" ref="testDataService"/>
         <constructor-arg index="1" ref="userCommunicationWithService"/>
         <constructor-arg index="2" ref="printStringService"/>
-        <constructor-arg index="3" value="Questions.csv"/>
     </bean>
 
     <bean id="testController" class="ru.otus.shepin.spring.controller.TestController">
@@ -37,7 +36,10 @@
 
     <bean id="scannerService" class="ru.otus.shepin.spring.service.scannerService.ScannerServiceImpl"/>
 
-    <bean id="testDataService" class="ru.otus.shepin.spring.service.importDataService.TestImportServiceFile"/>
+    <bean id="testDataService" class="ru.otus.shepin.spring.service.importDataService.TestImportServiceFile">
+        <constructor-arg index="0" value="Questions.csv"/>
+    </bean>
 
     <bean id="reportTestResultService" class="ru.otus.shepin.spring.service.reportService.ReportTestResultService"/>
+
 </beans>

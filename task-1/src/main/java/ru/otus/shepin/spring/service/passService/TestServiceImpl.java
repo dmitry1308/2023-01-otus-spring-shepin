@@ -13,15 +13,14 @@ import java.util.List;
 
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
-    private DataImportService<String> testDataService;
+    private DataImportService testDataService;
     private UserCommunicationService communicationUserService;
     private PrintService<String> printService;
-    private String fileName;
 
 
     public TestResult startTest() {
         printService.print("\n" + "----------Start Test----------");
-        List<TestData> testDataList = testDataService.importData(fileName);
+        List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);
     }
 
@@ -38,7 +37,8 @@ public class TestServiceImpl implements TestService {
                     .build();
             testDataListWithAnswer.add(testDataWithAnswerPerson);
 
-            if (testData.getRightAnswer().equals(personAnswer)) {
+            if (testData.getRightAnswer()
+                    .equals(personAnswer)) {
                 rightAnswer++;
             } else {
                 failAnswer++;
