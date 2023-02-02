@@ -10,11 +10,11 @@ import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 @AllArgsConstructor
 public class TestController implements Controller {
-    private ScannerService    scannerManager;
-    private PersonDataService personService;
-    private TestService       testService;
-    private PrintService      printStringService;
-    private PrintService      printResultService;
+    private ScannerService           scannerManager;
+    private PersonDataService        personService;
+    private TestService              testService;
+    private PrintService<String>     printStringService;
+    private PrintService<TestResult> printResultService;
 
     public void handle() {
         printStringService.print("\n" + "---------- Test ----------");

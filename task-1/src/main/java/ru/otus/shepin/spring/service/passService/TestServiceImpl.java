@@ -15,8 +15,8 @@ import java.util.List;
 public class TestServiceImpl implements TestService {
     private DataImportService<String> testDataService;
     private UserCommunicationService  communicationUserService;
-    private PrintService              printService;
-    private String fileName;
+    private PrintService<String>      printService;
+    private String                    fileName;
 
 
     public TestResult startTest() {
