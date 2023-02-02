@@ -47,7 +47,7 @@ public class TestImportServiceFile implements DataImportService<String>{
 
     private static void createTestData(List<String> lines, List<TestData> testDataList, int i) {
         String line = lines.get(i);
-        String[] questionAnswer = line.split("Answer:");
+        String[] questionAnswer = line.split(",");
         String question = questionAnswer[0].trim();
         String answer = questionAnswer[1].trim();
         TestData testData = TestData.builder().question(question).rightAnswer(answer).build();
