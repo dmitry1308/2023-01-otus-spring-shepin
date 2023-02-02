@@ -14,9 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
     private DataImportService<String> testDataService;
-    private UserCommunicationService  communicationUserService;
-    private PrintService<String>      printService;
-    private String                    fileName;
+    private UserCommunicationService communicationUserService;
+    private PrintService<String> printService;
+    private String fileName;
 
 
     public TestResult startTest() {
@@ -33,7 +33,9 @@ public class TestServiceImpl implements TestService {
 
         for (TestData testData : testDataList) {
             String personAnswer = communicationUserService.askPersonAndGetAnswer(testData.getQuestion());
-            TestData testDataWithAnswerPerson = testData.toBuilder().personAnswer(personAnswer).build();
+            TestData testDataWithAnswerPerson = testData.toBuilder()
+                    .personAnswer(personAnswer)
+                    .build();
             testDataListWithAnswer.add(testDataWithAnswerPerson);
 
             if (testData.getRightAnswer().equals(personAnswer)) {
@@ -43,7 +45,11 @@ public class TestServiceImpl implements TestService {
             }
         }
 
-        return TestResult.builder().rightAnswer(rightAnswer).failAnswer(failAnswer).testDataList(testDataListWithAnswer).build();
+        return TestResult.builder()
+                .rightAnswer(rightAnswer)
+                .failAnswer(failAnswer)
+                .testDataList(testDataListWithAnswer)
+                .build();
     }
 
 }
