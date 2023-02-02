@@ -16,11 +16,12 @@ public class TestServiceImpl implements TestService {
     private DataImportService<String> testDataService;
     private UserCommunicationService  communicationUserService;
     private PrintService              printService;
+    private String fileName;
 
 
     public TestResult startTest() {
         printService.print("\n" + "----------Start Test----------");
-        List<TestData> testDataList = testDataService.importData("Questions.csv");
+        List<TestData> testDataList = testDataService.importData(fileName);
         return askQuestions(testDataList);
     }
 

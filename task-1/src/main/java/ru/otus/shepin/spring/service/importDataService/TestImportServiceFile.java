@@ -13,6 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class TestImportServiceFile implements DataImportService<String> {
+
     public List<TestData> importData(String fileName) {
         InputStream fileAsStream = getFileFromResourceAsStream(fileName);
         List<String> lines = getLines(fileAsStream);
