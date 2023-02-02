@@ -15,21 +15,30 @@ import java.util.List;
 public class TestImportServiceFile implements DataImportService<String> {
 
     public List<TestData> importData(String fileName) {
-        InputStream fileAsStream = getFileFromResourceAsStream(fileName);
-        List<String> lines = getLines(fileAsStream);
+        List<String> lines = getLines(fileName);
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines(InputStream is) {
-        try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(streamReader)) {
+    protected List<String> getLines(String fileName) {
+        ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
-            ArrayList<String> lines = new ArrayList<>();
+        try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+            if (inputStream == null) {
+                throw new IllegalArgumentException("file not found! " + fileName);
             }
-            return lines;
+
+            try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                 BufferedReader reader = new BufferedReader(streamReader)) {
+
+                ArrayList<String> lines = new ArrayList<>();
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+                return lines;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,17 +60,9 @@ public class TestImportServiceFile implements DataImportService<String> {
         String[] questionAnswer = line.split(",");
         String question = questionAnswer[0].trim();
         String answer = questionAnswer[1].trim();
-        return TestData.builder().question(question).rightAnswer(answer).build();
-    }
-
-    protected InputStream getFileFromResourceAsStream(String fileName) {
-
-        ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(fileName);
-
-        if (inputStream == null) {
-            throw new IllegalArgumentException("file not found! " + fileName);
-        }
-        return inputStream;
+        return TestData.builder()
+                .question(question)
+                .rightAnswer(answer)
+                .build();
     }
 }
