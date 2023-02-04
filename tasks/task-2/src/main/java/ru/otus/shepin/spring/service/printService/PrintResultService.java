@@ -13,7 +13,7 @@ public class PrintResultService implements PrintService<TestResult> {
     private final ReportService<TestResult> reportService;
     private final PrintStream stream;
 
-    public PrintResultService(ReportService<TestResult> reportService, @Value("#{T(java.lang.System).out}") PrintStream stream) {
+    public PrintResultService(ReportService<TestResult> reportService, @Value("${printStream}") PrintStream stream) {
         this.reportService = reportService;
         this.stream = stream;
     }

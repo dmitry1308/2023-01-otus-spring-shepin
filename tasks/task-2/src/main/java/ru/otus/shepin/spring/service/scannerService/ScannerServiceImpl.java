@@ -11,7 +11,7 @@ public class ScannerServiceImpl implements ScannerService {
     private Scanner scanner;
     private final InputStream stream;
 
-    private ScannerServiceImpl(@Value("#{T(java.lang.System).in}") InputStream stream) {
+    private ScannerServiceImpl(@Value("${enterStream}") InputStream stream) {
         this.stream = stream;
     }
 
