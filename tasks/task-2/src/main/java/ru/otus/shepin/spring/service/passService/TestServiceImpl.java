@@ -1,6 +1,8 @@
 package ru.otus.shepin.spring.service.passService;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.importDataService.DataImportService;
@@ -11,11 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
     private DataImportService testDataService;
     private UserCommunicationService communicationUserService;
+    @Qualifier("printStringService")
     private PrintService<String> printService;
 
 

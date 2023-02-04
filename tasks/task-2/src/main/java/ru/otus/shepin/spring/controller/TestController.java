@@ -1,6 +1,8 @@
 package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.passService.TestService;
@@ -10,13 +12,27 @@ import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 import java.io.IOException;
 
-@AllArgsConstructor
+@Service
 public class TestController implements Controller {
-    private ScannerService scannerManager;
+    private ScannerService    scannerManager;
     private PersonDataService personService;
-    private TestService testService;
+    private TestService       testService;
+    @Qualifier("printResultService")
     private PrintService<String> printStringService;
+    @Qualifier("printStringService")
     private PrintService<TestResult> printResultService;
+
+    public TestController(ScannerService scannerManager,
+                          PersonDataService personService,
+                          TestService testService,
+                           PrintService<String> printStringService,
+                          PrintService<TestResult> printResultService) {
+        this.scannerManager = scannerManager;
+        this.personService = personService;
+        this.testService = testService;
+        this.printStringService = printStringService;
+        this.printResultService = printResultService;
+    }
 
     public void handle() {
         try {

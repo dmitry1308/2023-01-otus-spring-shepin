@@ -5,11 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.service.personDataService.userCommunication.UserConsoleCommunicationService;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +32,7 @@ class PersonDataServiceImplTestVar2 {
     @DisplayName("ask data person and get data")
     void getPersonData() {
         Person personData = personDataService.getPersonData();
+        assertThat(personData).isNotNull();
         Assertions.assertEquals("Dmitry", personData.getName());
         Assertions.assertEquals(36, personData.getAge());
     }

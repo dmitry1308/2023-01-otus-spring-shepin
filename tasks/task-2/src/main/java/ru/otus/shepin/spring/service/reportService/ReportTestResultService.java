@@ -1,7 +1,9 @@
 package ru.otus.shepin.spring.service.reportService;
 
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestResult;
 
+@Service
 public class ReportTestResultService implements ReportService<TestResult> {
     @Override
     public String formReport(TestResult data) {

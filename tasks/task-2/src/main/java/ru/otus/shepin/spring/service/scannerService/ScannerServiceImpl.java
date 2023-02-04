@@ -1,14 +1,17 @@
 package ru.otus.shepin.spring.service.scannerService;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
-
+@Service
 public class ScannerServiceImpl implements ScannerService {
     private Scanner scanner;
     private final InputStream stream;
 
-    private ScannerServiceImpl(InputStream stream) {
+    private ScannerServiceImpl(@Value("#{T(java.lang.System).in}") InputStream stream) {
         this.stream = stream;
     }
 

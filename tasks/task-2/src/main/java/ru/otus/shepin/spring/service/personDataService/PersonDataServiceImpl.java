@@ -1,11 +1,13 @@
 package ru.otus.shepin.spring.service.personDataService;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
 
 
 @AllArgsConstructor
+@Service
 public class PersonDataServiceImpl implements PersonDataService {
     private UserCommunicationService communicationUserService;
 
