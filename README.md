@@ -9,5 +9,5 @@
 
 
 ## Home works:
-* task-1 (<span style="color:green"> completed</span>)
-* task-2 (<span style="color:red"> process</span>)
+* task-1 (<span style="color:green">completed</span>)
+* task-2 (<span style="color:red">process</span>)
