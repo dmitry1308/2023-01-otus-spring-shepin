@@ -9,15 +9,10 @@ import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 @Service
 @Getter
+@AllArgsConstructor
 public class UserConsoleCommunicationService implements UserCommunicationService {
     private ScannerService scannerManager;
-
-    private PrintService printService;
-
-    public UserConsoleCommunicationService(ScannerService scannerManager,@Qualifier("printStringService") PrintService printService) {
-        this.scannerManager = scannerManager;
-        this.printService = printService;
-    }
+    private PrintService<String> printService;
 
     public String askPersonAndGetAnswer(String question) {
         printService.print(question);

@@ -1,6 +1,5 @@
 package ru.otus.shepin.spring.service.printService;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestResult;
@@ -8,7 +7,7 @@ import ru.otus.shepin.spring.service.reportService.ReportService;
 
 import java.io.PrintStream;
 
-@Service("printResultService")
+@Service
 public class PrintResultService implements PrintService<TestResult> {
     private final ReportService<TestResult> reportService;
     private final PrintStream stream;
