@@ -9,4 +9,5 @@
 
 
 ## Home works:
-- task-1 
+* task-1 (completed)
+* task-2 (process)
