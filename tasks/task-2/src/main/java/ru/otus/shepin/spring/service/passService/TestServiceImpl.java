@@ -16,10 +16,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
-    private DataImportService testDataService;
+    private DataImportService        testDataService;
     private UserCommunicationService communicationUserService;
     @Qualifier("printStringService")
-    private PrintService<String> printService;
+    private PrintService<String>     printService;
 
 
     public TestResult startTest() throws IOException {
@@ -36,24 +36,17 @@ public class TestServiceImpl implements TestService {
 
         for (TestData testData : testDataList) {
             String personAnswer = communicationUserService.askPersonAndGetAnswer(testData.getQuestion());
-            TestData testDataWithAnswerPerson = testData.toBuilder()
-                    .personAnswer(personAnswer)
-                    .build();
+            TestData testDataWithAnswerPerson = testData.toBuilder().personAnswer(personAnswer).build();
             testDataListWithAnswer.add(testDataWithAnswerPerson);
 
-            if (testData.getRightAnswer()
-                    .equals(personAnswer)) {
+            if (testData.getRightAnswer().equals(personAnswer)) {
                 rightAnswer++;
             } else {
                 failAnswer++;
             }
         }
 
-        return TestResult.builder()
-                .rightAnswer(rightAnswer)
-                .failAnswer(failAnswer)
-                .testDataList(testDataListWithAnswer)
-                .build();
+        return TestResult.builder().rightAnswer(rightAnswer).failAnswer(failAnswer).testDataList(testDataListWithAnswer).build();
     }
 
 }

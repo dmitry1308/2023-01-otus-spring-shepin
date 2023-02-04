@@ -15,10 +15,10 @@ import java.io.IOException;
 @Service
 @AllArgsConstructor
 public class TestController implements Controller {
-    private ScannerService    scannerManager;
-    private PersonDataService personService;
-    private TestService       testService;
-    private PrintService<String> printStringService;
+    private ScannerService           scannerManager;
+    private PersonDataService        personService;
+    private TestService              testService;
+    private PrintService<String>     printStringService;
     private PrintService<TestResult> printResultService;
 
 

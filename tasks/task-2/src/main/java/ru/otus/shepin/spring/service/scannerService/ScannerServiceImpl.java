@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 @Service
 public class ScannerServiceImpl implements ScannerService {
-    private Scanner scanner;
+    private       Scanner     scanner;
     private final InputStream stream;
 
     private ScannerServiceImpl(@Value("${enterStream}") InputStream stream) {

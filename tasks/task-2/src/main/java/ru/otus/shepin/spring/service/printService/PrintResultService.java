@@ -10,7 +10,7 @@ import java.io.PrintStream;
 @Service
 public class PrintResultService implements PrintService<TestResult> {
     private final ReportService<TestResult> reportService;
-    private final PrintStream stream;
+    private final PrintStream               stream;
 
     public PrintResultService(ReportService<TestResult> reportService, @Value("${printStream}") PrintStream stream) {
         this.reportService = reportService;
