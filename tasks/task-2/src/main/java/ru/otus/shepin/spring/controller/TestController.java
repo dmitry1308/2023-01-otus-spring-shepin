@@ -1,42 +1,35 @@
 package ru.otus.shepin.spring.controller;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
-import ru.otus.shepin.spring.entity.Person;
-import ru.otus.shepin.spring.entity.TestResult;
-import ru.otus.shepin.spring.service.passService.TestService;
-import ru.otus.shepin.spring.service.personDataService.PersonDataService;
-import ru.otus.shepin.spring.service.printService.PrintService;
+import ru.otus.shepin.spring.MenuCommandsProcessor;
+import ru.otus.shepin.spring.service.printService.PrintManager;
 import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 import java.io.IOException;
 
 @Service
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TestController implements Controller {
-    private ScannerService           scannerManager;
-    private PersonDataService        personDataService;
-    private TestService              testService;
-    private PrintService<String>     printStringService;
-    private PrintService<TestResult> printResultService;
-    private PrintService<Person>     printPersonService;
+    MenuCommandsProcessor commandsProcessor;
+    ScannerService        scannerService;
+    PrintManager          printManager;
 
 
-    public void handle() {
+    public void run() {
         try {
-            printStringService.print("\n" + "---------- Test ----------");
+            commandsProcessor.showMainTitle();
+            commandsProcessor.handlePerson();
+            commandsProcessor.handleProcessTest();
 
-            Person personData = personDataService.getPersonData();
-            printPersonService.print(personData);
-
-            TestResult testResult = testService.startTest();
-            printResultService.print(testResult);
-
-            scannerManager.closeScanner();
+            scannerService.closeScanner();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            printStringService.print(e.getMessage());
+            printManager.print(e.getMessage());
         }
     }
 }

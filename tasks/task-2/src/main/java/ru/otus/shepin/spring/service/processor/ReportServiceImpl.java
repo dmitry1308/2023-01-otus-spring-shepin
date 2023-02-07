@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.reportService;
+package ru.otus.shepin.spring.service.processor;
 
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
