@@ -11,7 +11,6 @@ import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCon
 import static org.mockito.Mockito.when;
 
 class PersonDataServiceImplTest {
-
     private PersonDataServiceImpl personDataService;
     private UserCommunicationService userCommunicationService;
 

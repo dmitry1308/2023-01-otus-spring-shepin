@@ -2,23 +2,24 @@ package ru.otus.shepin.spring.service.printService;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.reportService.ReportService;
 
 import java.io.PrintStream;
 
 @Service
-public class PrintResultService implements PrintService<TestResult> {
+public class PrintPersonService implements PrintService<Person> {
     private final ReportService reportService;
     private final PrintStream   stream;
 
-    public PrintResultService(ReportService reportService, @Value("${printStream}") PrintStream stream) {
+    public PrintPersonService(ReportService reportService, @Value("${printStream}") PrintStream stream) {
         this.reportService = reportService;
         this.stream = stream;
     }
 
-    public void print(TestResult data) {
-        String report = reportService.formResultReport(data);
+    public void print(Person data) {
+        String report = reportService.formPersonReport(data);
         stream.println(report);
     }
 }

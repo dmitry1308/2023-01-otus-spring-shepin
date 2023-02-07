@@ -15,9 +15,4 @@ import lombok.experimental.FieldDefaults;
 public class Person {
     String name;
     int    age;
-
-    @Override
-    public String toString() {
-        return "Person data:\n" + "name = " + name + ", age = " + age;
-    }
 }

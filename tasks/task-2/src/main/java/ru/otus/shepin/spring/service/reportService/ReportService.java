@@ -1,5 +1,9 @@
 package ru.otus.shepin.spring.service.reportService;
 
-public interface ReportService<T> {
-    String formReport(T data);
+import ru.otus.shepin.spring.entity.Person;
+import ru.otus.shepin.spring.entity.TestResult;
+
+public interface ReportService {
+    String formResultReport(TestResult data);
+    String formPersonReport(Person data);
 }

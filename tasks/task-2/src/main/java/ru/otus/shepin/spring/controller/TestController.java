@@ -1,7 +1,6 @@
 package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
@@ -16,18 +15,19 @@ import java.io.IOException;
 @AllArgsConstructor
 public class TestController implements Controller {
     private ScannerService           scannerManager;
-    private PersonDataService        personService;
+    private PersonDataService        personDataService;
     private TestService              testService;
     private PrintService<String>     printStringService;
     private PrintService<TestResult> printResultService;
+    private PrintService<Person>     printPersonService;
 
 
     public void handle() {
         try {
             printStringService.print("\n" + "---------- Test ----------");
 
-            Person personData = personService.getPersonData();
-            printStringService.print(personData.toString());
+            Person personData = personDataService.getPersonData();
+            printPersonService.print(personData);
 
             TestResult testResult = testService.startTest();
             printResultService.print(testResult);
