@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring;
+package ru.otus.shepin.spring.service.processor;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,9 @@ import java.io.IOException;
 @Service
 @AllArgsConstructor
 public class MenuCommandsProcessorImpl implements MenuCommandsProcessor {
-    PersonDataService personDataService;
-    TestService  testService;
-    PrintManager printManager;
+    private final PersonDataService personDataService;
+    private final TestService       testService;
+    private final PrintManager      printManager;
 
 
     @Override

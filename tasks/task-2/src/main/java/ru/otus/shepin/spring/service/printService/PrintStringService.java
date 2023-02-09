@@ -8,8 +8,11 @@ import java.io.PrintStream;
 
 @Service
 public class PrintStringService implements PrintService<String> {
-    @Value("${printStream}")
-    private PrintStream stream;
+    private final PrintStream stream;
+
+    public PrintStringService(@Value("${printStream}") PrintStream stream) {
+        this.stream = stream;
+    }
 
     public void print(String data) {
         stream.println(data);

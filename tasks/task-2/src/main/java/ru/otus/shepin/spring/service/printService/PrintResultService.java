@@ -3,7 +3,7 @@ package ru.otus.shepin.spring.service.printService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestResult;
-import ru.otus.shepin.spring.service.processor.ReportService;
+import ru.otus.shepin.spring.service.reportService.ReportService;
 
 import java.io.PrintStream;
 

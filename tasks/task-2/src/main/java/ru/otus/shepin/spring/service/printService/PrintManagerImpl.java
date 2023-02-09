@@ -11,11 +11,10 @@ import ru.otus.shepin.spring.entity.TestResult;
 
 @Service
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PrintManagerImpl implements PrintManager {
-    PrintService<Person>     printTestDataService;
-    PrintService<TestResult> printTestResultService;
-    PrintService<String>     printStringService;
+    private final PrintService<Person>     printTestDataService;
+    private final PrintService<TestResult> printTestResultService;
+    private final PrintService<String>     printStringService;
 
     @Override
     public void print(Object data) {

@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.processor;
+package ru.otus.shepin.spring.service.reportService;
 
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;

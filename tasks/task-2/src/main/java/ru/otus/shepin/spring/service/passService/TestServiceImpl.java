@@ -16,10 +16,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
-    private DataImportService        testDataService;
-    private UserCommunicationService communicationUserService;
+    private final DataImportService        testDataService;
+    private final UserCommunicationService communicationUserService;
     @Qualifier("printStringService")
-    private PrintService<String>     printService;
+    private final PrintService<String>     printService;
 
 
     public TestResult startTest() throws IOException {

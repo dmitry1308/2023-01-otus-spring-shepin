@@ -11,8 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @AllArgsConstructor
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Person {
-    String name;
-    int    age;
+    private String name;
+    private int    age;
 }

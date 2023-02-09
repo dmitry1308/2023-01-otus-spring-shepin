@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring;
+package ru.otus.shepin.spring.service.processor;
 
 import java.io.IOException;
 

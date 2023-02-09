@@ -9,7 +9,7 @@ import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCom
 @AllArgsConstructor
 @Service
 public class PersonDataServiceImpl implements PersonDataService {
-    private UserCommunicationService communicationUserService;
+    private final UserCommunicationService communicationUserService;
 
     public Person getPersonData() {
         String personName = communicationUserService.askPersonAndGetAnswer("What is your name?");

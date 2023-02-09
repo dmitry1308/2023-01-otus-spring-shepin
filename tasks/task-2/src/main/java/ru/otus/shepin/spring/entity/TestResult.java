@@ -8,10 +8,9 @@ import lombok.experimental.FieldDefaults;
 import java.util.List;
 
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 public class TestResult {
-    int            failAnswer;
-    int            rightAnswer;
-    List<TestData> testDataList;
+    private final int            failAnswer;
+    private final int            rightAnswer;
+    private final List<TestData> testDataList;
 }

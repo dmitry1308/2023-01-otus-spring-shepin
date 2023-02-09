@@ -7,9 +7,8 @@ import lombok.experimental.FieldDefaults;
 
 @Builder(toBuilder = true)
 @Getter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TestData {
-    String question;
-    String personAnswer;
-    String rightAnswer;
+    private final String question;
+    private final String personAnswer;
+    private final String rightAnswer;
 }
