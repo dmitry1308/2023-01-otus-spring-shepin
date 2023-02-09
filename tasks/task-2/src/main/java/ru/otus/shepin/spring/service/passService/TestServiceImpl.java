@@ -1,13 +1,12 @@
 package ru.otus.shepin.spring.service.passService;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.importDataService.DataImportService;
-import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
-import ru.otus.shepin.spring.service.printService.PrintService;
+import ru.otus.shepin.spring.service.ioService.InputService;
+import ru.otus.shepin.spring.service.ioService.OutputService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,14 +15,13 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
-    private final DataImportService        testDataService;
-    private final UserCommunicationService communicationUserService;
-    @Qualifier("printStringService")
-    private final PrintService<String>     printService;
+    private final DataImportService testDataService;
+    private final InputService      inputService;
+    private final OutputService     outputService;
 
 
     public TestResult startTest() throws IOException {
-        printService.print("\n" + "----------Start Test----------");
+        outputService.outputString("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);
     }
@@ -35,7 +33,7 @@ public class TestServiceImpl implements TestService {
         List<TestData> testDataListWithAnswer = new ArrayList<>();
 
         for (TestData testData : testDataList) {
-            String personAnswer = communicationUserService.askPersonAndGetAnswer(testData.getQuestion());
+            String personAnswer = inputService.readStringWithPrompt(testData.getQuestion());
             TestData testDataWithAnswerPerson = testData.toBuilder().personAnswer(personAnswer).build();
             testDataListWithAnswer.add(testDataWithAnswerPerson);
 

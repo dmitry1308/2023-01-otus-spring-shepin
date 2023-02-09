@@ -5,11 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.shepin.spring.entity.Person;
-import ru.otus.shepin.spring.service.personDataService.userCommunication.UserConsoleCommunicationService;
+import ru.otus.shepin.spring.service.ioService.InputService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -18,14 +17,14 @@ import static org.mockito.Mockito.when;
 @DisplayName("Test get person data")
 class PersonDataServiceImplTestVar2 {
     @Mock
-    private UserConsoleCommunicationService communicationService;
+    private InputService      inputService;
     private PersonDataService personDataService;
 
     @BeforeEach
     void setUp() {
-        when(communicationService.askPersonAndGetAnswer("What is your name?")).thenReturn("Dmitry");
-        when(communicationService.askPersonAndGetAnswer("How old are you, Dmitry?")).thenReturn(String.valueOf(36));
-        personDataService = new PersonDataServiceImpl(communicationService);
+        when(inputService.readStringWithPrompt("What is your name?")).thenReturn("Dmitry");
+        when(inputService.readStringWithPrompt("How old are you, Dmitry?")).thenReturn(String.valueOf(36));
+        personDataService = new PersonDataServiceImpl(inputService);
     }
 
     @Test

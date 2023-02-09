@@ -2,9 +2,8 @@ package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.otus.shepin.spring.service.ioService.OutputService;
 import ru.otus.shepin.spring.service.processor.MenuCommandsProcessor;
-import ru.otus.shepin.spring.service.printService.PrintManager;
-import ru.otus.shepin.spring.service.scannerService.ScannerService;
 
 import java.io.IOException;
 
@@ -12,21 +11,17 @@ import java.io.IOException;
 @AllArgsConstructor
 public class TestController implements Controller {
     private final MenuCommandsProcessor commandsProcessor;
-    private final ScannerService        scannerService;
-    private final PrintManager          printManager;
-
+    private final OutputService         outputService;
 
     public void run() {
         try {
             commandsProcessor.showMainTitle();
             commandsProcessor.handlePerson();
             commandsProcessor.handleProcessTest();
-
-            scannerService.closeScanner();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            printManager.print(e.getMessage());
+            outputService.outputString(e.getMessage());
         }
     }
 }
