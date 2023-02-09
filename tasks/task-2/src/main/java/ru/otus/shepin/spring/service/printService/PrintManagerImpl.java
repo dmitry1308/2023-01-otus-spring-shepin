@@ -18,7 +18,7 @@ public class PrintManagerImpl implements PrintManager {
 
     @Override
     public void print(Object data) {
-        if (data instanceof TestData) {
+        if (data instanceof Person) {
             printTestDataService.print((Person) data);
         }
 
