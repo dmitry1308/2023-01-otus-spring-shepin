@@ -33,7 +33,8 @@ public class TestServiceImpl implements TestService {
         List<TestData> testDataListWithAnswer = new ArrayList<>();
 
         for (TestData testData : testDataList) {
-            String personAnswer = inputService.readStringWithPrompt(testData.getQuestion());
+            outputService.print(testData.getQuestion());
+            String personAnswer = inputService.readLine();
             TestData testDataWithAnswerPerson = testData.toBuilder().personAnswer(personAnswer).build();
             testDataListWithAnswer.add(testDataWithAnswerPerson);
 

@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.service.ioService.InputService;
+import ru.otus.shepin.spring.service.ioService.OutputService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -18,13 +19,15 @@ import static org.mockito.Mockito.when;
 class PersonDataServiceImplTestVar2 {
     @Mock
     private InputService      inputService;
+    @Mock
+    private OutputService     outputService;
     private PersonDataService personDataService;
 
     @BeforeEach
     void setUp() {
-        when(inputService.readStringWithPrompt("What is your name?")).thenReturn("Dmitry");
-        when(inputService.readStringWithPrompt("How old are you, Dmitry?")).thenReturn(String.valueOf(36));
-        personDataService = new PersonDataServiceImpl(inputService);
+        when(inputService.readLine()).thenReturn("Dmitry");
+        when(inputService.readLine()).thenReturn(String.valueOf(36));
+        personDataService = new PersonDataServiceImpl(inputService, outputService);
     }
 
     @Test

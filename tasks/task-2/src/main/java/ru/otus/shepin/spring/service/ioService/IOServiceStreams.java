@@ -20,8 +20,7 @@ public class IOServiceStreams implements IOService {
     }
 
     @Override
-    public String readStringWithPrompt(String prompt) {
-        print(prompt);
+    public String readLine() {
         return input.nextLine();
     }
 
