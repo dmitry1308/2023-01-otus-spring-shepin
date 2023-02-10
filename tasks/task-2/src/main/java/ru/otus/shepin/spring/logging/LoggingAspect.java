@@ -15,7 +15,9 @@ public class LoggingAspect {
 
     @Before(value = "@annotation(ru.otus.shepin.spring.logging.LogMe)")
     public void logBefore(JoinPoint joinPoint) {
+        outputService.print("-");
         outputService.print("Call class : " + joinPoint.getTarget().getClass().getSimpleName());
         outputService.print("Call method : " + joinPoint.getSignature().getName());
+        outputService.print("-");
     }
 }
