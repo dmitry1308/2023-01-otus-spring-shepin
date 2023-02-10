@@ -13,11 +13,14 @@
     <properties>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
+
+        <spring.version>6.0.4</spring.version>
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <lombok.version>1.18.24</lombok.version>
         <junit.version>5.8.1</junit.version>
         <mockito.version>5.1.1</mockito.version>
         <assertJ.version>3.24.2</assertJ.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <mockito-junit-jupiter.version>4.0.0</mockito-junit-jupiter.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +30,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.0.4</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -62,6 +65,24 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito-junit-jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <!-- можно не писать - она транзитивна spring-context -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 

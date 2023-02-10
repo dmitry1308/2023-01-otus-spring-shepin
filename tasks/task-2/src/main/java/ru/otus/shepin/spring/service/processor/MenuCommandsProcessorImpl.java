@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
+import ru.otus.shepin.spring.logging.LogMe;
 import ru.otus.shepin.spring.service.ioService.OutputService;
 import ru.otus.shepin.spring.service.passService.TestService;
 import ru.otus.shepin.spring.service.personDataService.PersonDataService;
@@ -20,6 +21,7 @@ public class MenuCommandsProcessorImpl implements MenuCommandsProcessor {
     private final ReportService     reportService;
 
     @Override
+    @LogMe
     public void showMainTitle() {
         outputService.print("\n" + "---------- Test ----------");
     }
