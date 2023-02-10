@@ -21,7 +21,7 @@ public class TestController implements Controller {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            outputService.outputString(e.getMessage());
+            outputService.print(e.getMessage());
         }
     }
 }

@@ -21,21 +21,21 @@ public class MenuCommandsProcessorImpl implements MenuCommandsProcessor {
 
     @Override
     public void showMainTitle() {
-        outputService.outputString("\n" + "---------- Test ----------");
+        outputService.print("\n" + "---------- Test ----------");
     }
 
     @Override
     public void handlePerson() {
         Person personData = personDataService.getPersonData();
         String report = reportService.formPersonReport(personData);
-        outputService.outputString(report);
+        outputService.print(report);
     }
 
     @Override
     public void handleProcessTest() throws IOException {
         TestResult testResult = testService.startTest();
         String report = reportService.formResultReport(testResult);
-        outputService.outputString(report);
+        outputService.print(report);
     }
 }
 

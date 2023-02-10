@@ -21,7 +21,7 @@ public class TestServiceImpl implements TestService {
 
 
     public TestResult startTest() throws IOException {
-        outputService.outputString("\n" + "----------Start Test----------");
+        outputService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);
     }

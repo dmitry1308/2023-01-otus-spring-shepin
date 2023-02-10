@@ -21,12 +21,12 @@ public class IOServiceStreams implements IOService {
 
     @Override
     public String readStringWithPrompt(String prompt) {
-        outputString(prompt);
+        print(prompt);
         return input.nextLine();
     }
 
     @Override
-    public void outputString(String s) {
-        output.println(s);
+    public void print(String printLine) {
+        output.println(printLine);
     }
 }
