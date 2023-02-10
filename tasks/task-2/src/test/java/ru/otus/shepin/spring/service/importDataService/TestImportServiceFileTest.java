@@ -68,4 +68,10 @@ class TestImportServiceFileTest extends TestImportServiceFile {
             assertEquals(testData.getRightAnswer(), answer);
         }
     }
+
+    @Test
+    void read_count_lines_test() throws IOException {
+        List<String> lines = importServiceFile.getLines();
+        assertEquals(lines.size(), 5);
+    }
 }

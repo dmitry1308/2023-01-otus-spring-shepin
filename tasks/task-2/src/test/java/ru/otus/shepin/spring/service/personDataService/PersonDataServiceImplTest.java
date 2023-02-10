@@ -8,6 +8,7 @@ import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.service.ioService.InputService;
 import ru.otus.shepin.spring.service.ioService.OutputService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class PersonDataServiceImplTest {
@@ -24,12 +25,11 @@ class PersonDataServiceImplTest {
 
     @Test
     void when_call_method_askPersonAndGetAnswer_return_ready_object() {
-        when(inputService.readLine()).thenReturn("Dmitry");
-        when(inputService.readLine()).thenReturn(String.valueOf(36));
+        when(inputService.readLine()).thenReturn("Dmitry",String.valueOf(36));
 
         Person personData = personDataService.getPersonData();
-        org.junit.jupiter.api.Assertions.assertEquals("Dmitry", personData.getName());
-        Assertions.assertEquals(36, personData.getAge());
+        assertEquals("Dmitry", personData.getName());
+        assertEquals(36, personData.getAge());
     }
 }
 
