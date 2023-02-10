@@ -12,6 +12,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class Person {
-    private String name;
-    private int    age;
+    private final String name;
+    private final int    age;
 }
