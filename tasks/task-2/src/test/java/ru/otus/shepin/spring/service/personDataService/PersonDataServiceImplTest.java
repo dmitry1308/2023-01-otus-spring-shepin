@@ -1,34 +1,34 @@
 package ru.otus.shepin.spring.service.personDataService;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.otus.shepin.spring.entity.Person;
-import ru.otus.shepin.spring.service.personDataService.userCommunication.UserCommunicationService;
-import ru.otus.shepin.spring.service.personDataService.userCommunication.UserConsoleCommunicationService;
+import ru.otus.shepin.spring.service.ioService.InputService;
+import ru.otus.shepin.spring.service.ioService.OutputService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class PersonDataServiceImplTest {
-
     private PersonDataServiceImpl personDataService;
-    private UserCommunicationService userCommunicationService;
+    private InputService          inputService;
+    private OutputService         outputService;
 
     @BeforeEach
     void setUp() {
-        userCommunicationService = Mockito.mock(UserConsoleCommunicationService.class);
-        personDataService = new PersonDataServiceImpl(userCommunicationService);
+        inputService = Mockito.mock(InputService.class);
+        outputService = Mockito.mock(OutputService.class);
+        personDataService = new PersonDataServiceImpl(inputService, outputService);
     }
 
     @Test
     void when_call_method_askPersonAndGetAnswer_return_ready_object() {
-        when(userCommunicationService.askPersonAndGetAnswer("What is your name?")).thenReturn("Dmitry");
-        when(userCommunicationService.askPersonAndGetAnswer("How old are you, Dmitry?")).thenReturn(String.valueOf(36));
+        when(inputService.readLine()).thenReturn("Dmitry",String.valueOf(36));
 
         Person personData = personDataService.getPersonData();
-        Assertions.assertEquals("Dmitry", personData.getName());
-        Assertions.assertEquals(36, personData.getAge());
+        assertEquals("Dmitry", personData.getName());
+        assertEquals(36, personData.getAge());
     }
 }
 

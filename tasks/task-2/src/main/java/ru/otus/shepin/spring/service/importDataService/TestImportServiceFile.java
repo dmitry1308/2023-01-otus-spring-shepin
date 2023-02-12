@@ -1,6 +1,7 @@
 package ru.otus.shepin.spring.service.importDataService;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 
 import java.io.BufferedReader;
@@ -10,10 +11,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-@AllArgsConstructor
+@Service
 public class TestImportServiceFile implements DataImportService {
-    private String fileName;
+
+    private final String fileName;
+
+    public TestImportServiceFile(@Value("${fileName}") String fileName) {
+        this.fileName = fileName;
+    }
 
     public List<TestData> importData() throws IOException {
         List<String> lines = getLines();

@@ -1,38 +1,40 @@
 package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
+import ru.otus.shepin.spring.service.ioService.OutputService;
 import ru.otus.shepin.spring.service.passService.TestService;
 import ru.otus.shepin.spring.service.personDataService.PersonDataService;
-import ru.otus.shepin.spring.service.printService.PrintService;
-import ru.otus.shepin.spring.service.scannerService.ScannerService;
+import ru.otus.shepin.spring.service.reportService.ReportService;
 
 import java.io.IOException;
 
+@Service
 @AllArgsConstructor
 public class TestController implements Controller {
-    private ScannerService scannerManager;
-    private PersonDataService personService;
-    private TestService testService;
-    private PrintService<String> printStringService;
-    private PrintService<TestResult> printResultService;
+    private final OutputService     outputService;
+    private final PersonDataService personDataService;
+    private final TestService       testService;
+    private final ReportService     reportService;
 
-    public void handle() {
+    public void run() {
         try {
-            printStringService.print("\n" + "---------- Test ----------");
+            outputService.print("\n" + "---------- Test ----------");
 
-            Person personData = personService.getPersonData();
-            printStringService.print(personData.toString());
+            Person personData = personDataService.getPersonData();
+            String reportPerson = reportService.formPersonReport(personData);
+            outputService.print(reportPerson);
 
             TestResult testResult = testService.startTest();
-            printResultService.print(testResult);
+            String reportResult = reportService.formResultReport(testResult);
+            outputService.print(reportResult);
 
-            scannerManager.closeScanner();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            printStringService.print(e.getMessage());
+            outputService.print(e.getMessage());
         }
     }
 }

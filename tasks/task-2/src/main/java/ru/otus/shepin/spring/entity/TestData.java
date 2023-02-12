@@ -6,13 +6,7 @@ import lombok.Getter;
 @Builder(toBuilder = true)
 @Getter
 public class TestData {
-    String question;
-    String personAnswer;
-    String rightAnswer;
-
-    @Override
-    public String toString() {
-        return String.format("\n\nQuestion:\n %s\n  answer: %s,\n  rightAnswer: %s", question, personAnswer,
-                rightAnswer);
-    }
+    private final String question;
+    private final String personAnswer;
+    private final String rightAnswer;
 }
