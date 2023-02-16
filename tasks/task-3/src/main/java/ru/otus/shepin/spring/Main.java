@@ -1,19 +1,12 @@
 package ru.otus.shepin.spring;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import ru.otus.shepin.spring.controller.Controller;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-@ComponentScan
-@EnableAspectJAutoProxy
+@SpringBootApplication
 public class Main {
-    public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 
-        Controller controller = context.getBean(Controller.class);
-        controller.run();
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
     }
 }

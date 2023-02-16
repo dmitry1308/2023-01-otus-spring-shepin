@@ -1,7 +1,8 @@
 package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.ioService.OutputService;
@@ -11,14 +12,15 @@ import ru.otus.shepin.spring.service.reportService.ReportService;
 
 import java.io.IOException;
 
-@Service
 @AllArgsConstructor
+@RestController
 public class TestController implements Controller {
     private final OutputService     outputService;
     private final PersonDataService personDataService;
     private final TestService       testService;
     private final ReportService     reportService;
 
+    @GetMapping("/")
     public void run() {
         try {
             outputService.print("\n" + "---------- Test ----------");
