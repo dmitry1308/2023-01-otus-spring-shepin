@@ -19,7 +19,7 @@ class PersonDataServiceImplTest {
     void setUp() {
         inputService = Mockito.mock(InputService.class);
         outputService = Mockito.mock(OutputService.class);
-        personDataService = new PersonDataServiceImpl(inputService, outputService);
+        personDataService = new PersonDataServiceImpl(inputService, outputService, null, null);
     }
 
     @Test

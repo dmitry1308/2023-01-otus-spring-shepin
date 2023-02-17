@@ -28,7 +28,7 @@ class PersonDataServiceImplTestVar2 {
     @BeforeEach
     void setUp() {
         when(inputService.readLine()).thenReturn("Dmitry", String.valueOf(36));
-        personDataService = new PersonDataServiceImpl(inputService, outputService);
+        personDataService = new PersonDataServiceImpl(inputService, outputService, null,null);
     }
 
     @Test

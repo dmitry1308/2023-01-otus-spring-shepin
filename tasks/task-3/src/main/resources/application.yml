@@ -11,3 +11,16 @@ test:
 spring:
   banner:
     location: classpath:/banner/myBanner.txt
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, bean
+
+server:
+  port: 8080
+
