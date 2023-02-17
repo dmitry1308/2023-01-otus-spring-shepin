@@ -13,10 +13,10 @@ public class IOServiceStreams implements IOService {
     private final PrintStream output;
     private final Scanner     input;
 
-    public IOServiceStreams(@Value("${printStream}") PrintStream printStream,
-                            @Value("${enterStream}") InputStream inputStream) {
-        this.output = printStream;
-        input = new Scanner(inputStream, StandardCharsets.UTF_8);
+    public IOServiceStreams(@Value("${stream.output}") PrintStream output,
+                            @Value("${stream.input}") InputStream input) {
+        this.output = output;
+        this.input = new Scanner(input, StandardCharsets.UTF_8);
     }
 
     @Override

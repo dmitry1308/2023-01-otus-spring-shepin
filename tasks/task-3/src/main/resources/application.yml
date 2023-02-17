@@ -6,3 +6,8 @@ test:
   locale: ru_RU
   file-name: Questions.csv
   minRightAnswer: = 3
+
+
+spring:
+  banner:
+    location: classpath:/banner/myBanner.txt
