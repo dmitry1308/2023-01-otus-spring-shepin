@@ -3,6 +3,7 @@ package ru.otus.shepin.spring.service.importDataService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.TestData;
 
 import java.io.IOException;
@@ -13,15 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TestImportServiceFileTest extends TestImportServiceFile {
-    public static final String                QUESTIONS_CSV = "Questions.csv";
-    private             TestImportServiceFile importServiceFile;
-    private static      List<String>          fullListLikeInFile;
-    private static      List<String>          questionList;
-    private static      List<String>          answerList;
+    private static final AppTestProps          appTestProps = new AppTestProps("Questions.csv", null);
+    private              TestImportServiceFile importServiceFile;
+    private static       List<String>          fullListLikeInFile;
+    private static       List<String>          questionList;
+    private static       List<String>          answerList;
 
     public TestImportServiceFileTest() {
-        super(QUESTIONS_CSV);
+        super(appTestProps);
     }
+
 
     @BeforeAll
     static void beforeAll() {
@@ -38,7 +40,8 @@ class TestImportServiceFileTest extends TestImportServiceFile {
 
     @BeforeEach
     void setUp() {
-        importServiceFile = new TestImportServiceFile(QUESTIONS_CSV);
+        AppTestProps appTestProps = new AppTestProps("Questions.csv", null);
+        importServiceFile = new TestImportServiceFile(appTestProps);
     }
 
     @Test

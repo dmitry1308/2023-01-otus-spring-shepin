@@ -1,0 +1,8 @@
+stream:
+  output: #{T(System).out}
+  input: #{T(System).in}
+
+test:
+  locale: ru_RU
+  file-name: Questions.csv
+  minRightAnswer: = 3
