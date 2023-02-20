@@ -1,6 +1,6 @@
 stream:
-  output: #{T(System).out}
-  input: #{T(System).in}
+  output: T(System).out
+  input: T(System).in
 
 test:
   locale: ru_RU
