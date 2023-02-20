@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.passService;
+package ru.otus.shepin.spring.service.pass;
 
 import ru.otus.shepin.spring.entity.TestResult;
 

@@ -1,12 +1,12 @@
-package ru.otus.shepin.spring.service.personDataService;
+package ru.otus.shepin.spring.service.person_data;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.logging.LogMe;
-import ru.otus.shepin.spring.service.ioService.InputService;
-import ru.otus.shepin.spring.service.ioService.OutputService;
+import ru.otus.shepin.spring.service.io.InputService;
+import ru.otus.shepin.spring.service.io.OutputService;
 
 
 @Service

@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.ioService;
+package ru.otus.shepin.spring.service.io;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

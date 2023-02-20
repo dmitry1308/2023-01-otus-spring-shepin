@@ -5,7 +5,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-import ru.otus.shepin.spring.service.ioService.OutputService;
+import ru.otus.shepin.spring.service.io.OutputService;
 
 @Component
 @Aspect

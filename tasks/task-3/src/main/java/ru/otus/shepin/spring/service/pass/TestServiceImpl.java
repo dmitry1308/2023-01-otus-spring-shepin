@@ -1,12 +1,12 @@
-package ru.otus.shepin.spring.service.passService;
+package ru.otus.shepin.spring.service.pass;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
-import ru.otus.shepin.spring.service.importDataService.DataImportService;
-import ru.otus.shepin.spring.service.ioService.InputService;
-import ru.otus.shepin.spring.service.ioService.OutputService;
+import ru.otus.shepin.spring.service.import_data.DataImportService;
+import ru.otus.shepin.spring.service.io.InputService;
+import ru.otus.shepin.spring.service.io.OutputService;
 
 import java.io.IOException;
 import java.util.ArrayList;

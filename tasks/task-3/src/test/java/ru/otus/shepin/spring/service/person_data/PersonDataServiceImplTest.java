@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.personDataService;
+package ru.otus.shepin.spring.service.person_data;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,8 +6,8 @@ import org.mockito.Mockito;
 import org.springframework.context.MessageSource;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.Person;
-import ru.otus.shepin.spring.service.ioService.InputService;
-import ru.otus.shepin.spring.service.ioService.OutputService;
+import ru.otus.shepin.spring.service.io.InputService;
+import ru.otus.shepin.spring.service.io.OutputService;
 
 import java.util.Locale;
 
