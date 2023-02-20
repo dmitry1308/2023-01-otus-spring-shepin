@@ -5,9 +5,9 @@ stream:
 test:
   locale: ru_RU
   file-name: Questions.csv
-  minRightAnswer: = 3
+  minRightAnswer: 3
 
-
+#--------------------------------------
 spring:
   banner:
     location: classpath:/banner/myBanner.txt
@@ -22,5 +22,5 @@ management:
         include: info, health, bean
 
 server:
-  port: 8080
+  port: 8081
 
