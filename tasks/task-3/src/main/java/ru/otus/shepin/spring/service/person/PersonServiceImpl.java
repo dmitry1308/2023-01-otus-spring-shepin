@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.person_data;
+package ru.otus.shepin.spring.service.person;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -10,14 +10,14 @@ import ru.otus.shepin.spring.service.io.OutputService;
 
 
 @Service
-public class PersonDataServiceImpl implements PersonDataService {
+public class PersonServiceImpl implements PersonService {
     private final InputService  inputService;
     private final OutputService outputService;
     private final AppTestProps appTestProps;
     private final MessageSource messageSource;
 
 
-    public PersonDataServiceImpl(InputService inputService, OutputService outputService, AppTestProps appTestProps, MessageSource messageSource) {
+    public PersonServiceImpl(InputService inputService, OutputService outputService, AppTestProps appTestProps, MessageSource messageSource) {
         this.inputService = inputService;
         this.outputService = outputService;
         this.appTestProps = appTestProps;

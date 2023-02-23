@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
-import ru.otus.shepin.spring.service.import_data.DataImportService;
+import ru.otus.shepin.spring.service.importdata.DataImportService;
 import ru.otus.shepin.spring.service.io.InputService;
 import ru.otus.shepin.spring.service.io.OutputService;
 

@@ -8,7 +8,7 @@ import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.io.OutputService;
 import ru.otus.shepin.spring.service.pass.TestService;
-import ru.otus.shepin.spring.service.person_data.PersonDataService;
+import ru.otus.shepin.spring.service.person.PersonService;
 import ru.otus.shepin.spring.service.report.ReportService;
 
 import java.io.IOException;
@@ -16,9 +16,9 @@ import java.io.IOException;
 @AllArgsConstructor
 @Component
 public class TestController implements Controller {
-    private final OutputService     outputService;
-    private final PersonDataService personDataService;
-    private final TestService       testService;
+    private final OutputService outputService;
+    private final PersonService personDataService;
+    private final TestService   testService;
     private final ReportService     reportService;
 
     @EventListener(ApplicationReadyEvent.class)

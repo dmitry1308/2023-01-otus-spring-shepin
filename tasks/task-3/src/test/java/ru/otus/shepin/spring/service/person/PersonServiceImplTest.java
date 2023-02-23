@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.person_data;
+package ru.otus.shepin.spring.service.person;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +14,9 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class PersonDataServiceImplTest {
-    private PersonDataServiceImpl personDataService;
-    private InputService          inputService;
+class PersonServiceImplTest {
+    private PersonServiceImpl personDataService;
+    private InputService      inputService;
     private OutputService         outputService;
     private MessageSource         messageSource;
     private AppTestProps          appTestProps;
@@ -28,7 +28,7 @@ class PersonDataServiceImplTest {
         messageSource = Mockito.mock(MessageSource.class);
 
         appTestProps = new AppTestProps("Questions.csv", Locale.getDefault());
-        personDataService = new PersonDataServiceImpl(inputService, outputService, appTestProps, messageSource);
+        personDataService = new PersonServiceImpl(inputService, outputService, appTestProps, messageSource);
     }
 
     @Test

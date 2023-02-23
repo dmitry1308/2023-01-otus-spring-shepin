@@ -3,7 +3,7 @@ stream:
   input: T(System).in
 
 test:
-  locale: ru_RU
+  locale: en
   file-name: Questions.csv
   minRightAnswer: 3
 

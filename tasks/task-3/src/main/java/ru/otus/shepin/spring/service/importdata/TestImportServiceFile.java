@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.import_data;
+package ru.otus.shepin.spring.service.importdata;
 
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;

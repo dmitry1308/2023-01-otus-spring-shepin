@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.import_data;
+package ru.otus.shepin.spring.service.importdata;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
