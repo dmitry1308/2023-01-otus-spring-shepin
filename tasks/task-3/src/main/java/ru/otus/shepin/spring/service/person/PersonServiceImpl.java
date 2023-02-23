@@ -1,5 +1,6 @@
 package ru.otus.shepin.spring.service.person;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;
@@ -10,19 +11,13 @@ import ru.otus.shepin.spring.service.io.OutputService;
 
 
 @Service
+@RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
     private final InputService  inputService;
     private final OutputService outputService;
     private final AppTestProps appTestProps;
     private final MessageSource messageSource;
 
-
-    public PersonServiceImpl(InputService inputService, OutputService outputService, AppTestProps appTestProps, MessageSource messageSource) {
-        this.inputService = inputService;
-        this.outputService = outputService;
-        this.appTestProps = appTestProps;
-        this.messageSource = messageSource;
-    }
 
     @Override
     @LogMe

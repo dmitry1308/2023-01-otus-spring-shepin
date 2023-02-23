@@ -3,7 +3,8 @@ package ru.otus.shepin.spring.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
 import ru.otus.shepin.spring.service.io.OutputService;
@@ -14,14 +15,15 @@ import ru.otus.shepin.spring.service.report.ReportService;
 import java.io.IOException;
 
 @AllArgsConstructor
-@Component
+@ShellComponent
 public class TestController implements Controller {
     private final OutputService outputService;
     private final PersonService personDataService;
     private final TestService   testService;
-    private final ReportService     reportService;
+    private final ReportService reportService;
 
     @EventListener(ApplicationReadyEvent.class)
+    @ShellMethod(value = "Enter user data and pass test", key = {"run-app"})
     @Override
     public void run() {
         try {
