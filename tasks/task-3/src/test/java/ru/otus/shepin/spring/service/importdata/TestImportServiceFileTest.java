@@ -75,4 +75,8 @@ class TestImportServiceFileTest extends TestImportServiceFile {
         List<String> lines = importServiceFile.getLines();
         assertEquals(lines.size(), 5);
     }
+
+    @Test
+    void testImportData() {
+    }
 }

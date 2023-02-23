@@ -1,5 +1,6 @@
 package ru.otus.shepin.spring.service.importdata;
 
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.TestData;
@@ -11,8 +12,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-@Service
+@Service(value = "TestImportServiceFile")
 public class TestImportServiceFile implements DataImportService {
+    @Getter
     private final String fileName;
 
     public TestImportServiceFile(AppTestProps appTestProps) {
@@ -28,10 +30,10 @@ public class TestImportServiceFile implements DataImportService {
     protected List<String> getLines() throws IOException {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream(this.fileName)) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(getFileName())) {
 
             if (inputStream == null) {
-                throw new IllegalArgumentException("file not found! " + this.fileName);
+                throw new IllegalArgumentException("file not found! " + getFileName());
             }
 
             try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
