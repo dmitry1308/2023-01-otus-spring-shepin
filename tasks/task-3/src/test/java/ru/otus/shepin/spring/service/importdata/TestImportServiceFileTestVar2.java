@@ -6,9 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.shepin.spring.config.AppTestProps;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TestImportServiceFileTestVar2 {
     @Autowired
     private DataImportService importService;
+
 
     @Configuration
     @Import({TestImportServiceFile.class})
@@ -29,5 +32,16 @@ class TestImportServiceFileTestVar2 {
     @Test
     void when_call_import_data_then_return_right_count_questions() throws IOException {
         assertThat(importService.importData().size()).isEqualTo(5);
+    }
+
+    @Test
+    void when_call_import_data_then_return_right_question() throws IOException {
+        assertThat(importService.importData().get(0).getQuestion()).isEqualTo("What is the biggest planet in the solar system?");
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    void when_call_import_data_then_return_ArrayList() throws IOException {
+        assertThat(importService.importData()).isExactlyInstanceOf(ArrayList.class);
     }
 }
