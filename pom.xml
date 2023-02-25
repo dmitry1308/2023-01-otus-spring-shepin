@@ -11,11 +11,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>tasks/task-1</module>
-        <module>tasks/task-2</module>
-        <module>tasks/task-3</module>
+        <module>1-test-tasks/task-1</module>
+        <module>1-test-tasks/task-2</module>
+        <module>1-test-tasks/task-3</module>
 <!--        <module>task-4</module>-->
-        <module>library-tasks/task-1</module>
+        <module>2-library-tasks/task-1</module>
 
     </modules>
 </project>
