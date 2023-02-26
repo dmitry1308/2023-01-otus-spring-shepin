@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.shepin</groupId>
-    <artifactId>2023-01-otus-spring-shepin</artifactId>
+    <artifactId>task-2</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>task-2</name>
+    <name>test-task-2</name>
 
     <properties>
         <maven.compiler.target>17</maven.compiler.target>
