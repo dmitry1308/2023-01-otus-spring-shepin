@@ -13,13 +13,13 @@ databaseChangeLog:
                 nullable: false
                 primaryKey: true
                 primaryKeyName: pk_book
-           - column:
-                name: author_id
-                constraints:
-                  nullable: false
-                  foreignKeyName: fk_author_book
-                  references: author(id)
-           - column:
+          - column:
+              name: author_id
+              constraints:
+              nullable: false
+              foreignKeyName: fk_author_book
+              references: author(id)
+          - column:
                 name: genre_id
                 constraints:
                   nullable: false
