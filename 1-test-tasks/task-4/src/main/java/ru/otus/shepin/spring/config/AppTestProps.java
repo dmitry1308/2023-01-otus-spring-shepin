@@ -1,6 +1,7 @@
 package ru.otus.shepin.spring.config;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,6 +11,7 @@ import java.util.Locale;
 @ConfigurationProperties(prefix = "test")
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @AllArgsConstructor
 public class AppTestProps {
     private String fileName;

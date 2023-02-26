@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.import_data;
+package ru.otus.shepin.spring.service.importdata;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,5 +74,9 @@ class TestImportServiceFileTest extends TestImportServiceFile {
     void read_count_lines_test() throws IOException {
         List<String> lines = importServiceFile.getLines();
         assertEquals(lines.size(), 5);
+    }
+
+    @Test
+    void testImportData() {
     }
 }

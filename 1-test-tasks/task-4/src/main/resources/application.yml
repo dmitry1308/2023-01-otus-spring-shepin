@@ -3,7 +3,7 @@ stream:
   input: T(System).in
 
 test:
-  locale: ru_RU
+  locale: en
   file-name: Questions.csv
   minRightAnswer: 3
 
@@ -14,6 +14,9 @@ spring:
   messages:
     basename: "i18n/appmessages"
     encoding: "UTF-8"
+  shell:
+    interactive:
+      enabled: false
 
 management:
   endpoints:
