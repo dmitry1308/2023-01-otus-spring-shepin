@@ -1,9 +1,9 @@
 databaseChangeLog:
   - changeSet:
-      id: 2023-02-25--create-table-author
+      id: 2023-02-26--create-table-genre
       author: shepin
       createTable:
-        tableName: author
+        tableName: genre
         columns:
           - column:
               name: id
@@ -12,10 +12,7 @@ databaseChangeLog:
               constraints:
                 nullable: false
                 primaryKey: true
-                primaryKeyName: pk_author
+                primaryKeyName: pk_genre
           - column:
-              name: lastName
-              type: varchar(50)
-          - column:
-              name: firstName
+              name: name
               type: varchar(50)
