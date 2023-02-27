@@ -15,12 +15,14 @@ databaseChangeLog:
                 primaryKeyName: pk_book
           - column:
               name: author_id
+              type: bigint
               constraints:
-              nullable: false
-              foreignKeyName: fk_author_book
-              references: author(id)
+                nullable: false
+                foreignKeyName: fk_author_book
+                references: author(id)
           - column:
                 name: genre_id
+                type: bigint
                 constraints:
                   nullable: false
                   foreignKeyName: fk_genre_book
