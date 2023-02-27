@@ -1,10 +1,11 @@
 package ru.otus.spring.shepin.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@Builder
 public class Author {
     private final long   id;
     private       String lastName;

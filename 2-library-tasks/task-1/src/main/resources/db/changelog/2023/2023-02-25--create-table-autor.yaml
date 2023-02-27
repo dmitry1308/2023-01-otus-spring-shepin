@@ -14,8 +14,8 @@ databaseChangeLog:
                 primaryKey: true
                 primaryKeyName: pk_author
           - column:
-              name: lastName
+              name: last_name
               type: varchar(50)
           - column:
-              name: firstName
+              name: first_name
               type: varchar(50)

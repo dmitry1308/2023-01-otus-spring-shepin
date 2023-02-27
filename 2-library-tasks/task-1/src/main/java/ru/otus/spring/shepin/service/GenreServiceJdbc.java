@@ -22,7 +22,7 @@ public class GenreServiceJdbc implements GenreService {
     }
 
     @Override
-    @ShellMethod(value = "Insert genre command", key = {"igenre"})
+    @ShellMethod(value = "Insert genre command", key = {"i-genre"})
     public void insert(@ShellOption(defaultValue = "Any Genre") String name) {
         Genre genre = Genre.builder().name(name).build();
         genreDao.insert(genre);
@@ -34,8 +34,9 @@ public class GenreServiceJdbc implements GenreService {
     }
 
     @Override
+    @ShellMethod(value = "Get all genre", key = {"get-genre"})
     public List<Genre> getAll() {
-        return null;
+        return genreDao.getAll();
     }
 
     @Override
