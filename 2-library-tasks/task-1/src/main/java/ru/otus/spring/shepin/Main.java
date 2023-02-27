@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-// url h2 консоли: http://localhost:8081/h2-console
+// url h2 консоли: http://localhost:8082/h2-console
 // url базы: jdbc:h2:mem:librarydb
 @SpringBootApplication
 public class Main {

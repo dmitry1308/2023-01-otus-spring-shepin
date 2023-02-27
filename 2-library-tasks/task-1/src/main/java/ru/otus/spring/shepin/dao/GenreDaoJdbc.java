@@ -35,7 +35,8 @@ public class GenreDaoJdbc implements GenreDao {
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcOperations.update("insert into genre (name) values (:name)", parameters, keyHolder);
+        namedParameterJdbcOperations.update("insert into genre (id, name) values (:id, :name)",
+                Map.of("id", 2, "name", genre.getName()));
     }
 
     @Override
