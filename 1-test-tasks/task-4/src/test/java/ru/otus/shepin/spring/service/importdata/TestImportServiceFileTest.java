@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.TestData;
+import ru.otus.shepin.spring.exception.TestException;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ class TestImportServiceFileTest extends TestImportServiceFile {
     }
 
     @Test
-    void when_call_method_importData_return_not_empty_list() throws IOException {
+    void when_call_method_importData_return_not_empty_list() throws IOException, TestException {
         List<TestData> testData = importServiceFile.importData();
         assertFalse(testData.isEmpty());
     }
@@ -71,7 +72,7 @@ class TestImportServiceFileTest extends TestImportServiceFile {
     }
 
     @Test
-    void read_count_lines_test() throws IOException {
+    void read_count_lines_test() throws IOException, TestException {
         List<String> lines = importServiceFile.getLines();
         assertEquals(lines.size(), 5);
     }

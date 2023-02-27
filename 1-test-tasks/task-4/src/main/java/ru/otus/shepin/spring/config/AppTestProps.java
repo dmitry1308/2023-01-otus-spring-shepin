@@ -11,7 +11,6 @@ import java.util.Locale;
 @ConfigurationProperties(prefix = "test")
 @Getter
 @Setter
-@Builder(toBuilder = true)
 @AllArgsConstructor
 public class AppTestProps {
     private String fileName;

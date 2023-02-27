@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.shepin.spring.config.AppTestProps;
+import ru.otus.shepin.spring.exception.TestException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,18 +31,18 @@ class TestImportServiceFileTestVar2 {
         }
     }
     @Test
-    void when_call_import_data_then_return_right_count_questions() throws IOException {
+    void when_call_import_data_then_return_right_count_questions() throws IOException, TestException {
         assertThat(importService.importData().size()).isEqualTo(5);
     }
 
     @Test
-    void when_call_import_data_then_return_right_question() throws IOException {
+    void when_call_import_data_then_return_right_question() throws IOException, TestException {
         assertThat(importService.importData().get(0).getQuestion()).isEqualTo("What is the biggest planet in the solar system?");
     }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    void when_call_import_data_then_return_ArrayList() throws IOException {
+    void when_call_import_data_then_return_ArrayList() throws IOException, TestException {
         assertThat(importService.importData()).isExactlyInstanceOf(ArrayList.class);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.TestData;
+import ru.otus.shepin.spring.exception.TestException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,18 +23,18 @@ public class TestImportServiceFile implements DataImportService {
     }
 
     @Override
-    public List<TestData> importData() throws IOException {
+    public List<TestData> importData() throws IOException, TestException {
         List<String> lines = getLines();
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines() throws IOException {
+    protected List<String> getLines() throws IOException, TestException {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream(getFileName())) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
 
             if (inputStream == null) {
-                throw new IllegalArgumentException("file not found! " + getFileName());
+                throw new TestException("file not found! " + fileName);
             }
 
             try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);

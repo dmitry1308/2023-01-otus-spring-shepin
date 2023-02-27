@@ -1,6 +1,7 @@
 package ru.otus.shepin.spring.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.shell.Availability;
@@ -9,6 +10,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.entity.TestResult;
+import ru.otus.shepin.spring.exception.TestException;
 import ru.otus.shepin.spring.service.io.OutputService;
 import ru.otus.shepin.spring.service.pass.TestService;
 import ru.otus.shepin.spring.service.person.PersonService;
@@ -17,6 +19,7 @@ import ru.otus.shepin.spring.service.report.ReportService;
 import java.io.IOException;
 
 @ShellComponent
+@RequiredArgsConstructor
 public class TestController implements Controller {
     private final OutputService outputService;
     private final PersonService personDataService;
@@ -24,13 +27,6 @@ public class TestController implements Controller {
     private final ReportService reportService;
 
     private boolean isAvailablePassTest;
-
-    public TestController(OutputService outputService, PersonService personDataService, TestService testService, ReportService reportService) {
-        this.outputService = outputService;
-        this.personDataService = personDataService;
-        this.testService = testService;
-        this.reportService = reportService;
-    }
 
     @EventListener(ApplicationReadyEvent.class)
     @ShellMethod(value = "Enter user data and pass test", key = {"run-app"})
@@ -42,7 +38,7 @@ public class TestController implements Controller {
             passTest();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (IllegalArgumentException e) {
+        } catch (TestException e) {
             outputService.print(e.getMessage());
         }
     }
@@ -57,7 +53,7 @@ public class TestController implements Controller {
 
     @ShellMethod(value = "Pass test", key = "pt")
     @ShellMethodAvailability("isAvailablePassTest")
-    private void passTest() throws IOException {
+    private void passTest() throws IOException, TestException {
         TestResult testResult = testService.startTest();
         String reportResult = reportService.formResultReport(testResult);
         outputService.print(reportResult);

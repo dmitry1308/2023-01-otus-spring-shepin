@@ -6,6 +6,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
+import ru.otus.shepin.spring.exception.TestException;
 import ru.otus.shepin.spring.service.importdata.DataImportService;
 import ru.otus.shepin.spring.service.io.InputService;
 import ru.otus.shepin.spring.service.io.OutputService;
@@ -26,7 +27,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @ShellMethod(value = "Pass test", key = {"test"})
-    public TestResult startTest() throws IOException {
+    public TestResult startTest() throws IOException, TestException {
         outputService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);
