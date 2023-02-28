@@ -16,7 +16,7 @@ spring:
     encoding: "UTF-8"
   shell:
     interactive:
-      enabled: false
+      enabled: true
 
 management:
   endpoints:
