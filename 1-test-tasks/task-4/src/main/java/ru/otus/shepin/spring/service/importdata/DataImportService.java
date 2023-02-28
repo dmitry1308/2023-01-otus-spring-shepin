@@ -8,5 +8,5 @@ import java.util.List;
 
 
 public interface DataImportService {
-    List<TestData> importData() throws IOException, TestException;
+    List<TestData> importData() ;
 }

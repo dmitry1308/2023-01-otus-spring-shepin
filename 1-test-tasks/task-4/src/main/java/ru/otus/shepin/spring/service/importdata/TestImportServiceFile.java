@@ -23,18 +23,18 @@ public class TestImportServiceFile implements DataImportService {
     }
 
     @Override
-    public List<TestData> importData() throws IOException, TestException {
+    public List<TestData> importData(){
         List<String> lines = getLines();
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines() throws IOException, TestException {
+    protected List<String> getLines() {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
 
             if (inputStream == null) {
-                throw new TestException("file not found! " + fileName);
+                throw new TestException("file not found! " + fileName, null);
             }
 
             try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
@@ -48,6 +48,8 @@ public class TestImportServiceFile implements DataImportService {
                 }
                 return lines;
             }
+        } catch (IOException e) {
+            throw new TestException("file not found! " + fileName, e);
         }
     }
 

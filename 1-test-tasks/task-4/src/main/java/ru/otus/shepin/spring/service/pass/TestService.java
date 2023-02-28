@@ -7,5 +7,5 @@ import java.io.IOException;
 
 
 public interface TestService {
-    TestResult startTest() throws IOException, TestException;
+    TestResult startTest();
 }

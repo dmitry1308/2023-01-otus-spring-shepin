@@ -36,10 +36,9 @@ public class TestController implements Controller {
             outputService.print("\n" + "---------- Test ----------");
             enterPersonData();
             passTest();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (TestException e) {
             outputService.print(e.getMessage());
+            outputService.print("Cause" + e.getCause().getMessage());
         }
     }
 
@@ -53,7 +52,7 @@ public class TestController implements Controller {
 
     @ShellMethod(value = "Pass test", key = "pt")
     @ShellMethodAvailability("isAvailablePassTest")
-    private void passTest() throws IOException, TestException {
+    private void passTest()  {
         TestResult testResult = testService.startTest();
         String reportResult = reportService.formResultReport(testResult);
         outputService.print(reportResult);

@@ -31,18 +31,18 @@ class TestImportServiceFileTestVar2 {
         }
     }
     @Test
-    void when_call_import_data_then_return_right_count_questions() throws IOException, TestException {
+    void when_call_import_data_then_return_right_count_questions()  {
         assertThat(importService.importData().size()).isEqualTo(5);
     }
 
     @Test
-    void when_call_import_data_then_return_right_question() throws IOException, TestException {
+    void when_call_import_data_then_return_right_question()  {
         assertThat(importService.importData().get(0).getQuestion()).isEqualTo("What is the biggest planet in the solar system?");
     }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    void when_call_import_data_then_return_ArrayList() throws IOException, TestException {
+    void when_call_import_data_then_return_ArrayList()  {
         assertThat(importService.importData()).isExactlyInstanceOf(ArrayList.class);
     }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 import ru.otus.shepin.spring.entity.Person;
 import ru.otus.shepin.spring.service.io.InputService;
 import ru.otus.shepin.spring.service.io.OutputService;
@@ -24,7 +25,6 @@ class PersonServiceImplTest {
     private InputService      inputService;
     @MockBean
     private OutputService     outputService;
-
     @BeforeEach
     void setUp() {
         when(inputService.readLine()).thenReturn("Dmitry", String.valueOf(36));

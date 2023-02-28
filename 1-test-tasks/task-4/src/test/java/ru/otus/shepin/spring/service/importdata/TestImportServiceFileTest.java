@@ -46,7 +46,7 @@ class TestImportServiceFileTest extends TestImportServiceFile {
     }
 
     @Test
-    void when_call_method_importData_return_not_empty_list() throws IOException, TestException {
+    void when_call_method_importData_return_not_empty_list()  {
         List<TestData> testData = importServiceFile.importData();
         assertFalse(testData.isEmpty());
     }
@@ -72,7 +72,7 @@ class TestImportServiceFileTest extends TestImportServiceFile {
     }
 
     @Test
-    void read_count_lines_test() throws IOException, TestException {
+    void read_count_lines_test(){
         List<String> lines = importServiceFile.getLines();
         assertEquals(lines.size(), 5);
     }

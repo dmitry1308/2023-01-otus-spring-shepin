@@ -27,7 +27,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @ShellMethod(value = "Pass test", key = {"test"})
-    public TestResult startTest() throws IOException, TestException {
+    public TestResult startTest() {
         outputService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);
