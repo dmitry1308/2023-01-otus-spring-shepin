@@ -38,7 +38,7 @@ public class BookDaoJdbc implements BookDao {
         genreDao.create(book.getGenre());
 
         Author author = authorDao.getByFirstAndLastNAme(book.getAuthor());
-        Genre genre = genreDao.getByName(book.getGenre());
+        Genre genre = genreDao.getByName(book.getGenre().getName());
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("name", book.getName());
@@ -63,7 +63,6 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void deleteById(long id) {
-        //// TODO: 02.03.2023 проверить метод
         Map<String, Object> params = Collections.singletonMap("id", id);
         namedParameterJdbcOperations.update("delete from book where id = :id", params);
     }

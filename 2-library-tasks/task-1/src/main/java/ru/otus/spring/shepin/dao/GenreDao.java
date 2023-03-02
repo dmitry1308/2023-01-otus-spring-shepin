@@ -9,5 +9,5 @@ public interface GenreDao {
 
     void create(Genre genre);
 
-    Genre getByName(Genre genre);
+    Genre getByName(String name);
 }

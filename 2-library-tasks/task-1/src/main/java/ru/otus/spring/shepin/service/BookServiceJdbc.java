@@ -27,7 +27,7 @@ public class BookServiceJdbc implements BookService {
 
     @Override
     @ShellMethod(value = "Insert book command. Arguments: book name, first name author, last name author, genre name",
-            key = {"i-book"})
+            key = {"c-b"})
     public void insert(@ShellOption(defaultValue = "Any book") String nameBook,
                        @ShellOption(defaultValue = "Any first name") String firstNameAuthor,
                        @ShellOption(defaultValue = "Any last name") String lastNameAuthor,

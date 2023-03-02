@@ -8,5 +8,6 @@ import java.util.List;
 public interface AuthorService {
     List<Author> getAll();
 
-
+    void create(String firstName, String lastName);
+    Author getByFirstAndLastNAme(String firstName, String lastName);
 }
