@@ -63,8 +63,9 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void deleteById(long id) {
-//        Map<String, Object> params = Collections.singletonMap("id", id);
-//        namedParameterJdbcOperations.update("delete from book where id = :id", params);
+        //// TODO: 02.03.2023 проверить метод
+        Map<String, Object> params = Collections.singletonMap("id", id);
+        namedParameterJdbcOperations.update("delete from book where id = :id", params);
     }
 
     private static class BookMapper implements RowMapper<Book> {
