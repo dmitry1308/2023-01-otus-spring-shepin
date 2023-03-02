@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Builder
 public class Author {
-    private              Long id;
+    private Long   id;
     private String lastName;
     private String firstName;
 }

@@ -47,6 +47,13 @@ public class AuthorDaoJdbc implements AuthorDao {
         return namedParameterJdbcOperations.queryForObject(sql, parameters, new AuthorMapper());
     }
 
+    @Override
+    public Author getById(Long id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", id);
+        String sql = "select id, first_name, last_name  from author where id=:id";
+        return namedParameterJdbcOperations.queryForObject(sql, parameters, new AuthorMapper());
+    }
 
     private static class AuthorMapper implements RowMapper<Author> {
 

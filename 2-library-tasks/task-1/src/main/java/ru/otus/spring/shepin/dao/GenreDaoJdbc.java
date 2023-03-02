@@ -41,6 +41,13 @@ public class GenreDaoJdbc implements GenreDao {
         return namedParameterJdbcOperations.queryForObject(sql, parameters, new GenreMapper());
     }
 
+    @Override
+    public Genre getById(Long id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", id);
+        String sql = "select id, name  from genre where id=:id";
+        return namedParameterJdbcOperations.queryForObject(sql, parameters, new GenreMapper());
+    }
 
     private static class GenreMapper implements RowMapper<Genre> {
         @Override

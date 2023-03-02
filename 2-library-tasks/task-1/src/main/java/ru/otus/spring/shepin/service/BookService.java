@@ -7,7 +7,9 @@ import java.util.List;
 public interface BookService {
     int count();
 
-    void insert(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
+    void create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
+
+    void updateByName(Long id, String name);
 
     Book getById(long id);
 

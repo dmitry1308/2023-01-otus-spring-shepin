@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 @ToString
 public class Book {
     private final Long   id;

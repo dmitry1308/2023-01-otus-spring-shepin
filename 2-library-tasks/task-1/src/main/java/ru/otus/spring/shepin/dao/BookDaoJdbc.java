@@ -51,14 +51,24 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
+    public void update(Book book) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", book.getId());
+        parameters.addValue("name", book.getName());
+        String query = "UPDATE book SET name = :name where id=:id";
+        namedParameterJdbcOperations.update(query, parameters);
+    }
+
+    @Override
     public Book getById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcOperations.queryForObject("select id, name from book where id=:id", params, new BookMapper());
+        return namedParameterJdbcOperations.queryForObject("select id, name, author_id, genre_id from book where id=:id", params,
+                new BookMapper());
     }
 
     @Override
     public List<Book> getAll() {
-        return namedParameterJdbcOperations.query("select id, name from book", new BookMapper());
+        return namedParameterJdbcOperations.query("select id, name,  author_id, genre_id from book", new BookMapper());
     }
 
     @Override
@@ -73,7 +83,13 @@ public class BookDaoJdbc implements BookDao {
         public Book mapRow(ResultSet resultSet, int i) throws SQLException {
             long id = resultSet.getLong("id");
             String name = resultSet.getString("name");
-            return Book.builder().id(id).name(name).build();
+            String authorId = resultSet.getString("author_id");
+            String genreId = resultSet.getString("genre_id");
+
+            Author author = Author.builder().id(Long.valueOf(authorId)).build();
+            Genre genre = Genre.builder().id(Long.valueOf(genreId)).build();
+
+            return Book.builder().id(id).name(name).author(author).genre(genre).build();
         }
     }
 }

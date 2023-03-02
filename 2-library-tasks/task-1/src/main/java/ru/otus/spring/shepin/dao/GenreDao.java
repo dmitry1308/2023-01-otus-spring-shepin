@@ -10,4 +10,5 @@ public interface GenreDao {
     void create(Genre genre);
 
     Genre getByName(String name);
+    Genre getById(Long id);
 }
