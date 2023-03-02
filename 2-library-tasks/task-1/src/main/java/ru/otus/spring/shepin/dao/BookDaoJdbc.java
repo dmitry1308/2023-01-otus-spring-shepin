@@ -3,10 +3,8 @@ package ru.otus.spring.shepin.dao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Book;
@@ -14,7 +12,6 @@ import ru.otus.spring.shepin.entity.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +29,9 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public void insert(Book book) {
-        Integer genreId;
-        Integer authgorId;
+    public void create(Book book) {
+        int genreId;
+        int authgorId;
 
         {
             GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
@@ -70,8 +67,6 @@ public class BookDaoJdbc implements BookDao {
 
             String query = "insert into book ( author_id, genre_id) values ( :author_id, :genre_id)";
             namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-
-            authgorId = generatedKeyHolder.getKey().intValue();
         }
     }
 
@@ -83,7 +78,7 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        return jdbc.query("select id, name, author_id, genre_id from book", new BookMapper());
+        return namedParameterJdbcOperations.query("select id, name from book", new BookMapper());
     }
 
     @Override

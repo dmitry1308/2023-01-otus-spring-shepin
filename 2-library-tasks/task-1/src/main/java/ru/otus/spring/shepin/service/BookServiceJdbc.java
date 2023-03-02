@@ -20,12 +20,14 @@ public class BookServiceJdbc implements BookService {
     private final BookDao bookDao;
 
     @Override
+    @ShellMethod(value = "Get count books", key = {"get-count-books"})
     public int count() {
-        return 0;
+        return bookDao.count();
     }
 
     @Override
-    @ShellMethod(value = "Insert book command", key = {"i-book"})
+    @ShellMethod(value = "Insert book command. Arguments: book name, first name author, last name author, genre name",
+            key = {"i-book"})
     public void insert(@ShellOption(defaultValue = "Any book") String nameBook,
                        @ShellOption(defaultValue = "Any first name") String firstNameAuthor,
                        @ShellOption(defaultValue = "Any last name") String lastNameAuthor,
@@ -34,7 +36,7 @@ public class BookServiceJdbc implements BookService {
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
         Genre genre = Genre.builder().name(genreName).build();
         Book book = Book.builder().author(author).genre(genre).build();
-        bookDao.insert(book);
+        bookDao.create(book);
     }
 
     @Override
@@ -43,9 +45,9 @@ public class BookServiceJdbc implements BookService {
     }
 
     @Override
-    @ShellMethod(value = "Get all book", key = {"get-all-books"})
+    @ShellMethod(value = "Get all books", key = {"get-all-books"})
     public List<Book> getAll() {
-        return null;
+        return bookDao.getAll();
     }
 
     @Override
