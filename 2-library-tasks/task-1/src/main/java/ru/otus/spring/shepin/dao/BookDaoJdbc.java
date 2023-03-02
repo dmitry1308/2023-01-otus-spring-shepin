@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
+import ru.otus.spring.shepin.entity.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class BookDaoJdbc implements BookDao {
     private final JdbcOperations               jdbc;
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private final AuthorDao                    authorDao;
+    private final GenreDao                     genreDao;
 
 
     @Override
@@ -30,46 +34,20 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void create(Book book) {
-        int genreId;
-        int authgorId;
+        authorDao.create(book.getAuthor());
+        genreDao.create(book.getGenre());
 
-        {
-            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        Author author = authorDao.getByFirstAndLastNAme(book.getAuthor());
+        Genre genre = genreDao.getByName(book.getGenre());
 
-            MapSqlParameterSource parameters = new MapSqlParameterSource();
-            parameters.addValue("first_name", book.getAuthor().getFirstName());
-            parameters.addValue("last_name", book.getAuthor().getLastName());
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("name", book.getName());
+        parameters.addValue("genre_id", genre);
+        parameters.addValue("author_id", author.getId());
 
-            String query = "insert into author ( first_name, last_name) values ( :first_name, :last_name)";
-            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-
-             authgorId = generatedKeyHolder.getKey().intValue();
-        }
-
-        {
-            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-
-            MapSqlParameterSource parameters = new MapSqlParameterSource();
-            parameters.addValue("name", book.getAuthor().getFirstName());
-
-            String query = "insert into genre (name) values (:name)";
-            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-
-             genreId = generatedKeyHolder.getKey().intValue();
-        }
-
-        {
-            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-
-            MapSqlParameterSource parameters = new MapSqlParameterSource();
-
-            parameters.addValue("name", book.getName());
-            parameters.addValue("genre_id", genreId);
-            parameters.addValue("author_id", authgorId);
-
-            String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
-            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-        }
+        String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
     }
 
     @Override
