@@ -52,7 +52,8 @@ public class BookServiceJdbc implements BookService {
     }
 
     @Override
+    @ShellMethod(value = "Delete book by id", key = {"del-book-id"})
     public void deleteById(long id) {
-
+        bookDao.deleteById(id);
     }
 }

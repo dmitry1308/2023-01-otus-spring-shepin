@@ -42,7 +42,7 @@ public class BookDaoJdbc implements BookDao {
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("name", book.getName());
-        parameters.addValue("genre_id", genre);
+        parameters.addValue("genre_id", genre.getId());
         parameters.addValue("author_id", author.getId());
 
         String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
