@@ -35,13 +35,14 @@ public class BookServiceJdbc implements BookService {
 
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
         Genre genre = Genre.builder().name(genreName).build();
-        Book book = Book.builder().author(author).genre(genre).build();
+        Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
         bookDao.create(book);
     }
 
     @Override
+    @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
     public Book getById(long id) {
-        return null;
+        return bookDao.getById(id);
     }
 
     @Override

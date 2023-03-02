@@ -62,10 +62,12 @@ public class BookDaoJdbc implements BookDao {
             GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
             MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+            parameters.addValue("name", book.getName());
             parameters.addValue("genre_id", genreId);
             parameters.addValue("author_id", authgorId);
 
-            String query = "insert into book ( author_id, genre_id) values ( :author_id, :genre_id)";
+            String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
             namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
         }
     }
