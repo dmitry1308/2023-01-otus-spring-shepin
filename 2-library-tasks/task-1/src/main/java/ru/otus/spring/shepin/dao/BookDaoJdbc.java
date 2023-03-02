@@ -2,11 +2,8 @@ package ru.otus.spring.shepin.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
 
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,18 +13,15 @@ import ru.otus.spring.shepin.entity.Book;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
 public class BookDaoJdbc implements BookDao {
     private final JdbcOperations               jdbc;
-    private final JdbcTemplate                 jdbcTemplate;
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
 
@@ -39,33 +33,46 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public void insert(Book book) {
+        Integer genreId;
+        Integer authgorId;
 
         {
-            String sql = "insert into genre (name) values (?)";
+            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("first_name", book.getAuthor().getFirstName());
+            parameters.addValue("last_name", book.getAuthor().getLastName());
 
+            String query = "insert into author ( first_name, last_name) values ( :first_name, :last_name)";
+            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
 
-            var decParams = List.of(new SqlParameter(Types.VARCHAR, "name"));
-
-            var pscf = new PreparedStatementCreatorFactory(sql, decParams) {
-                {
-                    setReturnGeneratedKeys(true);
-                    setGeneratedKeysColumnNames("id");
-                }
-            };
-
-            var psc = pscf.newPreparedStatementCreator(List.of(book.getGenre().getName()));
-
-            var keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(psc, keyHolder);
-
-            var uid = Objects.requireNonNull(keyHolder.getKey()).longValue();
-
+             authgorId = generatedKeyHolder.getKey().intValue();
         }
 
+        {
+            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("name", book.getAuthor().getFirstName());
 
+            String query = "insert into genre (name) values (:name)";
+            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
 
+             genreId = generatedKeyHolder.getKey().intValue();
+        }
+
+        {
+            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("genre_id", genreId);
+            parameters.addValue("author_id", authgorId);
+
+            String query = "insert into book ( author_id, genre_id) values ( :author_id, :genre_id)";
+            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
+
+            authgorId = generatedKeyHolder.getKey().intValue();
+        }
     }
 
     @Override
