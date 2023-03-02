@@ -1,10 +1,13 @@
 package ru.otus.shepin.spring.service.pass;
 
 import lombok.AllArgsConstructor;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.entity.TestData;
 import ru.otus.shepin.spring.entity.TestResult;
-import ru.otus.shepin.spring.service.import_data.DataImportService;
+import ru.otus.shepin.spring.exception.TestException;
+import ru.otus.shepin.spring.service.importdata.DataImportService;
 import ru.otus.shepin.spring.service.io.InputService;
 import ru.otus.shepin.spring.service.io.OutputService;
 
@@ -12,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@ShellComponent
 @Service
 @AllArgsConstructor
 public class TestServiceImpl implements TestService {
@@ -21,7 +26,8 @@ public class TestServiceImpl implements TestService {
 
 
     @Override
-    public TestResult startTest() throws IOException {
+    @ShellMethod(value = "Pass test", key = {"test"})
+    public TestResult startTest() {
         outputService.print("\n" + "----------Start Test----------");
         List<TestData> testDataList = testDataService.importData();
         return askQuestions(testDataList);

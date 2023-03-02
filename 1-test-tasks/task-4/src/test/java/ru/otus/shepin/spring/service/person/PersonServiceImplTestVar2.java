@@ -1,4 +1,4 @@
-package ru.otus.shepin.spring.service.person_data;
+package ru.otus.shepin.spring.service.person;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,15 +22,15 @@ import static org.mockito.Mockito.when;
 @Component
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Test get person data")
-class PersonDataServiceImplTestVar2 {
+class PersonServiceImplTestVar2 {
     @Mock
     private InputService      inputService;
     @Mock
     private OutputService     outputService;
     @Mock
-    private MessageSource     messageSource;
-    private PersonDataService personDataService;
-    private AppTestProps      appTestProps;
+    private MessageSource messageSource;
+    private PersonService personDataService;
+    private AppTestProps  appTestProps;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +39,7 @@ class PersonDataServiceImplTestVar2 {
 
 
         when(inputService.readLine()).thenReturn("Dmitry", String.valueOf(36));
-        personDataService = new PersonDataServiceImpl(inputService, outputService, appTestProps, messageSource);
+        personDataService = new PersonServiceImpl(inputService, outputService, appTestProps, messageSource);
     }
 
     @Test

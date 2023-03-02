@@ -1,8 +1,10 @@
-package ru.otus.shepin.spring.service.import_data;
+package ru.otus.shepin.spring.service.importdata;
 
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.shepin.spring.config.AppTestProps;
 import ru.otus.shepin.spring.entity.TestData;
+import ru.otus.shepin.spring.exception.TestException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +13,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-@Service
+@Service(value = "TestImportServiceFile")
 public class TestImportServiceFile implements DataImportService {
+    @Getter
     private final String fileName;
 
     public TestImportServiceFile(AppTestProps appTestProps) {
@@ -20,18 +23,18 @@ public class TestImportServiceFile implements DataImportService {
     }
 
     @Override
-    public List<TestData> importData() throws IOException {
+    public List<TestData> importData(){
         List<String> lines = getLines();
         return convertLinesToData(lines);
     }
 
-    protected List<String> getLines() throws IOException {
+    protected List<String> getLines() {
         ClassLoader classLoader = TestImportServiceFile.class.getClassLoader();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream(this.fileName)) {
+        try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
 
             if (inputStream == null) {
-                throw new IllegalArgumentException("file not found! " + this.fileName);
+                throw new TestException("file not found! " + fileName, null);
             }
 
             try (InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
@@ -45,6 +48,8 @@ public class TestImportServiceFile implements DataImportService {
                 }
                 return lines;
             }
+        } catch (IOException e) {
+            throw new TestException("file not found! " + fileName, e);
         }
     }
 
