@@ -9,12 +9,14 @@ import ru.otus.spring.shepin.entity.Genre;
 public class ReportServiceImpl implements ReportService {
     @Override
     public String createBookReport(Book book) {
+        StringBuilder builder = new StringBuilder();
 
-        String name = book.getName();
+        builder.append("\n");
+        builder.append("Book name" + book.getName());
+        builder.append("Author" + book.getAuthor().getFirstName() + " " + book.getAuthor().getFirstName());
+        builder.append("Genre" + book.getGenre().getName());
 
-        return   """
-                Название книги: $name                
-                """;
+        return builder.toString();
     }
 
     @Override
