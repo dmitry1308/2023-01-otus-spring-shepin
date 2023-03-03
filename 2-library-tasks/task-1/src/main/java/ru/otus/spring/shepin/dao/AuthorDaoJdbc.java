@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Author;
+import ru.otus.spring.shepin.entity.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,9 +20,15 @@ import java.util.Map;
 public class AuthorDaoJdbc implements AuthorDao {
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
+    private final RowMapper<Author> authorMapper;
+
     @Override
     public List<Author> getAll() {
-        return namedParameterJdbcOperations.query("select id, first_name, last_name from author", new AuthorMapper());
+        String sql = """
+        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+        left join book b on b.author_id=a.id
+        """;
+        return namedParameterJdbcOperations.query(sql, authorMapper);
     }
 
     @Override
@@ -43,26 +50,24 @@ public class AuthorDaoJdbc implements AuthorDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("first_name", author.getFirstName());
         parameters.addValue("last_name", author.getLastName());
-        String sql = "select id, first_name, last_name  from author where first_name=:first_name and last_name=:last_name";
-        return namedParameterJdbcOperations.queryForObject(sql, parameters, new AuthorMapper());
+        String sql = """
+        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+        left join book b on b.author_id=a.id
+        where first_name=:first_name and last_name=:last_name
+        """;
+
+        return namedParameterJdbcOperations.queryForObject(sql, parameters, authorMapper);
     }
 
     @Override
     public Author getById(Long id) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("id", id);
-        String sql = "select id, first_name, last_name  from author where id=:id";
-        return namedParameterJdbcOperations.queryForObject(sql, parameters, new AuthorMapper());
-    }
-
-    private static class AuthorMapper implements RowMapper<Author> {
-
-        @Override
-        public Author mapRow(ResultSet resultSet, int i) throws SQLException {
-            long id = resultSet.getLong("id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            return Author.builder().id(id).firstName(firstName).lastName(lastName).build();
-        }
+        String sql = """
+        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+        left join book b on b.author_id=a.id
+        where a.id=:id
+        """;
+        return namedParameterJdbcOperations.queryForObject(sql, parameters, authorMapper);
     }
 }
