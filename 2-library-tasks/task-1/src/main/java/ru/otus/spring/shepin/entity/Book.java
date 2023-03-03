@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Data
 @Builder(toBuilder = true)
-@ToString
 public class Book {
     private final Long   id;
     private final String name;
