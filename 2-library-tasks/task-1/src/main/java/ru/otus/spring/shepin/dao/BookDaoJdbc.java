@@ -32,7 +32,7 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public void create(Book book) {
+    public Book create(Book book) {
         authorDao.create(book.getAuthor());
         genreDao.create(book.getGenre());
 
@@ -47,6 +47,8 @@ public class BookDaoJdbc implements BookDao {
         String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
+
+        return book;
     }
 
     @Override

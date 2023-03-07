@@ -27,7 +27,7 @@ public class GenreDaoJdbc implements GenreDao {
     }
 
     @Override
-    public void create(Genre genre) {
+    public Genre create(Genre genre) {
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -35,6 +35,8 @@ public class GenreDaoJdbc implements GenreDao {
 
         String query = "insert into genre (name) values (:name)";
         namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
+
+        return genre;
     }
 
     @Override

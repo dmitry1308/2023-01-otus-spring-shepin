@@ -25,24 +25,23 @@ public class AuthorDaoJdbc implements AuthorDao {
     @Override
     public List<Author> getAll() {
         String sql = """
-        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
-        left join book b on b.author_id=a.id
-        """;
+                select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+                left join book b on b.author_id=a.id
+                """;
         return namedParameterJdbcOperations.query(sql, authorMapper);
     }
 
     @Override
-    public void create(Author author) {
-        {
-            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+    public Author create(Author author) {
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
-            MapSqlParameterSource parameters = new MapSqlParameterSource();
-            parameters.addValue("first_name", author.getFirstName());
-            parameters.addValue("last_name", author.getLastName());
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("first_name", author.getFirstName());
+        parameters.addValue("last_name", author.getLastName());
 
-            String query = "insert into author ( first_name, last_name) values ( :first_name, :last_name)";
-            namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-        }
+        String query = "insert into author ( first_name, last_name) values ( :first_name, :last_name)";
+        namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
+        return author;
     }
 
     @Override
@@ -51,10 +50,10 @@ public class AuthorDaoJdbc implements AuthorDao {
         parameters.addValue("first_name", author.getFirstName());
         parameters.addValue("last_name", author.getLastName());
         String sql = """
-        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
-        left join book b on b.author_id=a.id
-        where first_name=:first_name and last_name=:last_name
-        """;
+                select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+                left join book b on b.author_id=a.id
+                where first_name=:first_name and last_name=:last_name
+                """;
 
         return namedParameterJdbcOperations.queryForObject(sql, parameters, authorMapper);
     }
@@ -64,10 +63,10 @@ public class AuthorDaoJdbc implements AuthorDao {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("id", id);
         String sql = """
-        select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
-        left join book b on b.author_id=a.id
-        where a.id=:id
-        """;
+                select a.id, a.first_name, a.last_name, b.id as book_id, b.name as book_name  from author a 
+                left join book b on b.author_id=a.id
+                where a.id=:id
+                """;
         return namedParameterJdbcOperations.queryForObject(sql, parameters, authorMapper);
     }
 }
