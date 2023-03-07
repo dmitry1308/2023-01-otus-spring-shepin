@@ -1,5 +1,6 @@
 package ru.otus.spring.shepin.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Builder
 public class Author {
     private Long   id;
