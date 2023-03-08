@@ -20,8 +20,6 @@ import java.util.Map;
 public class BookDaoJdbc implements BookDao {
     private final JdbcOperations               jdbc;
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-    private final AuthorDao                    authorDao;
-    private final GenreDao                     genreDao;
     private final RowMapper<Book>              bookMapper;
 
 
@@ -33,16 +31,12 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public Book create(Book book) {
-        authorDao.create(book.getAuthor());
-        genreDao.create(book.getGenre());
 
-        Author author = authorDao.getByFirstAndLastNAme(book.getAuthor());
-        Genre genre = genreDao.getByName(book.getGenre().getName());
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("name", book.getName());
-        parameters.addValue("genre_id", genre.getId());
-        parameters.addValue("author_id", author.getId());
+        parameters.addValue("genre_id", book.getGenre().getId());
+        parameters.addValue("author_id", book.getAuthor().getId());
 
         String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();

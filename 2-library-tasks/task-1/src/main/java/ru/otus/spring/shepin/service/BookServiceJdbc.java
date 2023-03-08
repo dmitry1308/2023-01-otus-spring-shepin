@@ -5,7 +5,9 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
+import ru.otus.spring.shepin.dao.AuthorDao;
 import ru.otus.spring.shepin.dao.BookDao;
+import ru.otus.spring.shepin.dao.GenreDao;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -17,7 +19,9 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class BookServiceJdbc implements BookService {
-    private final BookDao bookDao;
+    private final BookDao   bookDao;
+    private final AuthorDao authorDao;
+    private final GenreDao  genreDao;
 
     @Override
     @ShellMethod(value = "Get count books", key = {"get-count-books"})
@@ -35,7 +39,11 @@ public class BookServiceJdbc implements BookService {
 
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
         Genre genre = Genre.builder().name(genreName).build();
-        Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
+
+        final Author createdAuthor = authorDao.create(author);
+        final Genre createdGenre = genreDao.create(genre);
+
+        Book book = Book.builder().name(nameBook).author(createdAuthor).genre(createdGenre).build();
        return bookDao.create(book);
     }
 
