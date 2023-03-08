@@ -18,10 +18,10 @@ public class AuthorServiceJdbc implements AuthorService {
 
     @Override
     @ShellMethod(value = "create author", key = {"c-a"})
-    public void create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
+    public Author create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
                        @ShellOption(defaultValue = "lastNameAuthor")String lastName) {
         Author author = Author.builder().firstName(firstName).lastName(lastName).build();
-        authorDao.create(author);
+        return authorDao.create(author);
     }
 
     @Override

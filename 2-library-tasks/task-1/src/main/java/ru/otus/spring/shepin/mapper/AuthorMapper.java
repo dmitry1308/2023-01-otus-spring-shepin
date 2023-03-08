@@ -40,7 +40,6 @@ public class AuthorMapper implements RowMapper<Author> {
                         .id(id)
                         .firstName(firstName)
                         .lastName(lastName)
-                        .bookList(list)
                         .build();
         }
     }

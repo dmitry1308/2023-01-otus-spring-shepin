@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -13,9 +14,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Builder
+@ToString
 public class Genre {
     private Long   id;
     private String name;
-    private List<Book> bookList;
-
 }

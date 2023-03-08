@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -13,10 +14,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Builder
+@ToString
 public class Author {
     private Long   id;
     private String lastName;
     private String firstName;
-
-    private List<Book> bookList;
 }

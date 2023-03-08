@@ -48,7 +48,9 @@ public class BookDaoJdbc implements BookDao {
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
 
-        return book;
+        long id = generatedKeyHolder.getKey().longValue();
+
+        return getById(id);
     }
 
     @Override

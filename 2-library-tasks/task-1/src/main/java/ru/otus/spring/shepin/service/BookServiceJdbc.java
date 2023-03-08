@@ -28,7 +28,7 @@ public class BookServiceJdbc implements BookService {
     @Override
     @ShellMethod(value = "Insert book command. Arguments: book name, first name author, last name author, genre name",
             key = {"c-b"})
-    public void create(@ShellOption(defaultValue = "Any book") String nameBook,
+    public Book create(@ShellOption(defaultValue = "Any book") String nameBook,
                        @ShellOption(defaultValue = "Any first name") String firstNameAuthor,
                        @ShellOption(defaultValue = "Any last name") String lastNameAuthor,
                        @ShellOption(defaultValue = "Any genre") String genreName) {
@@ -36,7 +36,7 @@ public class BookServiceJdbc implements BookService {
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
         Genre genre = Genre.builder().name(genreName).build();
         Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
-        bookDao.create(book);
+       return bookDao.create(book);
     }
 
     @Override

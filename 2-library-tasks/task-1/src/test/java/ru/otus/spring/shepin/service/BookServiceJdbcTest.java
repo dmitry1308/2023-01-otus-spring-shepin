@@ -3,31 +3,21 @@ package ru.otus.spring.shepin.service;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import ru.otus.spring.shepin.dao.AuthorDaoJdbc;
 import ru.otus.spring.shepin.dao.BookDao;
-import ru.otus.spring.shepin.dao.BookDaoJdbc;
-import ru.otus.spring.shepin.dao.GenreDaoJdbc;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
-import ru.otus.spring.shepin.mapper.AuthorMapper;
-import ru.otus.spring.shepin.mapper.BookMapper;
-import ru.otus.spring.shepin.mapper.GenreMapper;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @DisplayName("Тестирование сервиса книги")

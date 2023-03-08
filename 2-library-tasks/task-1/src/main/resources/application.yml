@@ -6,15 +6,14 @@ spring:
 
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
       settings:
-        web-allow-others: true
+        web-allow-others: false
     sql:
       init:
        mode: always
        data-locations: data.sql
-       schema-locations: schema.sql
 
   liquibase:
     enabled: true

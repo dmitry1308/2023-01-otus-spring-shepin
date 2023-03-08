@@ -41,7 +41,6 @@ public class GenreMapper implements RowMapper<Genre> {
             return Genre.builder()
                         .id(id)
                         .name(name)
-                        .bookList(list)
                         .build();
         }
     }

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Author;
+import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.sql.ResultSet;
@@ -41,7 +42,8 @@ public class AuthorDaoJdbc implements AuthorDao {
 
         String query = "insert into author ( first_name, last_name) values ( :first_name, :last_name)";
         namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-        return author;
+        long id = generatedKeyHolder.getKey().longValue();
+        return getById(id);
     }
 
     @Override
@@ -68,5 +70,10 @@ public class AuthorDaoJdbc implements AuthorDao {
                 where a.id=:id
                 """;
         return namedParameterJdbcOperations.queryForObject(sql, parameters, authorMapper);
+    }
+
+    public List<Book> getBooks() {
+        // TODO: 07.03.2023 реализовать
+        return null;
     }
 }
