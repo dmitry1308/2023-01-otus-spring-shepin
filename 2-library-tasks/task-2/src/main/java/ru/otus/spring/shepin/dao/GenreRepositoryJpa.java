@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class GenreDaoJdbc implements GenreDao {
+public class GenreRepositoryJpa implements GenreRepository {
     @PersistenceContext
     private final EntityManager manager;
 

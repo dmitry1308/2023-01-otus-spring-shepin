@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class BookDaoJdbc implements BookDao {
+public class BookRepositoryJpa implements BookRepository {
     @PersistenceContext
     private EntityManager manager;
 

@@ -4,7 +4,7 @@ import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
 
-public interface GenreDao {
+public interface GenreRepository {
     List<Genre> getAll();
 
     Genre createOrUpdate(Genre genre);

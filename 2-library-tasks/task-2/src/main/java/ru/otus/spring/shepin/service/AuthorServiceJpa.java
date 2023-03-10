@@ -7,7 +7,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.otus.spring.shepin.dao.AuthorDao;
 import ru.otus.spring.shepin.entity.Author;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class AuthorServiceJdbc implements AuthorService {
+public class AuthorServiceJpa implements AuthorService {
     private final AuthorDao authorDao;
 
     @Override

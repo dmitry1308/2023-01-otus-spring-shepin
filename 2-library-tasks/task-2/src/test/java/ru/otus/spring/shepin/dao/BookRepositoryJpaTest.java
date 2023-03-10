@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,11 +22,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @JdbcTest
 @ExtendWith(SpringExtension.class)
-@Import({BookDaoJdbc.class, AuthorDaoJdbc.class, GenreDaoJdbc.class})
+@Import({BookRepositoryJpa.class, AuthorRepositoryJpa.class, GenreRepositoryJpa.class})
 @DisplayName("Dao для работы с книгами")
-class BookDaoJdbcTest {
+class BookRepositoryJpaTest {
     @Autowired
-    private BookDaoJdbc   bookDaoJdbc;
+    private BookRepositoryJpa bookDaoJdbc;
+    @Autowired
+    private TestEntityManager em;
 
 
     @Test

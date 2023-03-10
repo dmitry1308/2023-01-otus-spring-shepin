@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class AuthorDaoJdbc implements AuthorDao {
+public class AuthorRepositoryJpa implements AuthorRepository {
     @PersistenceContext
     private final EntityManager manager;
 
