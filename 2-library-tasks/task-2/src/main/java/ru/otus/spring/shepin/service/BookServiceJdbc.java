@@ -41,7 +41,7 @@ public class BookServiceJdbc implements BookService {
         Genre genre = Genre.builder().name(genreName).build();
 
         final Author createdAuthor = authorDao.create(author);
-        final Genre createdGenre = genreDao.create(genre);
+        final Genre createdGenre = genreDao.createOrUpdate(genre);
 
         Book book = Book.builder().name(nameBook).author(createdAuthor).genre(createdGenre).build();
        return bookDao.create(book);

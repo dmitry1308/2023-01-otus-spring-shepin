@@ -1,5 +1,8 @@
 package ru.otus.spring.shepin.dao;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,72 +21,42 @@ import java.util.Map;
 @Repository
 @RequiredArgsConstructor
 public class GenreDaoJdbc implements GenreDao {
-    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-    private final RowMapper<Genre>             genreMapper;
+    @PersistenceContext
+    private final EntityManager manager;
 
     @Override
     public List<Genre> getAll() {
-        String sql = """
-                select g.id as id, g.name as name, b.id as book_id, b.name as book_name from genre g
-                left join book b on b.genre_id=g.id 
-                """;
-        return namedParameterJdbcOperations.query(sql, genreMapper);
+        String sql = "select g from Genre g";
+
+        final TypedQuery<Genre> query = manager.createQuery(sql, Genre.class);
+        return query.getResultList();
     }
 
     @Override
-    public Genre create(Genre genre) {
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+    public Genre createOrUpdate(Genre genre) {
+        if (genre.getId() == null) {
+            manager.persist(genre);
+            return genre;
+        }
+        return manager.merge(genre);
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("name", genre.getName());
-
-        String query = "insert into genre (name) values (:name)";
-        namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-
-        long id = generatedKeyHolder.getKey().longValue();
-
-        return getById(id);
     }
 
     @Override
     public Genre getByName(String name) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("name", name);
-        String sql = """
-                select g.id as id, g.name as name, b.id as book_id, b.name as book_name from genre g
-                left join book b on b.genre_id=g.id 
-                where g.name=:name
-                """;
+        String sql = "select g from Genre g where g.name = :name";
 
-        return namedParameterJdbcOperations.queryForObject(sql, parameters, genreMapper);
+        final TypedQuery<Genre> query = manager.createQuery(sql, Genre.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
     }
 
     @Override
     public Genre getById(Long id) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("id", id);
-        String sql = """
-                select g.id as id, g.name as name, b.id as book_id, b.name as book_name from genre g
-                left join book b on b.genre_id=g.id 
-                where g.id=:id
-                """;
-        return namedParameterJdbcOperations.queryForObject(sql, parameters, genreMapper);
+        String sql = "select g from Genre g where g.id = :id";
+
+        final TypedQuery<Genre> query = manager.createQuery(sql, Genre.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
-
-    @Override
-    public List<Book> getBooksByGenreId(Long id) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("id", id);
-
-        final HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-        String sql = """
-                select b.id as book_id, b.name as book_name from genre g
-                left join book b on b.genre_id=g.id 
-                where g.id=:id
-                """;
-        List<Book> books =  namedParameterJdbcOperations.query(sql, (SqlParameterSource) Map.of().put("id",id),
-                new BookExtractor());
-        return books;
-    }
-
 }
