@@ -29,12 +29,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class BookDaoJdbcTest {
     @Autowired
     private BookDaoJdbc   bookDaoJdbc;
-
+    @Autowired
+    private AuthorDaoJdbc authorDaoJdbc;
+    @Autowired
+    private GenreDaoJdbc genreDaoJdbc;
 
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
-        assertThat(bookDaoJdbc.count()).isEqualTo(6);
+        assertThat(bookDaoJdbc.count()).isEqualTo(3);
     }
 
     @Test
@@ -42,9 +45,12 @@ class BookDaoJdbcTest {
     void create() {
 
         Author author = Author.builder().firstName("firstName").lastName("lastName").build();
-        Genre genre = Genre.builder().name("Genre").build();
+        Author authorCreated = authorDaoJdbc.create(author);
 
-        Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
+        Genre genre = Genre.builder().name("Genre").build();
+        Genre genreCreated = genreDaoJdbc.create(genre);
+
+        Book book = Book.builder().name("NameBook").author(authorCreated).genre(genreCreated).build();
 
         bookDaoJdbc.create(book);
 
@@ -58,18 +64,18 @@ class BookDaoJdbcTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        Book book = bookDaoJdbc.getById(10);
+        Book book = bookDaoJdbc.getById(100);
         Book updatedBook = book.toBuilder().name("UpdateName").build();
         bookDaoJdbc.update(updatedBook);
 
-        Book bookUpdated = bookDaoJdbc.getById(10);
+        Book bookUpdated = bookDaoJdbc.getById(100);
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookDaoJdbc.getById(10);
+        Book book = bookDaoJdbc.getById(100);
         assertThat(book).isNotNull();
     }
 
@@ -77,16 +83,16 @@ class BookDaoJdbcTest {
     @DisplayName("Достать все книги из БД")
     void getAll() {
         List<Book> bookList = bookDaoJdbc.getAll();
-        assertThat(bookList).hasSize(6);
+        assertThat(bookList).hasSize(3);
     }
 
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        assertThatCode(() -> bookDaoJdbc.getById(10)).doesNotThrowAnyException();
+        assertThatCode(() -> bookDaoJdbc.getById(100)).doesNotThrowAnyException();
 
-        bookDaoJdbc.deleteById(10);
+        bookDaoJdbc.deleteById(100);
 
-        assertThatThrownBy(() -> bookDaoJdbc.getById(10)).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThatThrownBy(() -> bookDaoJdbc.getById(100)).isInstanceOf(EmptyResultDataAccessException.class);
     }
 }
