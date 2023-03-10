@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookDao {
     int count();
 
-    Book create(Book book);
+    Book createOrUpdate(Book book);
 
     void update(Book book);
 

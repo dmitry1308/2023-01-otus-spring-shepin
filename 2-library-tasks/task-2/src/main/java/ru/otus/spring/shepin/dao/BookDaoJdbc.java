@@ -1,93 +1,63 @@
 package ru.otus.spring.shepin.dao;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Genre;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
 public class BookDaoJdbc implements BookDao {
-    private final JdbcOperations               jdbc;
-    private final NamedParameterJdbcOperations namedParameterJdbcOperations;
-    private final RowMapper<Book>              bookMapper;
-
+    @PersistenceContext
+    private EntityManager manager;
 
     @Override
     public int count() {
-        Integer count = jdbc.queryForObject("select count(*) from book", Integer.class);
-        return count == null ? 0 : count;
+        String sql = "select count(b.id) from Book b";
+        return Math.toIntExact(manager.createQuery(sql, Long.class).getSingleResult());
     }
 
     @Override
-    public Book create(Book book) {
-
-
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("name", book.getName());
-        parameters.addValue("genre_id", book.getGenre().getId());
-        parameters.addValue("author_id", book.getAuthor().getId());
-
-        String query = "insert into book (name, author_id, genre_id) values (:name, :author_id, :genre_id)";
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcOperations.update(query, parameters, generatedKeyHolder);
-
-        long id = generatedKeyHolder.getKey().longValue();
-
-        return getById(id);
+    public Book createOrUpdate(Book book) {
+        if (book.getId() == null) {
+            manager.persist(book);
+            return book;
+        }
+        return manager.merge(book);
     }
 
     @Override
     public void update(Book book) {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("id", book.getId());
-        parameters.addValue("name", book.getName());
-        String query = "UPDATE book SET name = :name where id=:id";
-        namedParameterJdbcOperations.update(query, parameters);
+        manager.merge(book);
     }
 
     @Override
     public Book getById(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
-        String sql = """
-                select b.id  as book_id, b.name as book_name,
-                g.id as genre_id, g.name as genre_name,
-                a.id as author_id, a.first_name as first_name, a.last_name as last_name 
-                from book b
-                join genre g on g.id= b.genre_id
-                join author a on a.id= b.author_id
-                where b.id=:id 
-                """;
-        return namedParameterJdbcOperations.queryForObject(sql, params, bookMapper);
+        String sql = "select b from Book b where b.id = :id";
+
+        final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override
     public List<Book> getAll() {
-        String sql = """
-                select b.id  as book_id, b.name as book_name,
-                g.id as genre_id, g.name as genre_name,
-                a.id as author_id, a.first_name as first_name, a.last_name as last_name 
-                from book b
-                join genre g on g.id= b.genre_id
-                join author a on a.id= b.author_id
-                """;
+        String sql = "select b from Book b";
 
-        return namedParameterJdbcOperations.query(sql, bookMapper);
+        final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteById(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
-        namedParameterJdbcOperations.update("delete from book where id = :id", params);
+        String sql = "delete from Book b where b.id = :id";
+
+        final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

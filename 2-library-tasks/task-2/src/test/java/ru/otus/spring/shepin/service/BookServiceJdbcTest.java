@@ -41,7 +41,7 @@ class BookServiceJdbcTest {
         Author author = Author.builder().firstName("First name author").lastName("Last name author").build();
         Genre genre = Genre.builder().name("genre").build();
         Book book = Book.builder().name("Name book").author(author).genre(genre).build();
-        verify(bookDaoJdbc).create(book);
+        verify(bookDaoJdbc).createOrUpdate(book);
     }
 
     @Test

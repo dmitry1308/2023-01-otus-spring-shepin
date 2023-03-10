@@ -11,9 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
-import ru.otus.spring.shepin.mapper.AuthorMapper;
-import ru.otus.spring.shepin.mapper.BookMapper;
-import ru.otus.spring.shepin.mapper.GenreMapper;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @JdbcTest
 @ExtendWith(SpringExtension.class)
-@Import({BookDaoJdbc.class, AuthorDaoJdbc.class, GenreDaoJdbc.class, AuthorMapper.class, BookMapper.class, GenreMapper.class})
+@Import({BookDaoJdbc.class, AuthorDaoJdbc.class, GenreDaoJdbc.class})
 @DisplayName("Dao для работы с книгами")
 class BookDaoJdbcTest {
     @Autowired
@@ -46,7 +43,7 @@ class BookDaoJdbcTest {
 
         Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
 
-        bookDaoJdbc.create(book);
+        bookDaoJdbc.createOrUpdate(book);
 
         List<Book> bookList = bookDaoJdbc.getAll();
 
