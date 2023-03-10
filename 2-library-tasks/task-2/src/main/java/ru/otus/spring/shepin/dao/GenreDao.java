@@ -1,6 +1,5 @@
 package ru.otus.spring.shepin.dao;
 
-import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
