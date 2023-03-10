@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-02-25--create-table-author
+      author: shepin
+      createTable:
+        tableName: author
+        columns:
+          - column:
+              name: id
+              type: bigint
+              autoIncrement: true
+              constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: pk_author
+          - column:
+              name: last_name
+              type: varchar(50)
+          - column:
+              name: first_name
+              type: varchar(50)
