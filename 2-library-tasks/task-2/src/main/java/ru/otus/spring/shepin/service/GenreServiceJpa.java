@@ -6,6 +6,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.shepin.dao.GenreRepository;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class GenreServiceJpa implements GenreService {
-    private final GenreDao genreDao;
+    private final GenreRepository genreDao;
 
     @Override
     @Transactional
