@@ -4,6 +4,7 @@ package ru.otus.spring.shepin.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -26,6 +27,11 @@ public class Book {
     @JoinColumn(name = "author_id")
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Author author;
+
+    @ManyToMany(targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "book_comment", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    private List<Comment> comments;
+
 
     @Override
     public boolean equals(Object o) {

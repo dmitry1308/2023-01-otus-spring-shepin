@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Book;
+import ru.otus.spring.shepin.entity.Comment;
 
 import java.util.List;
 
@@ -59,5 +60,10 @@ public class BookRepositoryJpa implements BookRepository {
         final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Comment> getCommentsByBookName() {
+        return null;
     }
 }
