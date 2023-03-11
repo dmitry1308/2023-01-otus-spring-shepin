@@ -1,14 +1,14 @@
 package ru.otus.spring.shepin.dao;
 
+import lombok.val;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -20,21 +20,39 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
-@JdbcTest
-@ExtendWith(SpringExtension.class)
-@Import({BookRepositoryJpa.class, AuthorRepositoryJpa.class, GenreRepositoryJpa.class})
+@DataJpaTest
+@Import({BookRepositoryJpa.class})
 @DisplayName("Dao для работы с книгами")
 class BookRepositoryJpaTest {
+    private static final int EXPECTED_NUMBER_OF_BOOKS = 3;
+    private static final long EXPECTED_QUERIES_COUNT  = 3;
     @Autowired
-    private BookRepositoryJpa bookDaoJdbc;
+    private BookRepositoryJpa bookRepoJpa;
     @Autowired
     private TestEntityManager em;
 
 
+    @DisplayName("должен загружать список всех книг с полной информацией о них")
+    @Test
+    void should_return_all_books_with_all_info() {
+        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
+        sessionFactory.getStatistics().setStatisticsEnabled(true);
+
+        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
+        val students = bookRepoJpa.getAll();
+        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
+                            .allMatch(b -> !b.getName().equals(""))
+                            .allMatch(b -> b.getGenre() != null)
+                            .allMatch(b -> b.getAuthor() != null)
+                            .allMatch(b -> b.getComments() != null && b.getComments().size() > 0);
+        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
+        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
+    }
+
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
-        assertThat(bookDaoJdbc.count()).isEqualTo(6);
+        assertThat(bookRepoJpa.count()).isEqualTo(6);
     }
 
     @Test
@@ -46,9 +64,9 @@ class BookRepositoryJpaTest {
 
         Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
 
-        bookDaoJdbc.createOrUpdate(book);
+        bookRepoJpa.createOrUpdate(book);
 
-        List<Book> bookList = bookDaoJdbc.getAll();
+        List<Book> bookList = bookRepoJpa.getAll();
 
         long count = bookList.stream().filter(book1 -> book1.getName().equals("NameBook")).count();
 
@@ -58,35 +76,35 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        Book book = bookDaoJdbc.getById(10);
+        Book book = bookRepoJpa.getById(10);
         Book updatedBook = book.toBuilder().name("UpdateName").build();
-        bookDaoJdbc.update(updatedBook);
+        bookRepoJpa.update(updatedBook);
 
-        Book bookUpdated = bookDaoJdbc.getById(10);
+        Book bookUpdated = bookRepoJpa.getById(10);
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookDaoJdbc.getById(10);
+        Book book = bookRepoJpa.getById(10);
         assertThat(book).isNotNull();
     }
 
     @Test
     @DisplayName("Достать все книги из БД")
     void getAll() {
-        List<Book> bookList = bookDaoJdbc.getAll();
+        List<Book> bookList = bookRepoJpa.getAll();
         assertThat(bookList).hasSize(6);
     }
 
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        assertThatCode(() -> bookDaoJdbc.getById(10)).doesNotThrowAnyException();
+        assertThatCode(() -> bookRepoJpa.getById(10)).doesNotThrowAnyException();
 
-        bookDaoJdbc.deleteById(10);
+        bookRepoJpa.deleteById(10);
 
-        assertThatThrownBy(() -> bookDaoJdbc.getById(10)).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThatThrownBy(() -> bookRepoJpa.getById(10)).isInstanceOf(EmptyResultDataAccessException.class);
     }
 }
