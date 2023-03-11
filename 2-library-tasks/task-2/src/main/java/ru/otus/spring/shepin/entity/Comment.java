@@ -11,11 +11,12 @@ import lombok.*;
 @Builder
 @ToString
 @Entity
-@Table(name = "genre")
-public class Genre {
+@Table(name = "comment")
+public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long   id;
-    @Column(nullable = false,unique = true)
-    private String name;
+    private Long id;
+    @Column(nullable = false)
+    String commentText;
 }
