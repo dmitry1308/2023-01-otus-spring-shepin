@@ -1,5 +1,7 @@
 package ru.otus.spring.shepin.dao;
 
+import lombok.val;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,27 +32,26 @@ class BookRepositoryJpaTest {
     private TestEntityManager em;
 
 
-//    @DisplayName("должен загружать список всех книг с полной информацией о них")
-//    @Test
-//    void should_return_all_books_with_all_info() {
-//        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
-//        sessionFactory.getStatistics().setStatisticsEnabled(true);
-//
-//        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
-//        val students = bookRepoJpa.getAll();
-//        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
-//                            .allMatch(b -> !b.getName().equals(""))
-//                            .allMatch(b -> b.getGenre() != null)
-//                            .allMatch(b -> b.getAuthor() != null)
-//                            .allMatch(b -> b.getComments() != null && b.getComments().size() > 0);
-//        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
-//        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
-//    }
+    @DisplayName("должен загружать список всех книг с полной информацией о них")
+    @Test
+    void should_return_all_books_with_all_info() {
+        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
+        sessionFactory.getStatistics().setStatisticsEnabled(true);
+
+        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
+        val students = bookRepoJpa.getAll();
+        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
+                            .allMatch(b -> !b.getName().equals(""))
+                            .allMatch(b -> b.getGenre() != null)
+                            .allMatch(b -> b.getAuthor() != null);
+        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
+        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
+    }
 
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
-        assertThat(bookRepoJpa.count()).isEqualTo(6);
+        assertThat(bookRepoJpa.count()).isEqualTo(3);
     }
 
     @Test
@@ -74,18 +75,18 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        Book book = bookRepoJpa.getById(10);
+        Book book = bookRepoJpa.getById(100);
         Book updatedBook = book.toBuilder().name("UpdateName").build();
         bookRepoJpa.update(updatedBook);
 
-        Book bookUpdated = bookRepoJpa.getById(10);
+        Book bookUpdated = bookRepoJpa.getById(100);
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookRepoJpa.getById(10);
+        Book book = bookRepoJpa.getById(100);
         assertThat(book).isNotNull();
     }
 
@@ -93,16 +94,16 @@ class BookRepositoryJpaTest {
     @DisplayName("Достать все книги из БД")
     void getAll() {
         List<Book> bookList = bookRepoJpa.getAll();
-        assertThat(bookList).hasSize(6);
+        assertThat(bookList).hasSize(3);
     }
 
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        assertThatCode(() -> bookRepoJpa.getById(10)).doesNotThrowAnyException();
+        assertThatCode(() -> bookRepoJpa.getById(100)).doesNotThrowAnyException();
 
-        bookRepoJpa.deleteById(10);
+        bookRepoJpa.deleteById(100);
 
-        assertThatThrownBy(() -> bookRepoJpa.getById(10)).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThatThrownBy(() -> bookRepoJpa.getById(100)).isInstanceOf(EmptyResultDataAccessException.class);
     }
 }
