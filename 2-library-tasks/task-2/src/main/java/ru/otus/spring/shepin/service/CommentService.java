@@ -2,8 +2,10 @@ package ru.otus.spring.shepin.service;
 
 import ru.otus.spring.shepin.entity.Comment;
 
-public interface CommentService {
-    Comment create(Long bookId, String lastName);
+import java.util.List;
 
-    Comment getById(Long id);
+public interface CommentService {
+    Comment createByParams(Long bookId, String lastName);
+    public List<Comment> getAllCommentsByBookId(Long bookId);
+    void deleteAllCommentsByBookId(Long bookId);
 }

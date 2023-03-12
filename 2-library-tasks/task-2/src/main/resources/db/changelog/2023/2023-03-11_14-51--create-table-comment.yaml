@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 2023-03-11--create-table-comment
+      id: 2023-03-11--createByParams-table-comment
       author: shepin
       createTable:
         tableName: comment

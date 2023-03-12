@@ -11,6 +11,8 @@ import ru.otus.spring.shepin.dao.CommentRepository;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Comment;
 
+import java.util.List;
+
 @Service
 @ShellComponent
 @RequiredArgsConstructor
@@ -20,19 +22,26 @@ public class CommentServiceJpa implements CommentService {
 
     @Override
     @Transactional
-    @ShellMethod(value = "create comment by bookId", key = {"c-c-by-book-id"})
-    public Comment create(@ShellOption(defaultValue = "100") Long bookId,
-                          @ShellOption(defaultValue = "my comment") String commentText) {
+    @ShellMethod(value = "createByParams comment by bookId", key = {"c-c-by-book-id"})
+    public Comment createByParams(@ShellOption(defaultValue = "100") Long bookId,
+                                  @ShellOption(defaultValue = "my_comment") String commentText) {
 
         final Book book = bookService.getById(bookId);
-        final Comment comment = Comment.builder().commentText(commentText).build();
-
-        return commentRepository.createByBookId(book.getId(), comment);
+        final Comment comment = Comment.builder().commentText(commentText).book(book).build();
+        return commentRepository.create(comment);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Comment getById(Long id) {
-        return commentRepository.getById(id);
+    public List<Comment> getAllCommentsByBookId(Long bookId) {
+        final Book book = bookService.getById(bookId);
+        return commentRepository.getAllCommentsByBook(book.getId());
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllCommentsByBookId(Long bookId) {
+        final Book book = bookService.getById(bookId);
+        commentRepository.deleteAllCommentsByBookId(book.getId());
     }
 }

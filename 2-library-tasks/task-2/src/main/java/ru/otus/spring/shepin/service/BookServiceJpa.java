@@ -75,7 +75,7 @@ public class BookServiceJpa implements BookService {
     @Override
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get comments by book name", key = {"get-comment-by-book-name"})
-    public List<Comment> getCommentsByBookName(@ShellOption(defaultValue = "Any book") String name) {
+    public List<Comment> getCommentsByBookName(@ShellOption(defaultValue = "Book-1") String name) {
         return bookRepository.getCommentsByBookName(name);
     }
 }

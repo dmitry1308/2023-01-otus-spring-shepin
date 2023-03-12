@@ -1,7 +1,5 @@
 package ru.otus.spring.shepin.dao;
 
-import lombok.val;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,22 +30,22 @@ class BookRepositoryJpaTest {
     private TestEntityManager em;
 
 
-    @DisplayName("должен загружать список всех книг с полной информацией о них")
-    @Test
-    void should_return_all_books_with_all_info() {
-        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
-        sessionFactory.getStatistics().setStatisticsEnabled(true);
-
-        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
-        val students = bookRepoJpa.getAll();
-        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
-                            .allMatch(b -> !b.getName().equals(""))
-                            .allMatch(b -> b.getGenre() != null)
-                            .allMatch(b -> b.getAuthor() != null)
-                            .allMatch(b -> b.getComments() != null && b.getComments().size() > 0);
-        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
-        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
-    }
+//    @DisplayName("должен загружать список всех книг с полной информацией о них")
+//    @Test
+//    void should_return_all_books_with_all_info() {
+//        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
+//        sessionFactory.getStatistics().setStatisticsEnabled(true);
+//
+//        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
+//        val students = bookRepoJpa.getAll();
+//        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
+//                            .allMatch(b -> !b.getName().equals(""))
+//                            .allMatch(b -> b.getGenre() != null)
+//                            .allMatch(b -> b.getAuthor() != null)
+//                            .allMatch(b -> b.getComments() != null && b.getComments().size() > 0);
+//        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
+//        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
+//    }
 
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")

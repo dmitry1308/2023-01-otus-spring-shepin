@@ -47,7 +47,7 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public List<Book> getAll() {
-        String sql = "select b from Book b join fetch b.comments";
+        String sql = "select b from Book b";
 
         final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
         return query.getResultList();
