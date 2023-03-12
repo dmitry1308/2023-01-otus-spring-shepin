@@ -1,8 +1,6 @@
 package ru.otus.spring.shepin.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Book;
@@ -47,17 +45,27 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public List<Book> getAll() {
+        EntityGraph<?> entityGraph = manager.getEntityGraph("book-genre-entity-graph");
+
         String sql = "select b from Book b";
 
         final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
+        query.setHint("javax.persistence.fetchgraph",entityGraph);
         return query.getResultList();
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
+        {
+            String sql = "delete from Comment c where c.book.id = :id";
+            final Query query = manager.createQuery(sql);
+            query.setParameter("id", id);
+            query.executeUpdate();
+        }
+
         String sql = "delete from Book b where b.id = :id";
 
-        final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
+        final Query query = manager.createQuery(sql);
         query.setParameter("id", id);
         query.executeUpdate();
     }
@@ -65,7 +73,8 @@ public class BookRepositoryJpa implements BookRepository {
     @Override
     public List<Comment> getCommentsByBookName(String name) {
         String sql = """
-        select b.comments from Book b 
+        select c from Comment c
+        join c.book b
         where b.name =:name
         """;
 

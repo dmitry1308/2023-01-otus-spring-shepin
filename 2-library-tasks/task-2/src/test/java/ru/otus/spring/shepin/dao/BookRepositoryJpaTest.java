@@ -8,16 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.EmptyResultDataAccessException;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
+import ru.otus.spring.shepin.entity.Comment;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 @DataJpaTest
@@ -25,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Dao для работы с книгами")
 class BookRepositoryJpaTest {
     private static final int EXPECTED_NUMBER_OF_BOOKS = 3;
-    private static final long EXPECTED_QUERIES_COUNT  = 3;
+    private static final long EXPECTED_QUERIES_COUNT  = 1;
     @Autowired
     private BookRepositoryJpa bookRepoJpa;
     @Autowired
@@ -51,7 +50,7 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
-        assertThat(bookRepoJpa.count()).isEqualTo(3);
+        assertThat(bookRepoJpa.count()).isEqualTo(EXPECTED_NUMBER_OF_BOOKS);
     }
 
     @Test
@@ -94,16 +93,27 @@ class BookRepositoryJpaTest {
     @DisplayName("Достать все книги из БД")
     void getAll() {
         List<Book> bookList = bookRepoJpa.getAll();
-        assertThat(bookList).hasSize(3);
+        assertThat(bookList).hasSize(EXPECTED_NUMBER_OF_BOOKS);
     }
 
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
         assertThatCode(() -> bookRepoJpa.getById(100)).doesNotThrowAnyException();
+        final Book book = bookRepoJpa.getById(100);
+        bookRepoJpa.deleteById(book.getId());
+        em.clear();
 
-        bookRepoJpa.deleteById(100);
+        final Book deletedBook = em.find(Book.class, book.getId());
+        assertThat(deletedBook).isNull();
+    }
+    @Test
+    @DisplayName("Получить все комментарии книги")
+    void get_all_comment_by_book_name() {
+        List<Book> bookList = bookRepoJpa.getAll();
 
-        assertThatThrownBy(() -> bookRepoJpa.getById(100)).isInstanceOf(EmptyResultDataAccessException.class);
+        final List<Comment> commentsByBookName = bookRepoJpa.getCommentsByBookName(bookList.get(0).getName());
+
+        assertThat(commentsByBookName).hasSize(2);
     }
 }

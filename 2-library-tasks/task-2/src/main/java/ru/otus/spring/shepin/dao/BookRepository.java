@@ -16,7 +16,7 @@ public interface BookRepository {
 
     List<Book> getAll();
 
-    void deleteById(long id);
+    void deleteById(Long id);
 
     List<Comment> getCommentsByBookName(String name);
 }
