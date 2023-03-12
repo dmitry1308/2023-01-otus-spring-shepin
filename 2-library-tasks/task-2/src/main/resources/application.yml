@@ -27,7 +27,7 @@ spring:
 
   shell:
     interactive:
-      enabled: false
+      enabled: true
     command:
       stacktrace:
         enabled: true

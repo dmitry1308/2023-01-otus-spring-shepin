@@ -23,10 +23,10 @@ public class Book {
     @Column(nullable = false, unique = true)
     private String name;
     @JoinColumn(name = "genre_id")
-    @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Genre  genre;
     @JoinColumn(name = "author_id")
-    @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Author author;
 
 
