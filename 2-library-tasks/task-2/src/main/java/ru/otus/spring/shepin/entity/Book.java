@@ -30,8 +30,7 @@ public class Book {
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Author author;
 
-    @ManyToMany(targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "book_comment", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    @OneToMany(mappedBy = "book")
     private List<Comment> comments;
 
 

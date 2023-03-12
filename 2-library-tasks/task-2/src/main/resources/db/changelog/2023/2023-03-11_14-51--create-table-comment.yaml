@@ -20,3 +20,11 @@ databaseChangeLog:
               type: varchar(200)
               constraints:
                 nullable: false
+
+          - column:
+              name: book_id
+              type: bigint
+              constraints:
+                nullable: false
+                foreignKeyName: fk_book_comment
+                references: book(id)

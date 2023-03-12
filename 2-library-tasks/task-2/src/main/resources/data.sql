@@ -31,18 +31,3 @@ insert into comment(id, comment_text)
 values (500, 'Comment-5');
 insert into comment(id, comment_text)
 values (600, 'Comment-6');
-
-insert into book_comment(id, book_id, comment_id)
-values (100, 100, 100);
-insert into book_comment(id, book_id, comment_id)
-values (200, 100, 200);
-insert into book_comment(id, book_id, comment_id)
-values (300, 200, 300);
-insert into book_comment(id, book_id, comment_id)
-values (400, 200, 400);
-insert into book_comment(id, book_id, comment_id)
-values (500, 300, 500);
-insert into book_comment(id, book_id, comment_id)
-values (600, 300, 600);
-
-
