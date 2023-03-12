@@ -6,31 +6,31 @@ insert into genre (id, `name`)
 values (300, 'Genre-3');
 
 insert into author (id, `first_name`, `last_name`)
-values (100, 'Last name 1', 'First Name 1');
+values (100, 'Last-name-1', 'First-Name-1');
 insert into author (id, `first_name`, `last_name`)
-values (200, 'Last name 2', 'First Name 2');
+values (200, 'Last-name-2', 'First-Name-2');
 insert into author (id, `first_name`, `last_name`)
-values (300, 'Last name 3', 'First Name 3');
+values (300, 'Last-name-3', 'First-Name-3');
 
 insert into book (id, `name`, `author_id`, `genre_id`)
-values (100, 'Book name 1', 100, 100);
+values (100, 'Book-1', 100, 100);
 insert into book (id, `name`, `author_id`, `genre_id`)
-values (200, 'Book name 2', 200, 200);
+values (200, 'Book-2', 200, 200);
 insert into book (id, `name`, `author_id`, `genre_id`)
-values (300, 'Book name 3', 200, 200);
+values (300, 'Book-3', 200, 200);
 
 insert into comment(id, comment_text)
-values (100, 'Comment 1');
+values (100, 'Comment-1');
 insert into comment(id, comment_text)
-values (200, 'Comment 2');
+values (200, 'Comment-2');
 insert into comment(id, comment_text)
-values (300, 'Comment 3');
+values (300, 'Comment-3');
 insert into comment(id, comment_text)
-values (400, 'Comment 4');
+values (400, 'Comment-4');
 insert into comment(id, comment_text)
-values (500, 'Comment 5');
+values (500, 'Comment-5');
 insert into comment(id, comment_text)
-values (600, 'Comment 6');
+values (600, 'Comment-6');
 
 insert into book_comment(id, book_id, comment_id)
 values (100, 100, 100);

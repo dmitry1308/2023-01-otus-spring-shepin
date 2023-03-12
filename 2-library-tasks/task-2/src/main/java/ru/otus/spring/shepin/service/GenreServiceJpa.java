@@ -19,7 +19,7 @@ public class GenreServiceJpa implements GenreService {
 
     @Override
     @Transactional
-    @ShellMethod(value = "createOrUpdate author", key = {"c-g"})
+    @ShellMethod(value = "createByBookId author", key = {"c-g"})
     public Genre create(@ShellOption(defaultValue = "some genre") String name) {
         Genre genre = Genre.builder().name(name).build();
         return genreDao.createOrUpdate(genre);

@@ -65,8 +65,7 @@ public class BookRepositoryJpa implements BookRepository {
     @Override
     public List<Comment> getCommentsByBookName(String name) {
         String sql = """
-        select c from Book b 
-        join b.comments c
+        select b.comments from Book b 
         where b.name =:name
         """;
 
