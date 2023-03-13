@@ -13,6 +13,7 @@ import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -47,7 +48,8 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Обновить книгу по имени")
     void updateByName() {
-        when(bookRepositoryJdbc.getById(1L)).thenReturn(Book.builder().id(1L).name("Name").build());
+        final Book book = Book.builder().id(1L).name("Name").build();
+        when(bookRepositoryJdbc.getById(1L)).thenReturn(Optional.of(book));
         assertThatCode(() -> bookService.updateByName(1L, "new name")).doesNotThrowAnyException();
         verify(bookRepositoryJdbc).update(Book.builder().id(1L).name("new name").build());
     }
@@ -55,7 +57,9 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Получить книгу по id")
     void getById() {
-        when(bookRepositoryJdbc.getById(1L)).thenReturn(Book.builder().name("Name").build());
+
+        final Book book1 = Book.builder().name("Name").build();
+        when(bookRepositoryJdbc.getById(1L)).thenReturn(Optional.of(book1));
         Book book = bookService.getById(1L);
         assertThat(book).hasFieldOrPropertyWithValue(book.getName(), "Name");
     }

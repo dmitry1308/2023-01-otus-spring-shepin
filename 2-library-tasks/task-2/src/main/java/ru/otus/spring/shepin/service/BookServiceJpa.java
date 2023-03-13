@@ -1,5 +1,6 @@
 package ru.otus.spring.shepin.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -45,7 +46,7 @@ public class BookServiceJpa implements BookService {
     @Transactional
     @ShellMethod(value = "Update book by name", key = {"u-book-by-name"})
     public void updateByName(Long id, String name) {
-        Book book = bookRepository.getById(id);
+        Book book = bookRepository.getById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
         Book updateBook = book.toBuilder().name(name).build();
         bookRepository.update(updateBook);
     }
@@ -54,7 +55,7 @@ public class BookServiceJpa implements BookService {
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
     public Book getById(long id) {
-        return bookRepository.getById(id);
+        return bookRepository.getById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
     }
 
     @Override

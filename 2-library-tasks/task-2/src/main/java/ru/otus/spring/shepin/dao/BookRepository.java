@@ -3,6 +3,7 @@ package ru.otus.spring.shepin.dao;
 import ru.otus.spring.shepin.entity.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository {
     int count();
@@ -11,7 +12,7 @@ public interface BookRepository {
 
     void update(Book book);
 
-    Book getById(long id);
+    Optional<Book> getById(long id);
 
     List<Book> getAll();
 

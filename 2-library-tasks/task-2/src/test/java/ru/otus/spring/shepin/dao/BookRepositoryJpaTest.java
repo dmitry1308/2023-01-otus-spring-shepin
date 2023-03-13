@@ -73,18 +73,18 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        Book book = bookRepoJpa.getById(100);
+        Book book = bookRepoJpa.getById(100).get();
         Book updatedBook = book.toBuilder().name("UpdateName").build();
         bookRepoJpa.update(updatedBook);
 
-        Book bookUpdated = bookRepoJpa.getById(100);
+        Book bookUpdated = bookRepoJpa.getById(100).get();
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookRepoJpa.getById(100);
+        Book book = bookRepoJpa.getById(100).get();
         assertThat(book).isNotNull();
     }
 
@@ -99,7 +99,7 @@ class BookRepositoryJpaTest {
     @DisplayName("Удалить книгу по id")
     void deleteById() {
         assertThatCode(() -> bookRepoJpa.getById(100)).doesNotThrowAnyException();
-        final Book book = bookRepoJpa.getById(100);
+        final Book book = bookRepoJpa.getById(100).get();
         bookRepoJpa.deleteById(book.getId());
         em.clear();
 

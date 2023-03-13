@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,12 +32,13 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    public Book getById(long id) {
+    public Optional<Book> getById(long id) {
         String sql = "select b from Book b where b.id = :id";
 
         final TypedQuery<Book> query = manager.createQuery(sql, Book.class);
         query.setParameter("id", id);
-        return query.getSingleResult();
+        final Book book = query.getSingleResult();
+        return Optional.of(book);
     }
 
     @Override
