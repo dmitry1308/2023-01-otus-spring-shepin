@@ -62,7 +62,7 @@ class BookRepositoryJpaTest {
 
         Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
 
-        bookRepoJpa.createOrUpdate(book);
+        bookRepoJpa.create(book);
 
         List<Book> bookList = bookRepoJpa.getAll();
 

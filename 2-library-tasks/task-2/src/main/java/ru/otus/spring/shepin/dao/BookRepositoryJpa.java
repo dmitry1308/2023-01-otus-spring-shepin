@@ -21,12 +21,9 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    public Book createOrUpdate(Book book) {
-        if (book.getId() == null) {
-            manager.persist(book);
-            return book;
-        }
-        return manager.merge(book);
+    public Book create(Book book) {
+        manager.persist(book);
+        return book;
     }
 
     @Override
@@ -73,10 +70,10 @@ public class BookRepositoryJpa implements BookRepository {
     @Override
     public List<Comment> getCommentsByBookName(String name) {
         String sql = """
-        select c from Comment c
-        join c.book b
-        where b.name =:name
-        """;
+                select c from Comment c
+                join c.book b
+                where b.name =:name
+                """;
 
         final TypedQuery<Comment> query = manager.createQuery(sql, Comment.class);
         query.setParameter("name", name);

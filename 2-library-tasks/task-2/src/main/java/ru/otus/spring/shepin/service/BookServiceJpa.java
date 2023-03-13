@@ -39,7 +39,7 @@ public class BookServiceJpa implements BookService {
         Genre genre = Genre.builder().name(genreName).build();
 
         Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
-       return bookRepository.createOrUpdate(book);
+       return bookRepository.create(book);
     }
 
     @Override

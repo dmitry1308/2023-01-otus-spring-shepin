@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookRepository {
     int count();
 
-    Book createOrUpdate(Book book);
+    Book create(Book book);
 
     void update(Book book);
 

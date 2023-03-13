@@ -41,7 +41,7 @@ class BookServiceJpaTest {
         Author author = Author.builder().firstName("First name author").lastName("Last name author").build();
         Genre genre = Genre.builder().name("genre").build();
         Book book = Book.builder().name("Name book").author(author).genre(genre).build();
-        verify(bookRepositoryJdbc).createOrUpdate(book);
+        verify(bookRepositoryJdbc).create(book);
     }
 
     @Test

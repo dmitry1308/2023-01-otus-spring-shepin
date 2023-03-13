@@ -29,7 +29,7 @@ class CommentRepoJpaTest {
     void create_comment_by_book_id() {
 
         final Book book = Book.builder().name("bookName").build();
-        bookRepositoryJpa.createOrUpdate(book);
+        bookRepositoryJpa.create(book);
 
         final Comment comment = Comment.builder().commentText(COMMENT_1).book(book).build();
         commentRepositoryJpa.create(comment);
@@ -43,7 +43,7 @@ class CommentRepoJpaTest {
     @Test
     void get_all_comments_by_book() {
         final Book book = Book.builder().name("bookName").build();
-        bookRepositoryJpa.createOrUpdate(book);
+        bookRepositoryJpa.create(book);
 
         int countComment = 3;
         for (int i = 1; i <= countComment; i++) {
