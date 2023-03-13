@@ -19,7 +19,7 @@ public class Comment {
     @Column(name = "comment_text", nullable = false)
     String commentText;
 
-    @ManyToOne(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
     private Book book;
 }
