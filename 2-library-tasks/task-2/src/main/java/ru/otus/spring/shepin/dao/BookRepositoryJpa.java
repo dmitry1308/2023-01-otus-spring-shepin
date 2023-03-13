@@ -54,13 +54,6 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public void deleteById(Long id) {
-        {
-            String sql = "delete from Comment c where c.book.id = :id";
-            final Query query = manager.createQuery(sql);
-            query.setParameter("id", id);
-            query.executeUpdate();
-        }
-
         String sql = "delete from Book b where b.id = :id";
 
         final Query query = manager.createQuery(sql);
