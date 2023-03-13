@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Comment;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
@@ -106,14 +105,5 @@ class BookRepositoryJpaTest {
 
         final Book deletedBook = em.find(Book.class, book.getId());
         assertThat(deletedBook).isNull();
-    }
-    @Test
-    @DisplayName("Получить все комментарии книги")
-    void get_all_comment_by_book_name() {
-        List<Book> bookList = bookRepoJpa.getAll();
-
-        final List<Comment> commentsByBookName = bookRepoJpa.getCommentsByBookName(bookList.get(0).getName());
-
-        assertThat(commentsByBookName).hasSize(2);
     }
 }

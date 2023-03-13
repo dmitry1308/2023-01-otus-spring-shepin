@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.shepin.dao.BookRepository;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Comment;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
@@ -70,12 +69,5 @@ public class BookServiceJpa implements BookService {
     @ShellMethod(value = "Delete book by id", key = {"del-book-id"})
     public void deleteById(long id) {
         bookRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    @ShellMethod(value = "Get comments by book name", key = {"get-comment-by-book-name"})
-    public List<Comment> getCommentsByBookName(@ShellOption(defaultValue = "Book-1") String name) {
-        return bookRepository.getCommentsByBookName(name);
     }
 }
