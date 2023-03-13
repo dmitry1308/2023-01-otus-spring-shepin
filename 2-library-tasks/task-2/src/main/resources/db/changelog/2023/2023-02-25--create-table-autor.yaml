@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 2023-02-25--create-table-author
+      id: 2023-02-25--createByParams-table-author
       author: shepin
       createTable:
         tableName: author

@@ -1,14 +1,8 @@
 package ru.otus.spring.shepin.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -18,11 +12,23 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @ToString
+@Entity
+@Table(name = "book")
+@NamedEntityGraph(name = "book-genre-entity-graph",
+        attributeNodes = {@NamedAttributeNode("genre")})
 public class Book {
-    private  Long   id;
-    private  String name;
-    private  Genre  genre;
-    private  Author author;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long   id;
+    @Column(nullable = false, unique = true)
+    private String name;
+    @JoinColumn(name = "genre_id")
+    @ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Genre  genre;
+    @JoinColumn(name = "author_id")
+    @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Author author;
+
 
     @Override
     public boolean equals(Object o) {
