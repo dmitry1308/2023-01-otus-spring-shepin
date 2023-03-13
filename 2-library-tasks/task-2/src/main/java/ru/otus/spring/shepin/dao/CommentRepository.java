@@ -9,6 +9,6 @@ public interface CommentRepository {
     Comment getById(Long id);
 
     void delete(Comment comment);
-    List<Comment> getAllCommentsByBook(Long bookId);
+    List<Comment> getAllComments(Long bookId);
     void deleteAllCommentsByBookId(Long bookId);
 }

@@ -36,7 +36,7 @@ public class CommentServiceJpa implements CommentService {
     @ShellMethod(value = "Get comments by book id", key = {"get-comments-by-book-id"})
     public List<Comment> getAllCommentsByBookId(Long bookId) {
         final Book book = bookService.getById(bookId);
-        return commentRepository.getAllCommentsByBook(book.getId());
+        return commentRepository.getAllComments(book.getId());
     }
 
     @Override

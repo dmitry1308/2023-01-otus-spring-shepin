@@ -51,7 +51,7 @@ class CommentRepoJpaTest {
             commentRepositoryJpa.create(comment);
         }
 
-        final List<Comment> allCommentsByBook = commentRepositoryJpa.getAllCommentsByBook(book.getId());
+        final List<Comment> allCommentsByBook = commentRepositoryJpa.getAllComments(book.getId());
         assertThat(allCommentsByBook).hasSize(3)
                                      .anyMatch(c -> c.getCommentText().equals("Comment  1"))
                                      .anyMatch(c -> c.getCommentText().equals("Comment  2"))
@@ -64,10 +64,10 @@ class CommentRepoJpaTest {
     void delete_all_comments_by_book() {
         final List<Book> bookList = bookRepositoryJpa.getAll();
 
-        final List<Comment> commentsByBook = commentRepositoryJpa.getAllCommentsByBook(bookList.get(0).getId());
+        final List<Comment> commentsByBook = commentRepositoryJpa.getAllComments(bookList.get(0).getId());
         commentRepositoryJpa.deleteAllCommentsByBookId(commentsByBook.get(0).getBook().getId());
 
-        final List<Comment> deletedCommentsByBook = commentRepositoryJpa.getAllCommentsByBook(bookList.get(0).getId());
+        final List<Comment> deletedCommentsByBook = commentRepositoryJpa.getAllComments(bookList.get(0).getId());
         assertThat(deletedCommentsByBook).hasSize(0);
     }
 }

@@ -36,7 +36,7 @@ public class CommentRepositoryJpa implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getAllCommentsByBook(Long bookId) {
+    public List<Comment> getAllComments(Long bookId) {
         String sql = """
         select c from Comment c
         join c.book b
