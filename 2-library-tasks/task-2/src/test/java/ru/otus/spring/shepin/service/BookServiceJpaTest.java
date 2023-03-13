@@ -1,5 +1,6 @@
 package ru.otus.spring.shepin.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -78,4 +79,12 @@ class BookServiceJpaTest {
         bookService.deleteById(1L);
         verify(bookRepositoryJdbc).deleteById(1L);
     }
+
+    @Test
+    @DisplayName("Кинуть исключение, если книга не найдена по id")
+    void throw_exception_if_book_did_not_find() {
+
+        assertThatCode(() -> bookService.getById(1L)).isInstanceOf(EntityNotFoundException.class);
+    }
+
 }

@@ -1,5 +1,6 @@
 package ru.otus.spring.shepin.dao;
 
+import jakarta.persistence.NoResultException;
 import lombok.val;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
@@ -105,5 +106,11 @@ class BookRepositoryJpaTest {
 
         final Book deletedBook = em.find(Book.class, book.getId());
         assertThat(deletedBook).isNull();
+    }
+
+    @Test
+    @DisplayName("Кинуть исключение, если книга не найдена по id")
+    void throw_exception_if_book_did_not_find() {
+        assertThatCode(() -> bookRepoJpa.getById(1000)).isInstanceOf(NoResultException.class);
     }
 }
