@@ -1,3 +1,6 @@
+server:
+  port: 8082
+
 spring:
 
   datasource:
@@ -16,7 +19,7 @@ spring:
 
   h2:
     console:
-      enabled: false
+      enabled: true
       path: /h2-console
       settings:
         web-allow-others: false
@@ -26,7 +29,7 @@ spring:
      data-locations: data.sql
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
   shell:
@@ -35,10 +38,6 @@ spring:
     command:
       stacktrace:
         enabled: true
-
-
-server:
-  port: 8082
 
 logging:
   level:
