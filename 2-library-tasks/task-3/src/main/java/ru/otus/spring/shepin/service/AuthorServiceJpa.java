@@ -24,7 +24,7 @@ public class AuthorServiceJpa implements AuthorService {
     public Author create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
                        @ShellOption(defaultValue = "lastNameAuthor")String lastName) {
         Author author = Author.builder().firstName(firstName).lastName(lastName).build();
-        return authorDao.createOrUpdate(author);
+        return authorDao.save(author);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class AuthorServiceJpa implements AuthorService {
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get all authors", key = {"get-authors"})
     public List<Author> getAll() {
-        return authorDao.getAll();
+        return authorDao.findAll();
     }
 }
