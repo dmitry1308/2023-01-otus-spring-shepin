@@ -24,6 +24,10 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @DisplayName("Тестирование сервиса книги")
 class BookServiceJpaTest {
+    public static final String LAST_NAME_AUTHOR = "Last name author";
+    public static final String GENRE = "genre";
+    public static final String NAME_BOOK = "Name book";
+    public static final String FIRST_NAME_AUTHOR = "First name author";
     @Autowired
     private BookService    bookService;
     @MockBean
@@ -38,11 +42,11 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Создать книгу")
     void create() {
-        bookService.create("Name book", "First name author", "Last name author", "genre");
+        bookService.create(NAME_BOOK, FIRST_NAME_AUTHOR, LAST_NAME_AUTHOR, GENRE);
 
-        Author author = Author.builder().firstName("First name author").lastName("Last name author").build();
-        Genre genre = Genre.builder().name("genre").build();
-        Book book = Book.builder().name("Name book").author(author).genre(genre).build();
+        Author author = Author.builder().firstName(FIRST_NAME_AUTHOR).lastName(LAST_NAME_AUTHOR).build();
+        Genre genre = Genre.builder().name(GENRE).build();
+        Book book = Book.builder().name(NAME_BOOK).author(author).genre(genre).build();
         verify(bookRepositoryJdbc).create(book);
     }
 
