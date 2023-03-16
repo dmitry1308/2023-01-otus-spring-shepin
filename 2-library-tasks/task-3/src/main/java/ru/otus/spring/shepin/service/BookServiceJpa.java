@@ -23,7 +23,7 @@ public class BookServiceJpa implements BookService {
     @Override
     @ShellMethod(value = "Get count books", key = {"get-count-books"})
     public int count() {
-        return bookRepository.count();
+        return (int) bookRepository.count();
     }
 
     @Override
@@ -39,30 +39,30 @@ public class BookServiceJpa implements BookService {
         Genre genre = Genre.builder().name(genreName).build();
 
         Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
-       return bookRepository.create(book);
+       return bookRepository.save(book);
     }
 
     @Override
     @Transactional
     @ShellMethod(value = "Update book by name", key = {"u-book-by-name"})
     public void updateByName(Long id, String name) {
-        Book book = bookRepository.getById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
         Book updateBook = book.toBuilder().name(name).build();
-        bookRepository.update(updateBook);
+        bookRepository.save(updateBook);
     }
 
     @Override
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
     public Book getById(long id) {
-        return bookRepository.getById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
+        return bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
     }
 
     @Override
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get all books", key = {"get-all-books"})
     public List<Book> getAll() {
-        return bookRepository.getAll();
+        return bookRepository.findAll();
     }
 
     @Override

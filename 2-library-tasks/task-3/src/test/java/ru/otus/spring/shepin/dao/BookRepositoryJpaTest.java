@@ -1,6 +1,5 @@
 package ru.otus.spring.shepin.dao;
 
-import jakarta.persistence.NoResultException;
 import lombok.val;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -16,17 +14,15 @@ import ru.otus.spring.shepin.entity.Genre;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 
 
 @DataJpaTest
-@Import({BookRepositoryJpa.class})
 @DisplayName("Dao для работы с книгами")
 class BookRepositoryJpaTest {
     private static final int EXPECTED_NUMBER_OF_BOOKS = 3;
     private static final long EXPECTED_QUERIES_COUNT  = 1;
     @Autowired
-    private BookRepositoryJpa bookRepoJpa;
+    private BookRepository    bookRepo;
     @Autowired
     private TestEntityManager em;
 
@@ -38,7 +34,7 @@ class BookRepositoryJpaTest {
         sessionFactory.getStatistics().setStatisticsEnabled(true);
 
         System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
-        val students = bookRepoJpa.getAll();
+        val students = bookRepo.findAll();
         assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
                             .allMatch(b -> !b.getName().equals(""))
                             .allMatch(b -> b.getGenre() != null)
@@ -50,7 +46,7 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
-        assertThat(bookRepoJpa.count()).isEqualTo(EXPECTED_NUMBER_OF_BOOKS);
+        assertThat(bookRepo.count()).isEqualTo(EXPECTED_NUMBER_OF_BOOKS);
     }
 
     @Test
@@ -62,9 +58,9 @@ class BookRepositoryJpaTest {
 
         Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
 
-        bookRepoJpa.create(book);
+        bookRepo.save(book);
 
-        List<Book> bookList = bookRepoJpa.getAll();
+        List<Book> bookList = bookRepo.findAll();
 
         long count = bookList.stream().filter(book1 -> book1.getName().equals("NameBook")).count();
 
@@ -74,43 +70,36 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        Book book = bookRepoJpa.getById(100).get();
+        final Book book = bookRepo.findById(100L).get();
         Book updatedBook = book.toBuilder().name("UpdateName").build();
-        bookRepoJpa.update(updatedBook);
+        bookRepo.save(updatedBook);
 
-        Book bookUpdated = bookRepoJpa.getById(100).get();
+        Book bookUpdated = bookRepo.findById(100L).get();
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookRepoJpa.getById(100).get();
+        Book book = bookRepo.findById(100L).get();
         assertThat(book).isNotNull();
     }
 
     @Test
     @DisplayName("Достать все книги из БД")
     void getAll() {
-        List<Book> bookList = bookRepoJpa.getAll();
+        List<Book> bookList = bookRepo.findAll();
         assertThat(bookList).hasSize(EXPECTED_NUMBER_OF_BOOKS);
     }
 
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        assertThatCode(() -> bookRepoJpa.getById(100)).doesNotThrowAnyException();
-        final Book book = bookRepoJpa.getById(100).get();
-        bookRepoJpa.deleteById(book.getId());
+        Book book = em.find(Book.class, 100L);
+        bookRepo.deleteById(book.getId());
         em.clear();
 
-        final Book deletedBook = em.find(Book.class, book.getId());
+         Book deletedBook = bookRepo.findById(book.getId()).get();
         assertThat(deletedBook).isNull();
-    }
-
-    @Test
-    @DisplayName("Кинуть исключение, если книга не найдена по id")
-    void throw_exception_if_book_did_not_find() {
-        assertThatCode(() -> bookRepoJpa.getById(1000)).isInstanceOf(NoResultException.class);
     }
 }

@@ -35,7 +35,7 @@ class BookServiceJpaTest {
 
     @Test
     void count() {
-        when(bookRepositoryJdbc.count()).thenReturn(6);
+        when(bookRepositoryJdbc.count()).thenReturn(6L);
         Assertions.assertThat(bookService.count()).isEqualTo(6);
     }
 
@@ -47,16 +47,16 @@ class BookServiceJpaTest {
         Author author = Author.builder().firstName(FIRST_NAME_AUTHOR).lastName(LAST_NAME_AUTHOR).build();
         Genre genre = Genre.builder().name(GENRE).build();
         Book book = Book.builder().name(NAME_BOOK).author(author).genre(genre).build();
-        verify(bookRepositoryJdbc).create(book);
+        verify(bookRepositoryJdbc).save(book);
     }
 
     @Test
     @DisplayName("Обновить книгу по имени")
     void updateByName() {
         final Book book = Book.builder().id(1L).name("Name").build();
-        when(bookRepositoryJdbc.getById(1L)).thenReturn(Optional.of(book));
+        when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book));
         assertThatCode(() -> bookService.updateByName(1L, "new name")).doesNotThrowAnyException();
-        verify(bookRepositoryJdbc).update(Book.builder().id(1L).name("new name").build());
+        verify(bookRepositoryJdbc).save(Book.builder().id(1L).name("new name").build());
     }
 
     @Test
@@ -64,7 +64,7 @@ class BookServiceJpaTest {
     void getById() {
 
         final Book book1 = Book.builder().name("Name").build();
-        when(bookRepositoryJdbc.getById(1L)).thenReturn(Optional.of(book1));
+        when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book1));
         Book book = bookService.getById(1L);
         assertThat(book).hasFieldOrPropertyWithValue(book.getName(), "Name");
     }
@@ -72,7 +72,7 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Получить все книги")
     void getAll() {
-        when(bookRepositoryJdbc.getAll()).thenReturn(Collections.singletonList(Book.builder().name("Name").build()));
+        when(bookRepositoryJdbc.findAll()).thenReturn(Collections.singletonList(Book.builder().name("Name").build()));
         List<Book> bookList = bookService.getAll();
         assertThat(bookList).hasSize(1);
     }
