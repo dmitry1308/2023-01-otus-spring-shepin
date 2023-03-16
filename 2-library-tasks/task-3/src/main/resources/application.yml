@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+spring:
+
+  datasource:
+    url: jdbc:h2:mem:librarydb
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    show-sql: true #    показывает запросы в консоли
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none # eсли значение create, то hibernate сам создаст таблицы
+
+    properties:
+      hibernate:
+        format_sql: false  # отображение скриптов создания таблиц в консоли, если значение true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console  # бд доступна по адресу http://localhost:8082/h2-console
+      settings:
+        web-allow-others: false
+  sql:
+    init:
+     mode: always # при запуске выполнять скрипт data.sql, который заполняет данными таблицы
+     data-locations: data.sql
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  shell:
+    interactive:
+      enabled: false
+    command:
+      stacktrace:
+        enabled: true
+
+logging:
+  level:
+    ROOT: ERROR

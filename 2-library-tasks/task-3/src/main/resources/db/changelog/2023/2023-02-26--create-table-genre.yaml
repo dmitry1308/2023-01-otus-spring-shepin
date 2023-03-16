@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-02-26--createByParams-table-genre
+      author: shepin
+      createTable:
+        tableName: genre
+        columns:
+          - column:
+              name: id
+              type: bigint
+              autoIncrement: true
+              constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: pk_genre
+          - column:
+              name: name
+              type: varchar(50)
