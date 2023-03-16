@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-03-11--createByParams-table-comment
+      author: shepin
+      createTable:
+        tableName: comment
+        columns:
+
+          - column:
+              name: id
+              type: bigint
+              autoIncrement: true
+              constraints:
+                nullable: false
+                primaryKey: true
+                primaryKeyName: pk_comment
+
+          - column:
+              name: comment_text
+              type: varchar(200)
+              constraints:
+                nullable: false
+
+          - column:
+              name: book_id
+              type: bigint
+              constraints:
+                foreignKeyName: fk_book_comment
+                references: book(id)
+                deleteCascade: true
