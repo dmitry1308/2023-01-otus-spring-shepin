@@ -28,7 +28,7 @@ public class CommentServiceJpa implements CommentService {
 
         final Book book = bookService.getById(bookId);
         final Comment comment = Comment.builder().commentText(commentText).book(book).build();
-        return commentRepository.create(comment);
+        return commentRepository.save(comment);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class CommentServiceJpa implements CommentService {
     @ShellMethod(value = "Get comments by book id", key = {"get-comments-by-book-id"})
     public List<Comment> getAllCommentsByBookId(Long bookId) {
         final Book book = bookService.getById(bookId);
-        return commentRepository.getAllComments(book.getId());
+        return commentRepository.findByBookId(book.getId());
     }
 
     @Override
     @Transactional
     public void deleteAllCommentsByBookId(Long bookId) {
         final Book book = bookService.getById(bookId);
-        commentRepository.deleteAllCommentsByBookId(book.getId());
+        commentRepository.deleteCommentsByBook_Id(book.getId());
     }
 }

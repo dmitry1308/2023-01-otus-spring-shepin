@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CommentRepoJpaTest {
     public static final String               COMMENT_1 = "comment1";
     @Autowired
-    private             CommentRepositoryJpa commentRepositoryJpa;
+    private             CommentRepository commentRepositoryJpa;
     @Autowired
     private             BookRepository       bookRepositoryJpa;
     @Autowired
@@ -30,7 +30,7 @@ class CommentRepoJpaTest {
         bookRepositoryJpa.save(book);
 
         final Comment comment = Comment.builder().commentText(COMMENT_1).book(book).build();
-        commentRepositoryJpa.create(comment);
+        commentRepositoryJpa.save(comment);
 
         final Comment createdComment = testManager.find(Comment.class, comment.getId());
 
@@ -46,10 +46,10 @@ class CommentRepoJpaTest {
         int countComment = 3;
         for (int i = 1; i <= countComment; i++) {
             final Comment comment = Comment.builder().commentText("Comment  " + i).book(book).build();
-            commentRepositoryJpa.create(comment);
+            commentRepositoryJpa.save(comment);
         }
 
-        final List<Comment> allCommentsByBook = commentRepositoryJpa.getAllComments(book.getId());
+        final List<Comment> allCommentsByBook = commentRepositoryJpa.findByBookId(book.getId());
         assertThat(allCommentsByBook).hasSize(3).anyMatch(c -> c.getCommentText().equals("Comment  1")).anyMatch(c -> c.getCommentText().equals("Comment  2")).anyMatch(c -> c.getCommentText().equals("Comment  3"));
 
     }
@@ -59,10 +59,10 @@ class CommentRepoJpaTest {
     void delete_all_comments_by_book() {
         final List<Book> bookList = bookRepositoryJpa.findAll();
 
-        final List<Comment> commentsByBook = commentRepositoryJpa.getAllComments(bookList.get(0).getId());
-        commentRepositoryJpa.deleteAllCommentsByBookId(commentsByBook.get(0).getBook().getId());
+        final List<Comment> commentsByBook = commentRepositoryJpa.findByBookId(bookList.get(0).getId());
+        commentRepositoryJpa.deleteCommentsByBook_Id(commentsByBook.get(0).getBook().getId());
 
-        final List<Comment> deletedCommentsByBook = commentRepositoryJpa.getAllComments(bookList.get(0).getId());
+        final List<Comment> deletedCommentsByBook = commentRepositoryJpa.findByBookId(bookList.get(0).getId());
         assertThat(deletedCommentsByBook).hasSize(0);
     }
 }
