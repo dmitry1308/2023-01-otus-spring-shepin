@@ -19,10 +19,10 @@ public class GenreServiceJpa implements GenreService {
 
     @Override
     @Transactional
-    @ShellMethod(value = "createByParams author", key = {"c-g"})
+    @ShellMethod(value = "createByParams genre", key = {"c-g"})
     public Genre create(@ShellOption(defaultValue = "some genre") String name) {
         Genre genre = Genre.builder().name(name).build();
-        return genreDao.createOrUpdate(genre);
+        return genreDao.save(genre);
     }
 
     @Override
@@ -36,7 +36,6 @@ public class GenreServiceJpa implements GenreService {
     @Transactional(readOnly = true)
     @ShellMethod(value = "Get all genre", key = {"get-genre"})
     public List<Genre> getAll() {
-        return genreDao.getAll();
+        return genreDao.findAll();
     }
-
 }

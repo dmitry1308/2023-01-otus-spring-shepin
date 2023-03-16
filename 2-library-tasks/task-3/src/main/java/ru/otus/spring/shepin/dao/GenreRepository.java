@@ -1,15 +1,10 @@
 package ru.otus.spring.shepin.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ru.otus.spring.shepin.entity.Genre;
 
-import java.util.List;
-
-public interface GenreRepository {
-    List<Genre> getAll();
-
-    Genre createOrUpdate(Genre genre);
-
+@Repository
+public interface GenreRepository extends JpaRepository<Genre, Long> {
     Genre getByName(String name);
-
-    Genre getById(Long id);
 }
