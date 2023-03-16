@@ -4,8 +4,6 @@ package ru.otus.spring.shepin.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Objects;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,18 +26,4 @@ public class Book {
     @JoinColumn(name = "author_id")
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Author author;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return name.equals(book.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
 }
