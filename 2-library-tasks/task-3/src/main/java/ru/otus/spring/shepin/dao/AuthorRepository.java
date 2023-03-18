@@ -1,11 +1,7 @@
 package ru.otus.spring.shepin.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.otus.spring.shepin.entity.Author;
 
-import java.util.List;
-
-public interface AuthorRepository {
-    List<Author> getAll();
-    Author createOrUpdate(Author author);
-    Author getById(Long id);
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 }

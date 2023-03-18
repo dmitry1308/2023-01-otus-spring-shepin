@@ -12,8 +12,7 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "book")
-@NamedEntityGraph(name = "book-genre-entity-graph",
-        attributeNodes = {@NamedAttributeNode("genre")})
+
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
