@@ -1,8 +1,9 @@
 package ru.otus.spring.shepin.entity;
 
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
@@ -10,12 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity
-@Table(name = "genre")
+@Document(collection = "genre")
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
-    @Column(nullable = false,unique = true)
     private String name;
 }

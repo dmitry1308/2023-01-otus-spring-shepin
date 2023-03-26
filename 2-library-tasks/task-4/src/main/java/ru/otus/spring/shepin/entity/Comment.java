@@ -1,8 +1,10 @@
 package ru.otus.spring.shepin.entity;
 
 
-import jakarta.persistence.*;
+
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
@@ -10,16 +12,14 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity
-@Table(name = "comment")
+@Document(collation ="comment")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "comment_text", nullable = false)
+
     String commentText;
 
-    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_id")
+//    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "book_id")
     private Book book;
 }
