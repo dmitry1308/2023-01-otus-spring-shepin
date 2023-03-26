@@ -3,6 +3,16 @@ server:
 
 spring:
 
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: root
+      database: librarydb
+      port: 27017
+      host: localhost
+
+
   datasource:
     url: jdbc:h2:mem:librarydb
     driver-class-name: org.h2.Driver
