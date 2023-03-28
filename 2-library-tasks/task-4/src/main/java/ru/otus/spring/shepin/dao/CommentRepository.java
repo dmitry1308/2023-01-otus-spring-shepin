@@ -5,8 +5,8 @@ import ru.otus.spring.shepin.entity.Comment;
 
 import java.util.List;
 
-public interface CommentRepository extends MongoRepository<Comment, Integer> {
-    List<Comment> findByBookId(Integer bookId);
+public interface CommentRepository extends MongoRepository<Comment, String> {
+    List<Comment> findByBookId(String bookId);
 
-    void deleteCommentsByBook_Id(Integer bookId);
+    void deleteCommentsByBook_Id(String bookId);
 }

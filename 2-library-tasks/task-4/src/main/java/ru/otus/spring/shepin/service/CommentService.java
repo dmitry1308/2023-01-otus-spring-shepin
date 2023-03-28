@@ -5,7 +5,7 @@ import ru.otus.spring.shepin.entity.Comment;
 import java.util.List;
 
 public interface CommentService {
-    Comment createByParams(Integer bookId, String lastName);
-    public List<Comment> getAllCommentsByBookId(Integer bookId);
-    void deleteAllCommentsByBookId(Integer bookId);
+    Comment createByParams(String bookId, String lastName);
+    public List<Comment> getAllCommentsByBookId(String bookId);
+    void deleteAllCommentsByBookId(String bookId);
 }

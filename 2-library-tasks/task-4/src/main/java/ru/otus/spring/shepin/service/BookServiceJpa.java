@@ -37,7 +37,7 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @ShellMethod(value = "Update book by name", key = {"u-book-by-name"})
-    public void updateByName(Integer id, String name) {
+    public void updateByName(String id, String name) {
         Book book       = bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
         Book updateBook = book.toBuilder().name(name).build();
         bookRepository.save(updateBook);
@@ -45,7 +45,7 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
-    public Book getById(Integer id) {
+    public Book getById(String id) {
         return bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
     }
 
@@ -58,7 +58,7 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @ShellMethod(value = "Delete book by id", key = {"del-book-id"})
-    public void deleteById(Integer id) {
+    public void deleteById(String id) {
         bookRepository.deleteById(id);
     }
 }

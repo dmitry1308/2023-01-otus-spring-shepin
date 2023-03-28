@@ -6,11 +6,8 @@ import ru.otus.spring.shepin.entity.Book;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository extends MongoRepository<Book, Integer> {
+public interface BookRepository extends MongoRepository<Book, String> {
 
-    //    @EntityGraph(attributePaths = {"author", "genre"})
     List<Book> findAll();
-
-    //    @EntityGraph(attributePaths = {"author", "genre"})
-    Optional<Book> findById(Integer id);
+    Optional<Book> findById(String id);
 }

@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "book")
 public class Book {
     @Id
-    private int    id;
+    private String    id;
     private String name;
 
     @DBRef

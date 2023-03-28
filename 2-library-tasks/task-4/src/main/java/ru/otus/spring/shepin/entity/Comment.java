@@ -19,9 +19,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 @Document(collation = "comment")
 public class Comment {
-    String commentText;
+
     @Id
-    private int id;
+    private String id;
+    String commentText;
+
     @DBRef
     private Book book;
 }
