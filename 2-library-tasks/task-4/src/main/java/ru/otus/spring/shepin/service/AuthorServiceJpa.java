@@ -19,7 +19,6 @@ public class AuthorServiceJpa implements AuthorService {
     private final AuthorRepository authorDao;
 
     @Override
-    @Transactional
     @ShellMethod(value = "createOrUpdate author", key = {"c-a"})
     public Author create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
                        @ShellOption(defaultValue = "lastNameAuthor")String lastName) {
@@ -28,13 +27,11 @@ public class AuthorServiceJpa implements AuthorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Author getById(Long id) {
         return authorDao.findById(id).orElseThrow(() -> new Error(String.format("Author by id = %s not exist!", id)));
     }
 
     @Override
-    @Transactional(readOnly = true)
     @ShellMethod(value = "Get all authors", key = {"get-authors"})
     public List<Author> getAll() {
         return authorDao.findAll();

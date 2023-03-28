@@ -22,7 +22,6 @@ public class CommentServiceJpa implements CommentService {
     private final BookRepository    bookrepo;
 
     @Override
-    @Transactional
     @ShellMethod(value = "createByParams comment by bookId", key = {"c-c-by-book-id"})
     public Comment createByParams(@ShellOption(defaultValue = "100") Long bookId,
                                   @ShellOption(defaultValue = "my_comment") String commentText) {
@@ -33,7 +32,6 @@ public class CommentServiceJpa implements CommentService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     @ShellMethod(value = "Get comments by book id", key = {"get-comments-by-book-id"})
     public List<Comment> getAllCommentsByBookId(Long bookId) {
         final Book book = bookrepo.findById(bookId).orElseThrow(() -> new Error(String.format("Book by id = %s not exist!", bookId)));
@@ -41,7 +39,6 @@ public class CommentServiceJpa implements CommentService {
     }
 
     @Override
-    @Transactional
     public void deleteAllCommentsByBookId(Long bookId) {
         final Book book = bookrepo.findById(bookId).orElseThrow(() -> new Error(String.format("Book by id = %s not exist!", bookId)));
         commentRepository.deleteCommentsByBook_Id(book.getId());

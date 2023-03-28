@@ -26,7 +26,6 @@ public class BookServiceJpa implements BookService {
     }
 
     @Override
-    @Transactional
     @ShellMethod(value = "Insert book command. Arguments: book name, first name author, last name author, genre name", key = {"c-b"})
     public Book create(@ShellOption(defaultValue = "Any book") String nameBook, @ShellOption(defaultValue = "Any first name") String firstNameAuthor, @ShellOption(defaultValue = "Any last name") String lastNameAuthor, @ShellOption(defaultValue = "Any genre") String genreName) {
 
@@ -38,7 +37,6 @@ public class BookServiceJpa implements BookService {
     }
 
     @Override
-    @Transactional
     @ShellMethod(value = "Update book by name", key = {"u-book-by-name"})
     public void updateByName(Long id, String name) {
         Book book       = bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
@@ -47,21 +45,19 @@ public class BookServiceJpa implements BookService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
     public Book getById(long id) {
         return bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
     }
 
     @Override
-    @Transactional(readOnly = true)
+
     @ShellMethod(value = "Get all books", key = {"get-all-books"})
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
 
     @Override
-    @Transactional
     @ShellMethod(value = "Delete book by id", key = {"del-book-id"})
     public void deleteById(long id) {
         bookRepository.deleteById(id);

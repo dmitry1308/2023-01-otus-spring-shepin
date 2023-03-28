@@ -6,24 +6,34 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      username: root
-      password: root
+#      username: root
+#      password: root
       database: librarydb
       port: 27017
       host: localhost
 
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
   shell:
     interactive:
-      enabled: false
+      enabled: true
     command:
       stacktrace:
         enabled: true
 
 mongock:
   runner-type: "Applicationrunner"
-  #runner-type: "InitializingBean"  # если раскомментить- будет работать с shell
+#  runner-type: "InitializingBean"  # если раскомментить- будет работать с shell
   change-logs-scan-package:
     - ru.otus.spring.shepin.mongock.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
 
 logging:
   level:
