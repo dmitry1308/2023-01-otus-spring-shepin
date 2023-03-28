@@ -12,6 +12,8 @@ import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 
+import java.util.ArrayList;
+
 @ChangeLog
 public class DatabaseChangelog {
 
@@ -62,5 +64,22 @@ public class DatabaseChangelog {
     public void insertBook2(BookRepository repository) {
         Book book = Book.builder().name("Book2").build();
         repository.save(book);
+    }
+
+    @ChangeSet(order = "008", id = "insertBooksWithAuthorAndGenre", author = "dshepin")
+    public void insertBooksWithAuthorAndGenre(BookRepository repository, GenreRepository genreRepository, AuthorRepository authorRepository) {
+        ArrayList<Book> books = new ArrayList<>();
+
+        for (int i = 100; i < 103; i++) {
+            Author author = Author.builder().firstName("first name " + i).lastName("last name " + i).build();
+            Author saveAuthor   = authorRepository.save(author);
+
+            Genre genre = Genre.builder().name("Genre " + i).build();
+            Genre saveGenre  = genreRepository.save(genre);
+
+            Book book = Book.builder().name("nameBook " + i).author(saveAuthor).genre(saveGenre).build();
+            books.add(book);
+        }
+        repository.saveAll(books);
     }
 }
