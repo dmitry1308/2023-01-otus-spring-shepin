@@ -5,7 +5,9 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
+import ru.otus.spring.shepin.dao.AuthorRepository;
 import ru.otus.spring.shepin.dao.BookRepository;
+import ru.otus.spring.shepin.dao.GenreRepository;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -16,7 +18,9 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class BookServiceJpa implements BookService {
-    private final BookRepository bookRepository;
+    private final BookRepository  bookRepository;
+    private final GenreRepository genreRepository;
+    private final AuthorRepository authorRepository;
 
     @Override
     @ShellMethod(value = "Get count books", key = {"get-count-books"})
@@ -29,9 +33,12 @@ public class BookServiceJpa implements BookService {
     public Book create(@ShellOption(defaultValue = "Any book") String nameBook, @ShellOption(defaultValue = "Any first name") String firstNameAuthor, @ShellOption(defaultValue = "Any last name") String lastNameAuthor, @ShellOption(defaultValue = "Any genre") String genreName) {
 
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
-        Genre  genre  = Genre.builder().name(genreName).build();
+        Author savedAuthor   = authorRepository.save(author);
 
-        Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
+        Genre  genre  = Genre.builder().name(genreName).build();
+        Genre  savedGenre   = genreRepository.save(genre);
+
+        Book book = Book.builder().name(nameBook).author(savedAuthor).genre(savedGenre).build();
         return bookRepository.save(book);
     }
 

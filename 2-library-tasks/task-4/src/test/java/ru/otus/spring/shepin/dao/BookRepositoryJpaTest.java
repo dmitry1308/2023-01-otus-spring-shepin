@@ -51,18 +51,18 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        final Book book = bookRepo.findById(100).get();
+        final Book book = bookRepo.findById("100").get();
         Book updatedBook = book.toBuilder().name("UpdateName").build();
         bookRepo.save(updatedBook);
 
-        Book bookUpdated = bookRepo.findById(100).get();
+        Book bookUpdated = bookRepo.findById("100").get();
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookRepo.findById(100).get();
+        Book book = bookRepo.findById("100").get();
         assertThat(book).isNotNull();
     }
 
@@ -76,7 +76,7 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        Book book = em.find(Book.class, 100L);
+        Book book = em.find(Book.class, "100");
         bookRepo.deleteById(book.getId());
         em.clear();
 
