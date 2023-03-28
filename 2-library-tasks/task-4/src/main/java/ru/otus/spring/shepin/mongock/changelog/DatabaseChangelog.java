@@ -7,12 +7,15 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import ru.otus.spring.shepin.dao.AuthorRepository;
 import ru.otus.spring.shepin.dao.BookRepository;
+import ru.otus.spring.shepin.dao.CommentRepository;
 import ru.otus.spring.shepin.dao.GenreRepository;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
+import ru.otus.spring.shepin.entity.Comment;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @ChangeLog
 public class DatabaseChangelog {
@@ -81,5 +84,18 @@ public class DatabaseChangelog {
             books.add(book);
         }
         repository.saveAll(books);
+    }
+
+    @ChangeSet(order = "009", id = "insertComments for books", author = "dshepin")
+    public void insertComments(BookRepository repository, CommentRepository commentRepository) {
+
+        List<Book> bookList = repository.findAll();
+
+        for (int i = 0; i < bookList.size(); i++) {
+            Book book = bookList.get(i);
+            Comment comment1 = Comment.builder().commentText("comment " + i).book(book).build();
+            Comment comment2 = Comment.builder().commentText("comment " + i).book(book).build();
+            commentRepository.saveAll(List.of(comment1, comment2));
+        }
     }
 }

@@ -66,6 +66,7 @@ public class BookServiceJpa implements BookService {
     @Override
     @ShellMethod(value = "Delete book by id", key = {"del-book-id"})
     public void deleteById(String id) {
+        //todo удалить сначала все комментарии через event
         bookRepository.deleteById(id);
     }
 }
