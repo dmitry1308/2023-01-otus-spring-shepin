@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -16,14 +17,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Builder
 @ToString
-@Document(collation ="comment")
+@Document(collation = "comment")
 public class Comment {
+    String commentText;
     @Id
     private int id;
-
-    String commentText;
-
-//    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "book_id")
+    @DBRef
     private Book book;
 }
