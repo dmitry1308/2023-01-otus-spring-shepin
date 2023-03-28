@@ -30,7 +30,7 @@ public class AuthorServiceJpa implements AuthorService {
     @Override
     @Transactional(readOnly = true)
     public Author getById(Long id) {
-        return authorDao.getById(id);
+        return authorDao.findById(id).orElseThrow(() -> new Error(String.format("Author by id = %s not exist!", id)));
     }
 
     @Override

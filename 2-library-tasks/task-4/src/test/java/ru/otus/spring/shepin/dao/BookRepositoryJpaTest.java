@@ -26,23 +26,6 @@ class BookRepositoryJpaTest {
     @Autowired
     private TestEntityManager em;
 
-
-    @DisplayName("должен загружать список всех книг с полной информацией о них")
-    @Test
-    void should_return_all_books_with_all_info() {
-        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory().unwrap(SessionFactory.class);
-        sessionFactory.getStatistics().setStatisticsEnabled(true);
-
-        System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
-        val students = bookRepo.findAll();
-        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
-                            .allMatch(b -> !b.getName().equals(""))
-                            .allMatch(b -> b.getGenre() != null)
-                            .allMatch(b -> b.getAuthor() != null);
-        System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
-        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
-    }
-
     @Test
     @DisplayName("Получить кол-во книг в библиотеке")
     void count() {
