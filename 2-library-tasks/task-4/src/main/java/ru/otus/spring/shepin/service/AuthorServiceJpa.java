@@ -26,7 +26,7 @@ public class AuthorServiceJpa implements AuthorService {
     }
 
     @Override
-    public Author getById(Long id) {
+    public Author getById(Integer id) {
         return authorDao.findById(id).orElseThrow(() -> new Error(String.format("Author by id = %s not exist!", id)));
     }
 

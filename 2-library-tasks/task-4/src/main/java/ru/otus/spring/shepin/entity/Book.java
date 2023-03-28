@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "book")
 public class Book {
     @Id
-    private Long   id;
+    private int   id;
     private String name;
 //    @JoinColumn(name = "genre_id")
 //    @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

@@ -1,7 +1,5 @@
 package ru.otus.spring.shepin.dao;
 
-import lombok.val;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,18 +51,18 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        final Book book = bookRepo.findById(100L).get();
+        final Book book = bookRepo.findById(100).get();
         Book updatedBook = book.toBuilder().name("UpdateName").build();
         bookRepo.save(updatedBook);
 
-        Book bookUpdated = bookRepo.findById(100L).get();
+        Book bookUpdated = bookRepo.findById(100).get();
         assertThat(bookUpdated.getName()).isEqualTo("UpdateName");
     }
 
     @Test
     @DisplayName("Поиск книги по id и возврат книги")
     void should_return_book_id() {
-        Book book = bookRepo.findById(100L).get();
+        Book book = bookRepo.findById(100).get();
         assertThat(book).isNotNull();
     }
 

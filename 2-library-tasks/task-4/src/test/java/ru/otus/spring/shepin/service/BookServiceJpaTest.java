@@ -1,6 +1,5 @@
 package ru.otus.spring.shepin.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,10 +52,10 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Обновить книгу по имени")
     void updateByName() {
-        final Book book = Book.builder().id(1L).name("Name").build();
-        when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book));
-        assertThatCode(() -> bookService.updateByName(1L, "new name")).doesNotThrowAnyException();
-        verify(bookRepositoryJdbc).save(Book.builder().id(1L).name("new name").build());
+        final Book book = Book.builder().id(1).name("Name").build();
+        when(bookRepositoryJdbc.findById(1)).thenReturn(Optional.of(book));
+        assertThatCode(() -> bookService.updateByName(1, "new name")).doesNotThrowAnyException();
+        verify(bookRepositoryJdbc).save(Book.builder().id(1).name("new name").build());
     }
 
     @Test
@@ -64,8 +63,8 @@ class BookServiceJpaTest {
     void getById() {
 
         final Book book1 = Book.builder().name("Name").build();
-        when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book1));
-        Book book = bookService.getById(1L);
+        when(bookRepositoryJdbc.findById(1)).thenReturn(Optional.of(book1));
+        Book book = bookService.getById(1);
         assertThat(book).hasFieldOrPropertyWithValue(book.getName(), "Name");
     }
 
@@ -80,15 +79,15 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Удалить книгу по id")
     void deleteById() {
-        bookService.deleteById(1L);
-        verify(bookRepositoryJdbc).deleteById(1L);
+        bookService.deleteById(1);
+        verify(bookRepositoryJdbc).deleteById(1);
     }
 
     @Test
     @DisplayName("Кинуть исключение, если книга не найдена по id")
     void throw_exception_if_book_did_not_find() {
 
-        assertThatCode(() -> bookService.getById(1L)).isInstanceOf(EntityNotFoundException.class);
+        assertThatCode(() -> bookService.getById(1)).isInstanceOf(Exception.class);
     }
 
 }

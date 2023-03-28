@@ -9,11 +9,11 @@ public interface BookService {
 
     Book create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
 
-    void updateByName(Long id, String name);
+    void updateByName(Integer id, String name);
 
-    Book getById(long id);
+    Book getById(Integer id);
 
     List<Book> getAll();
 
-    void deleteById(long id);
+    void deleteById(Integer id);
 }
