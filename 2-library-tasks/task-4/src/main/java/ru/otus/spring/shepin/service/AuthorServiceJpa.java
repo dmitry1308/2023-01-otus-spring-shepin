@@ -6,7 +6,6 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.shepin.dao.AuthorRepository;
 import ru.otus.spring.shepin.entity.Author;
 
