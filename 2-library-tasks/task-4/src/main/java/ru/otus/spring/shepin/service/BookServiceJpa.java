@@ -33,12 +33,9 @@ public class BookServiceJpa implements BookService {
     public Book create(@ShellOption(defaultValue = "Any book") String nameBook, @ShellOption(defaultValue = "Any first name") String firstNameAuthor, @ShellOption(defaultValue = "Any last name") String lastNameAuthor, @ShellOption(defaultValue = "Any genre") String genreName) {
 
         Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
-        Author savedAuthor   = authorRepository.save(author);
-
         Genre  genre  = Genre.builder().name(genreName).build();
-        Genre  savedGenre   = genreRepository.save(genre);
 
-        Book book = Book.builder().name(nameBook).author(savedAuthor).genre(savedGenre).build();
+        Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
         return bookRepository.save(book);
     }
 
