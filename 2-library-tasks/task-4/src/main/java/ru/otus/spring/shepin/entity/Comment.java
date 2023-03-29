@@ -28,4 +28,9 @@ public class Comment {
 
     @DBRef
     private Book book;
+
+    public Comment(String commentText, Book book) {
+        this.commentText = commentText;
+        this.book = book;
+    }
 }

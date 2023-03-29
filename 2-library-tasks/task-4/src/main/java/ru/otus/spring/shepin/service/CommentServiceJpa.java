@@ -38,8 +38,9 @@ public class CommentServiceJpa implements CommentService {
     }
 
     @Override
+    @ShellMethod(value = "Delete comments by book id", key = {"delete-comments-by-book-id"})
     public void deleteAllCommentsByBookId(String bookId) {
         final Book book = bookrepo.findById(bookId).orElseThrow(() -> new Error(String.format("Book by id = %s not exist!", bookId)));
-        commentRepository.deleteCommentsByBook_Id(book.getId());
+        commentRepository.removeCommentsByBookId(book.getId());
     }
 }
