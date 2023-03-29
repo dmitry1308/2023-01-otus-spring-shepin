@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class GenreServiceJpa implements GenreService {
+public class GenreServiceMongo implements GenreService {
     private final GenreRepository genreDao;
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class BookServiceJpa implements BookService {
+public class BookServiceMongo implements BookService {
     private final BookRepository  bookRepository;
     private final GenreRepository genreRepository;
     private final AuthorRepository authorRepository;

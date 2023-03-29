@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class AuthorServiceJpa implements AuthorService {
+public class AuthorServiceMongo implements AuthorService {
     private final AuthorRepository authorDao;
 
     @Override

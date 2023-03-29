@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class CommentServiceJpa implements CommentService {
+public class CommentServiceMongo implements CommentService {
     private final CommentRepository commentRepository;
     private final BookRepository    bookrepo;
 
