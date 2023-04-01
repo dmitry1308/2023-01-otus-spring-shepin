@@ -6,8 +6,8 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.shepin.dao.BookRepository;
-import ru.otus.spring.shepin.dao.CommentRepository;
+import ru.otus.spring.shepin.dao.book.BookRepository;
+import ru.otus.spring.shepin.dao.comment.CommentRepository;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Comment;
 

@@ -1,4 +1,4 @@
-package ru.otus.spring.shepin.dao;
+package ru.otus.spring.shepin.dao.genre;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.otus.spring.shepin.entity.Genre;

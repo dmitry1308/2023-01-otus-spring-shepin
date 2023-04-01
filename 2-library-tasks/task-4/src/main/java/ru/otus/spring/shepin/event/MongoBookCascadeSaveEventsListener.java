@@ -5,8 +5,8 @@ import lombok.val;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;
-import ru.otus.spring.shepin.dao.AuthorRepository;
-import ru.otus.spring.shepin.dao.GenreRepository;
+import ru.otus.spring.shepin.dao.author.AuthorRepository;
+import ru.otus.spring.shepin.dao.genre.GenreRepository;
 import ru.otus.spring.shepin.entity.Book;
 
 @Component

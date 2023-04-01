@@ -5,7 +5,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.shepin.dao.GenreRepository;
+import ru.otus.spring.shepin.dao.genre.GenreRepository;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;

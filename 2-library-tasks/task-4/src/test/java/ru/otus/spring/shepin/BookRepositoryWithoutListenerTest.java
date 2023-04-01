@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mapping.MappingException;
-import ru.otus.spring.shepin.dao.BookRepository;
+import ru.otus.spring.shepin.dao.book.BookRepository;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 

@@ -5,7 +5,7 @@ import lombok.val;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterDeleteEvent;
 import org.springframework.stereotype.Component;
-import ru.otus.spring.shepin.dao.CommentRepository;
+import ru.otus.spring.shepin.dao.comment.CommentRepository;
 import ru.otus.spring.shepin.entity.Comment;
 
 import java.util.List;
