@@ -29,10 +29,4 @@ public class Book {
     private Genre  genre;
     @DBRef
     private Author author;
-
-    public Book(String name, Genre genre, Author author) {
-        this.name = name;
-        this.genre = genre;
-        this.author = author;
-    }
 }

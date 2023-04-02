@@ -23,9 +23,4 @@ public class Genre {
     private String    id;
     @Indexed(unique = true)
     private String name;
-
-
-    public Genre(String name) {
-        this.name = name;
-    }
 }

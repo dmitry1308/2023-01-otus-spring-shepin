@@ -20,14 +20,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Author {
     @Id
     private String id;
-
     private String lastName;
-
     private String firstName;
-
-
-    public Author(String lastName, String firstName) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-    }
 }
