@@ -24,5 +24,5 @@ public class Comment {
     private String id;
     @Indexed(unique = true)
     String commentText;
-    private String bookId;
+    private Book book;
 }

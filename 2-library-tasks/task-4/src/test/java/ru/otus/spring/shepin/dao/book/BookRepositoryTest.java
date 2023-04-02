@@ -57,8 +57,8 @@ class BookRepositoryTest extends AbstractRepositoryTest {
 
         for (int i = 0; i < bookList.size(); i++) {
             Book    book     = bookList.get(i);
-            Comment comment1 = Comment.builder().commentText("comment " + i).bookId(book.getId()).build();
-            Comment comment2 = Comment.builder().commentText("comment " + i).bookId(book.getId()).build();
+            Comment comment1 = Comment.builder().commentText("comment " + i).book(book).build();
+            Comment comment2 = Comment.builder().commentText("comment " + i).book(book).build();
             commentRepository.saveAll(List.of(comment1, comment2));
         }
     }
