@@ -74,11 +74,11 @@ public class DatabaseChangelog {
         ArrayList<Book> books = new ArrayList<>();
 
         for (int i = 100; i < 103; i++) {
-            Author author = Author.builder().firstName("first name " + i).lastName("last name " + i).build();
-            Author saveAuthor   = authorRepository.save(author);
+            Author author     = Author.builder().firstName("first name " + i).lastName("last name " + i).build();
+            Author saveAuthor = authorRepository.save(author);
 
-            Genre genre = Genre.builder().name("Genre " + i).build();
-            Genre saveGenre  = genreRepository.save(genre);
+            Genre genre     = Genre.builder().name("Genre " + i).build();
+            Genre saveGenre = genreRepository.save(genre);
 
             Book book = Book.builder().name("nameBook " + i).author(saveAuthor).genre(saveGenre).build();
             books.add(book);
@@ -92,9 +92,9 @@ public class DatabaseChangelog {
         List<Book> bookList = repository.findAll();
 
         for (int i = 0; i < bookList.size(); i++) {
-            Book book = bookList.get(i);
-            Comment comment1 = Comment.builder().commentText("comment " + i).book(book).build();
-            Comment comment2 = Comment.builder().commentText("comment " + i).book(book).build();
+            Book    book     = bookList.get(i);
+            Comment comment1 = Comment.builder().commentText("comment " + i).bookId(book.getId()).build();
+            Comment comment2 = Comment.builder().commentText("comment " + i).bookId(book.getId()).build();
             commentRepository.saveAll(List.of(comment1, comment2));
         }
     }

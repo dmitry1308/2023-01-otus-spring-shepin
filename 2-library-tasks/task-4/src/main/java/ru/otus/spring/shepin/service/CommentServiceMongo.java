@@ -22,11 +22,10 @@ public class CommentServiceMongo implements CommentService {
 
     @Override
     @ShellMethod(value = "createByParams comment by bookId", key = {"c-c-by-book-id"})
-    public Comment createByParams(@ShellOption(defaultValue = "100") String bookId,
-                                  @ShellOption(defaultValue = "my_comment") String commentText) {
+    public Comment createByParams(@ShellOption(defaultValue = "100") String bookId, @ShellOption(defaultValue = "my_comment") String commentText) {
 
-        final Book book = bookrepo.findById(bookId).orElseThrow(() -> new Error(String.format("Book by id = %s not exist!", bookId)));
-        final Comment comment = Comment.builder().commentText(commentText).book(book).build();
+        final Book    book    = bookrepo.findById(bookId).orElseThrow(() -> new Error(String.format("Book by id = %s not exist!", bookId)));
+        final Comment comment = Comment.builder().commentText(commentText).bookId(book.getId()).build();
         return commentRepository.save(comment);
     }
 

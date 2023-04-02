@@ -23,7 +23,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
         mongoTemplate.updateMulti(new Query(), update, Comment.class);
     }
 
-    @Override
+
     public List<Comment> findByBookId(String bookId) {
         Query query = new Query();
         query.addCriteria(where("id").in(new ObjectId("64249d675adddf3fd6ddc767")));

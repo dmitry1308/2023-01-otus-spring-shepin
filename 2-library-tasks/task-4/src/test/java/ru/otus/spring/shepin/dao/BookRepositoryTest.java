@@ -20,7 +20,7 @@ class BookRepositoryTest extends AbstractRepositoryTest {
     @Test
     void test_method_findAll() {
         List<Book> bookList = bookRepository.findAll();
-        assertThat(bookList).isNotEmpty().hasSize(5);
+        assertThat(bookList).isNotEmpty().hasSize(6);
     }
 
     @Test
@@ -38,11 +38,11 @@ class BookRepositoryTest extends AbstractRepositoryTest {
     @Test
     void test_method_count() {
         long count = bookRepository.count();
-        assertThat(count).isEqualTo(5);
+        assertThat(count).isEqualTo(6);
     }
 
     @Test
-    void test_method_updateByBookNAme() {
+    void test_method_updateByBookName() {
         Book book = bookRepository.save(Book.builder().name(BOOK_NAME).build());
         bookRepository.updateByBookName(book.getId(), BOOK_NAME_NEW);
 
