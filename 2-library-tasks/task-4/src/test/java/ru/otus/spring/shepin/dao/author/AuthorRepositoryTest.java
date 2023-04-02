@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthorRepositoryTest extends AbstractRepositoryTest {
     @Autowired
-    AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
     @Autowired
-    BookRepository   bookRepository;
-    private Book saveBook;
+    private BookRepository   bookRepository;
+    private Book             saveBook;
 
     @BeforeEach
     void setUp() {

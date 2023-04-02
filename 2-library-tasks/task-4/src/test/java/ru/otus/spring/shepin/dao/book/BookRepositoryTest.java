@@ -1,11 +1,10 @@
-package ru.otus.spring.shepin.dao;
+package ru.otus.spring.shepin.dao.book;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.otus.spring.shepin.AbstractRepositoryTest;
 import ru.otus.spring.shepin.dao.author.AuthorRepository;
-import ru.otus.spring.shepin.dao.book.BookRepository;
 import ru.otus.spring.shepin.dao.comment.CommentRepository;
 import ru.otus.spring.shepin.dao.genre.GenreRepository;
 import ru.otus.spring.shepin.entity.Author;
