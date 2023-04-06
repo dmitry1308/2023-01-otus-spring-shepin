@@ -3,7 +3,9 @@ package ru.otus.spring.shepin.dao.book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.otus.spring.shepin.AbstractRepositoryTest;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
 import ru.otus.spring.shepin.dao.author.AuthorRepository;
 import ru.otus.spring.shepin.dao.comment.CommentRepository;
 import ru.otus.spring.shepin.dao.genre.GenreRepository;
@@ -17,7 +19,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BookRepositoryTest extends AbstractRepositoryTest {
+@DataMongoTest
+@EnableConfigurationProperties
+@ComponentScan({"ru.otus.spring.shepin"})
+class BookRepositoryTest {
 
     public static final String            BOOK_NAME     = "nameBook 500";
     public static final String            BOOK_NAME_NEW = "new book";
@@ -32,11 +37,11 @@ class BookRepositoryTest extends AbstractRepositoryTest {
     @Autowired
     private GenreRepository genreRepository;
 
-   private ArrayList<Book> books;
+    private ArrayList<Book> books;
 
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         bookRepository.deleteAll();
 
         books = new ArrayList<>();

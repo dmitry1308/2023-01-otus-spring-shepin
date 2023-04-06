@@ -3,8 +3,10 @@ package ru.otus.spring.shepin.dao.comment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import ru.otus.spring.shepin.AbstractRepositoryTest;
 import ru.otus.spring.shepin.dao.book.BookRepository;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Comment;
@@ -14,18 +16,21 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CommentRepositoryTest extends AbstractRepositoryTest {
+@DataMongoTest
+@EnableConfigurationProperties
+@ComponentScan({"ru.otus.spring.shepin"})
+class CommentRepositoryTest {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
     private BookRepository    bookRepository;
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private MongoTemplate     mongoTemplate;
 
     private ArrayList<Book> books;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         bookRepository.deleteAll();
 
         books = new ArrayList<>();

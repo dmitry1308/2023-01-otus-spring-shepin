@@ -3,14 +3,19 @@ package ru.otus.spring.shepin.dao.author;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.otus.spring.shepin.AbstractRepositoryTest;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
 import ru.otus.spring.shepin.dao.book.BookRepository;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AuthorRepositoryTest extends AbstractRepositoryTest {
+@DataMongoTest
+@EnableConfigurationProperties
+@ComponentScan({"ru.otus.spring.shepin"})
+class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
     @Autowired

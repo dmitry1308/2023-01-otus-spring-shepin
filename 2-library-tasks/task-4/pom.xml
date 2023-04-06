@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.3</version>
+        <version>2.7.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -23,6 +23,8 @@
         <minimal.maven.version>3.3.9</minimal.maven.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <mongock.version>4.1.17</mongock.version>
+        <shell.version>3.0.1</shell.version>
+        <assert.version>3.24.2</assert.version>
     </properties>
 
     <dependencies>
@@ -60,10 +62,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -83,13 +81,13 @@
         <dependency>
             <groupId>org.springframework.shell</groupId>
             <artifactId>spring-shell-starter</artifactId>
-            <version>3.0.0</version>
+            <version>${shell.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.24.2</version>
+            <version>${assert.version}</version>
             <scope>test</scope>
         </dependency>
 
