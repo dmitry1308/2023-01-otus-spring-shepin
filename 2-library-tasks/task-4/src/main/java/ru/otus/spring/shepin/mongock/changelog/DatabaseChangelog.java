@@ -29,7 +29,7 @@ public class DatabaseChangelog {
     public void insertGenre1(MongoDatabase db) {
         MongoCollection<Document> myCollection = db.getCollection("genre");
 
-        var doc = new Document().append("name", "Genre-1");
+        Document doc = new Document().append("name", "Genre-1");
         myCollection.insertOne(doc);
     }
 
@@ -44,7 +44,7 @@ public class DatabaseChangelog {
     public void insertAuthor2(MongoDatabase db) {
         MongoCollection<Document> myCollection = db.getCollection("author");
 
-        var doc = new Document().append("firstName", "first name 1").append("lastName", "last name 1");
+        Document doc  = new Document().append("firstName", "first name 1").append("lastName", "last name 1");
         myCollection.insertOne(doc);
     }
 
@@ -95,7 +95,10 @@ public class DatabaseChangelog {
             Book    book     = bookList.get(i);
             Comment comment1 = Comment.builder().commentText("comment " + i).book(book).build();
             Comment comment2 = Comment.builder().commentText("comment " + i).book(book).build();
-            commentRepository.saveAll(List.of(comment1, comment2));
+            ArrayList<Comment> comments = new ArrayList<>();
+            comments.add(comment1);
+            comments.add(comment2);
+            commentRepository.saveAll(comments);
         }
     }
 }

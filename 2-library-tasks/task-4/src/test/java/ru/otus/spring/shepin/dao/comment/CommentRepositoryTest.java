@@ -48,7 +48,10 @@ class CommentRepositoryTest {
             Book    book     = bookList.get(i);
             Comment comment1 = Comment.builder().commentText("comment " + i).book(book).build();
             Comment comment2 = Comment.builder().commentText("comment " + i).book(book).build();
-            commentRepository.saveAll(List.of(comment1, comment2));
+            ArrayList<Comment> comments = new ArrayList<>();
+            comments.add(comment1);
+            comments.add(comment2);
+            commentRepository.saveAll(comments);
         }
     }
 
