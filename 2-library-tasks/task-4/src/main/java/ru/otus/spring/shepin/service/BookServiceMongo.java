@@ -18,7 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookServiceMongo implements BookService {
 
-    private final BookRepository bookRepository;
+    private final BookRepository   bookRepository;
+    private final GenreService  genreService;
+    private final AuthorService authorService;
 
     @Override
     @ShellMethod(value = "Get count books", key = {"get-count-books"})
@@ -28,10 +30,13 @@ public class BookServiceMongo implements BookService {
 
     @Override
     @ShellMethod(value = "Insert book command. Arguments: book name, first name author, last name author, genre name", key = {"c-b"})
-    public Book create(@ShellOption(defaultValue = "Any book") String nameBook, @ShellOption(defaultValue = "Any first name") String firstNameAuthor, @ShellOption(defaultValue = "Any last name") String lastNameAuthor, @ShellOption(defaultValue = "Any genre") String genreName) {
+    public Book create(@ShellOption(defaultValue = "Any book") String nameBook,
+                       @ShellOption(defaultValue = "first name 100") String firstNameAuthor,
+                       @ShellOption(defaultValue = "last name 100") String lastNameAuthor,
+                       @ShellOption(defaultValue = "Genre 100") String genreName) {
 
-        Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
-        Genre  genre  = Genre.builder().name(genreName).build();
+        Author author = authorService.findByFirstAndLastName(firstNameAuthor, lastNameAuthor);
+        Genre genre = genreService.getByName(genreName);
 
         Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
         return bookRepository.save(book);

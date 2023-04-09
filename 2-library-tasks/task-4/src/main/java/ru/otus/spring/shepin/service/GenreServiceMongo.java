@@ -7,6 +7,7 @@ import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.shepin.dao.genre.GenreRepository;
 import ru.otus.spring.shepin.entity.Genre;
+import ru.otus.spring.shepin.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class GenreServiceMongo implements GenreService {
     @Override
     @ShellMethod(value = "Get genre by name", key = {"get-genre-by-name"})
     public Genre getByName(String name) {
-        return genreDao.getByName(name);
+        return genreDao.getByName(name).orElseThrow(() -> new EntityNotFoundException(String.format("Genre by name = %s not exist!", name)));
     }
 
     @Override

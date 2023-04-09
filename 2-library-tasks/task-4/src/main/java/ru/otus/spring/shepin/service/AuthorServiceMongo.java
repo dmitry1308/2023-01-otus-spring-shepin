@@ -16,24 +16,30 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class AuthorServiceMongo implements AuthorService {
-    private final AuthorRepository authorDao;
+    private final AuthorRepository authorRepository;
 
     @Override
     @ShellMethod(value = "createOrUpdate author", key = {"c-a"})
     public Author create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
                        @ShellOption(defaultValue = "lastNameAuthor")String lastName) {
         Author author = Author.builder().firstName(firstName).lastName(lastName).build();
-        return authorDao.save(author);
+        return authorRepository.save(author);
     }
 
     @Override
     public Author getById(String id) {
-        return authorDao.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Author by id = %s not exist!", id)));
+        return authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Author by id = %s not exist!", id)));
     }
 
     @Override
     @ShellMethod(value = "Get all authors", key = {"get-authors"})
     public List<Author> getAll() {
-        return authorDao.findAll();
+        return authorRepository.findAll();
+    }
+    
+    @Override
+    public Author findByFirstAndLastName(String firstName, String lastName) {
+        return authorRepository.findByFirstNameAndLastName(firstName, lastName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Author by params = %s, %s not exist!", firstName, lastName)));
     }
 }
