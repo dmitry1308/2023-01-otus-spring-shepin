@@ -5,12 +5,11 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.shepin.dao.author.AuthorRepository;
 import ru.otus.spring.shepin.dao.book.BookRepository;
-import ru.otus.spring.shepin.dao.genre.GenreRepository;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
+import ru.otus.spring.shepin.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -18,9 +17,8 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class BookServiceMongo implements BookService {
-    private final BookRepository  bookRepository;
-    private final GenreRepository genreRepository;
-    private final AuthorRepository authorRepository;
+
+    private final BookRepository bookRepository;
 
     @Override
     @ShellMethod(value = "Get count books", key = {"get-count-books"})
@@ -42,7 +40,7 @@ public class BookServiceMongo implements BookService {
     @Override
     @ShellMethod(value = "Update book by name", key = {"u-book-by-name"})
     public void updateByName(String id, String name) {
-        Book book       = bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
+        Book book       = bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
         Book updateBook = book.toBuilder().name(name).build();
         bookRepository.save(updateBook);
     }
@@ -50,7 +48,7 @@ public class BookServiceMongo implements BookService {
     @Override
     @ShellMethod(value = "Get book by id", key = {"get-book-by-id"})
     public Book getById(String id) {
-        return bookRepository.findById(id).orElseThrow(() -> new Error("Error book findById:" + id));
+        return bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Error book findById:" + id));
     }
 
     @Override

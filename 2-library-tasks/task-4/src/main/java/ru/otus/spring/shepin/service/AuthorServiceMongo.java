@@ -8,6 +8,7 @@ import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.shepin.dao.author.AuthorRepository;
 import ru.otus.spring.shepin.entity.Author;
+import ru.otus.spring.shepin.exception.EntityNotFoundException;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class AuthorServiceMongo implements AuthorService {
 
     @Override
     public Author getById(String id) {
-        return authorDao.findById(id).orElseThrow(() -> new Error(String.format("Author by id = %s not exist!", id)));
+        return authorDao.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Author by id = %s not exist!", id)));
     }
 
     @Override
