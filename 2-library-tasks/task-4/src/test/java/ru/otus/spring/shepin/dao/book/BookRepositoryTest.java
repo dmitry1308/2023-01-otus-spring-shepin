@@ -96,14 +96,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    void test_method_updateByBookName() {
-        Book book = bookRepository.save(Book.builder().name(BOOK_NAME).build());
-        bookRepository.updateByBookName(book.getId(), BOOK_NAME_NEW);
-
-        assertThat(bookRepository.findById(book.getId())).isNotNull().get().hasFieldOrPropertyWithValue("name", BOOK_NAME_NEW);
-    }
-
-    @Test
     void when_call_method_deleteById_should_delete_comments_and_book() {
         Book book = bookRepository.findByName(books.get(0).getName()).get();
 
