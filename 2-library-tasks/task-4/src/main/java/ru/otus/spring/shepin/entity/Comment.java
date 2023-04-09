@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -22,7 +21,6 @@ public class Comment {
 
     @Id
     private String id;
-    @Indexed(unique = true)
     String commentText;
     private Book book;
 }

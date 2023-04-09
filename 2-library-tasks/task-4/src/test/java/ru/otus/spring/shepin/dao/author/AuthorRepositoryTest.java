@@ -24,10 +24,13 @@ class AuthorRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Author author     = Author.builder().firstName("first name ").lastName("last name ").build();
+        authorRepository.deleteAll();
+        bookRepository.deleteAll();
+
+        Author author     = Author.builder().firstName("first name 1").lastName("last name 1").build();
         Author saveAuthor = authorRepository.save(author);
 
-        Book book = Book.builder().name("nameBook ").author(saveAuthor).build();
+        Book book = Book.builder().name("nameBook 1").author(saveAuthor).build();
         saveBook = bookRepository.save(book);
     }
 
