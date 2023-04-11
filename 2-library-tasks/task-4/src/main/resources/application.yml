@@ -9,8 +9,7 @@ spring:
 #      username: root
 #      password: root
       database: librarydb
-      port: 27017
-      host: localhost
+      port: 0
 
 de:
   flapdoodle:
@@ -20,14 +19,14 @@ de:
 
   shell:
     interactive:
-      enabled: true
+      enabled: false
     command:
       stacktrace:
         enabled: true
 
 mongock:
-  #runner-type: "Applicationrunner"
-  runner-type: "InitializingBean"  # если раскомментить - changesets будут работать с shell
+  runner-type: "ApplicationRunner" # default
+  #runner-type: "InitializingBean"
   change-logs-scan-package:
     - ru.otus.spring.shepin.mongock.changelog
   mongo-db:
