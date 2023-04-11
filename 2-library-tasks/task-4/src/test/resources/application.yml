@@ -25,8 +25,7 @@ de:
         enabled: true
 
 mongock:
-  #runner-type: "Applicationrunner"
-  runner-type: "InitializingBean"  # если раскомментить - changesets будут работать с shell
+  runner-type: "Applicationrunner"
   change-logs-scan-package:
     - ru.otus.spring.shepin.mongock.changelog
   mongo-db:
