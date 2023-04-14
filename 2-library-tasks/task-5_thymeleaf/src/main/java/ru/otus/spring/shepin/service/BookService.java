@@ -9,6 +9,8 @@ public interface BookService {
 
     Book create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
 
+    Book create(Book book);
+
     void updateByName(Long id, String name);
 
     Book getById(long id);
