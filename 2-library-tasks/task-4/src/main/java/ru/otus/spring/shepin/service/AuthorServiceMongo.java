@@ -6,37 +6,40 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.otus.spring.shepin.dao.AuthorRepository;
+import ru.otus.spring.shepin.dao.author.AuthorRepository;
 import ru.otus.spring.shepin.entity.Author;
+import ru.otus.spring.shepin.exception.EntityNotFoundException;
 
 import java.util.List;
 
 @Service
 @ShellComponent
 @RequiredArgsConstructor
-public class AuthorServiceJpa implements AuthorService {
-    private final AuthorRepository authorDao;
+public class AuthorServiceMongo implements AuthorService {
+    private final AuthorRepository authorRepository;
 
     @Override
-    @Transactional
     @ShellMethod(value = "createOrUpdate author", key = {"c-a"})
     public Author create(@ShellOption(defaultValue = "firstNameAuthor") String firstName,
                        @ShellOption(defaultValue = "lastNameAuthor")String lastName) {
         Author author = Author.builder().firstName(firstName).lastName(lastName).build();
-        return authorDao.save(author);
+        return authorRepository.save(author);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Author getById(Long id) {
-        return authorDao.getById(id);
+    public Author getById(String id) {
+        return authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Author by id = %s not exist!", id)));
     }
 
     @Override
-    @Transactional(readOnly = true)
     @ShellMethod(value = "Get all authors", key = {"get-authors"})
     public List<Author> getAll() {
-        return authorDao.findAll();
+        return authorRepository.findAll();
+    }
+    
+    @Override
+    public Author findByFirstAndLastName(String firstName, String lastName) {
+        return authorRepository.findByFirstNameAndLastName(firstName, lastName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Author by params = %s, %s not exist!", firstName, lastName)));
     }
 }
