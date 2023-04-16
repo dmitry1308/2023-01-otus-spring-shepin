@@ -10,7 +10,7 @@
 
         .books {
             border: 3px solid #46b451;
-            width: 300px;
+            width: 500px;
             border-collapse: collapse;
         }
 
@@ -32,13 +32,17 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Author</th>
+        <th>Genre</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="book : ${books}">
+    <tr th:each="book : ${books}" >
         <td th:text="${book.id}">1</td>
         <td th:text="${book.name}">Book 1</td>
+        <td th:text="${book.getAuthor().getFirstName()}+ ' '+ ${book.getAuthor().getLastName()}">Author 1</td>
+        <td th:text="${book.getGenre().getName()}">Genre 1</td>
         <td>
             <a href="edit.html" th:href="@{/edit(id=${book.id})}">Edit</a>
         </td>
