@@ -44,12 +44,20 @@ public class BookController {
 
     @PostMapping("/edit")
     public String saveBook(@Valid @ModelAttribute("book") BookDto bookDto,
-                           BindingResult bindingResult, Model model) {
+                           BindingResult bindingResult,
+                           @RequestParam(value="action", required=true) String action) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        bookService.updateByName(bookDto.getId(), bookDto.getName());
+
+        if (action.equals("update")) {
+            bookService.updateByName(bookDto.getId(), bookDto.getName());
+        }
+
+        if (action.equals("delete")) {
+            bookService.deleteById(bookDto.getId());
+        }
+
         return "redirect:/";
     }
-
 }
