@@ -17,7 +17,7 @@ values (100, 'Book-1', 100, 100);
 insert into book (id, `name`, `author_id`, `genre_id`)
 values (200, 'Book-2', 200, 200);
 insert into book (id, `name`, `author_id`, `genre_id`)
-values (300, 'Book-3', 200, 200);
+values (300, 'Book-3', 200, 300);
 
 insert into comment(id, comment_text, book_id)
 values (100, 'Comment-1', 100);

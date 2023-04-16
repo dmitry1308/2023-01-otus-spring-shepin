@@ -32,8 +32,9 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Author</th>
         <th>Genre</th>
+        <th>Author</th>
+
         <th>Action</th>
     </tr>
     </thead>
@@ -41,8 +42,8 @@
     <tr th:each="book : ${books}" >
         <td th:text="${book.id}">1</td>
         <td th:text="${book.name}">Book 1</td>
-        <td th:text="${book.getAuthor().getFirstName()}+ ' '+ ${book.getAuthor().getLastName()}">Author 1</td>
-        <td th:text="${book.getGenre().getName()}">Genre 1</td>
+        <td th:text="${book.genre.name}">Genre 1</td>
+        <td th:text="|${book.author.getLastName()} | + | ${book.author.getFirstName()}|">Author</td>
         <td>
             <a href="edit.html" th:href="@{/edit(id=${book.id})}">Edit</a>
         </td>

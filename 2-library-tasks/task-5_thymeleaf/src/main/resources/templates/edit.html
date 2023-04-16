@@ -30,12 +30,24 @@
 
     <div class="row">
         <label for="id-input">ID:</label>
-        <input id="id-input" type="text" readonly="readonly" value="1" th:value="*{id}"/>
+        <input id="id-input" size="30" type="text" readonly="readonly" value="1" th:value="*{id}"/>
     </div>
 
     <div class="row">
         <label for="book-name-input">Name:</label>
-        <input id="book-name-input" name="name" type="text" value="Book 1" th:value="*{name}"/>
+        <input id="book-name-input" size="30" name="name" type="text" value="Book 1" th:value="*{name}"/>
+    </div>
+
+    <div class="row">
+        <label for="genre-name">Genre name:</label>
+        <input id="genre-name" size="30" type="text" readonly="readonly" value="Genre 1" th:value="*{genre.name}"/>
+    </div>
+
+    <div class="row">
+        <label for="author-name">Author name:</label>
+        <input  id="author-name" type="text" readonly="readonly" value="Author 1"
+               size="30"
+               th:value="|*{author.getFirstName()}| + |*{author.getLastName()}|"/>
     </div>
 
     <div class="row">
