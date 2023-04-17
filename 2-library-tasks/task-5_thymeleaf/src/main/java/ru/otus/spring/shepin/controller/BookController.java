@@ -31,21 +31,21 @@ public class BookController {
     private final AuthorService authorService;
 
     @GetMapping("/")
-    public String listPage(Model model) {
+    public String listBooks(Model model) {
         List<Book> books = bookService.getAll();
         model.addAttribute("books", books);
         return "list";
     }
 
     @GetMapping("/edit")
-    public String editPage(@RequestParam("id") long id, Model model) {
+    public String editBook(@RequestParam("id") long id, Model model) {
         Book book = bookService.getById(id);
         model.addAttribute("book", book);
         return "edit";
     }
 
     @GetMapping("/create")
-    public String createPage(Model model) {
+    public String createBook(Model model) {
         List<Genre> genreList = genreService.getAll();
         List<String> genreNameList  = genreList.stream()
                 .map(Genre::getName).collect(Collectors.toList());
@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public String createPage(@RequestParam String name, String genre, String author) {
+    public String createBook(@RequestParam String name, String genre, String author) {
         Genre selectedGenre = genreService.getByName(genre);
 
         String[] firstNameAndLastNameAuthor    = author.split(" ");
