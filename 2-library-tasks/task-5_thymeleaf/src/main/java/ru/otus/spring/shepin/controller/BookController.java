@@ -44,7 +44,7 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String createPage(Model model) {
+    public String createPage() {
         return "create";
     }
 
