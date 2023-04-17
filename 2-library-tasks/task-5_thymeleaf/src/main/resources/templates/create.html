@@ -29,8 +29,8 @@
         <label for="book-name-input">Genre:</label>
         <select class="form-control" id="genre" name="genre">
             <option th:each="genre : ${genres}"
-                    th:value="${genre}"
-                    th:text="${genre}">
+                    th:value="${genre.name}"
+                    th:text="${genre.name}">
             </option>
         </select>
     </div>
@@ -39,8 +39,8 @@
         <label for="book-name-input">Author:</label>
         <select class="form-control" id="author" name="author">
             <option th:each="author : ${authors}"
-                    th:value="${author}"
-                    th:text="${author}">
+                    th:value="${author.firstName} +| | +${author.lastName}"
+                    th:text="${author.firstName} +| | +${author.lastName}">
             </option>
         </select>
     </div>

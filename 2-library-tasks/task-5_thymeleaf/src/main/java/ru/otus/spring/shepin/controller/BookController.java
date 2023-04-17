@@ -46,16 +46,11 @@ public class BookController {
 
     @GetMapping("/create")
     public String createBook(Model model) {
-        List<Genre> genreList = genreService.getAll();
-        List<String> genreNameList  = genreList.stream()
-                .map(Genre::getName).collect(Collectors.toList());
+        List<Genre> genres = genreService.getAll();
+        List<Author> authors    = authorService.getAll();
 
-        List<Author> authorList    = authorService.getAll();
-        List<String> autorNameList = authorList.stream()
-                .map(author -> author.getFirstName() + " " + author.getLastName()).collect(Collectors.toList());
-
-        model.addAttribute("genres", genreNameList);
-        model.addAttribute("authors", autorNameList);
+        model.addAttribute("genres", genres);
+        model.addAttribute("authors", authors);
         return "create";
     }
 
