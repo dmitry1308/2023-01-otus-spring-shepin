@@ -33,6 +33,7 @@ public class BookServiceJpa implements BookService {
     }
 
     @Override
+    @Transactional
     public Book create(Book book) {
         return bookRepository.save(book);
     }
