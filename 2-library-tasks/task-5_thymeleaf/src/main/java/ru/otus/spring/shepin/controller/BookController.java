@@ -52,7 +52,7 @@ public class BookController {
 
         List<Author> authorList    = authorService.getAll();
         List<String> autorNameList = authorList.stream()
-                .map(author -> author.getFirstName() + author.getLastName()).collect(Collectors.toList());
+                .map(author -> author.getFirstName() + " " + author.getLastName()).collect(Collectors.toList());
 
         model.addAttribute("genres", genreNameList);
         model.addAttribute("authors", autorNameList);
