@@ -47,18 +47,26 @@ public class BookController {
     @GetMapping("/create")
     public String createPage(Model model) {
         List<Genre> genreList = genreService.getAll();
-        List<String> genreNameList  = genreList.stream().map(Genre::getName).collect(Collectors.toList());
+        List<String> genreNameList  = genreList.stream()
+                .map(Genre::getName).collect(Collectors.toList());
+
+        List<Author> authorList    = authorService.getAll();
+        List<String> autorNameList = authorList.stream()
+                .map(author -> author.getFirstName() + author.getLastName()).collect(Collectors.toList());
 
         model.addAttribute("genres", genreNameList);
+        model.addAttribute("authors", autorNameList);
         return "create";
     }
 
     @PostMapping("/create")
-    public String createPage(@RequestParam String name) {
-        Genre genre = genreService.getAll().get(0);
-        Author author = authorService.getAll().get(0);
+    public String createPage(@RequestParam String name, String genre, String author) {
+        Genre selectedGenre = genreService.getByName(genre);
 
-        Book book = Book.builder().name(name).genre(genre).author(author).build();
+        String[] firstNameAndLastNameAuthor    = author.split(" ");
+        Author selectedAuthor = authorService.getByParams(firstNameAndLastNameAuthor[0], firstNameAndLastNameAuthor[1]);
+
+        Book book = Book.builder().name(name).genre(selectedGenre).author(selectedAuthor).build();
 
         bookService.create(book);
         return "redirect:/";

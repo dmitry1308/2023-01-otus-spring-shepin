@@ -32,4 +32,9 @@ public class AuthorServiceJpa implements AuthorService {
     public List<Author> getAll() {
         return authorDao.findAll();
     }
+
+    @Override
+    public Author getByParams(String firstName, String lastName) {
+        return authorDao.findByFirstNameAndLastName(firstName, lastName).orElseThrow(RuntimeException::new);
+    }
 }
