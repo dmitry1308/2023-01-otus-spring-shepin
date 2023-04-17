@@ -19,6 +19,7 @@ import ru.otus.spring.shepin.service.BookService;
 import ru.otus.spring.shepin.service.GenreService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,7 +45,11 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public String createPage() {
+    public String createPage(Model model) {
+        List<Genre> genreList = genreService.getAll();
+        List<String> genreNameList  = genreList.stream().map(Genre::getName).collect(Collectors.toList());
+
+        model.addAttribute("genres", genreNameList);
         return "create";
     }
 
