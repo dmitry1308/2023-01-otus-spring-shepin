@@ -28,9 +28,11 @@
 <h3>Book list:</h3>
 
 
-<a href="create.html" th:href="@{/create}"><button type="button">Create book</button></a>
-
-
+<a href="create.html" th:href="@{/create}">
+    <button type="button">Create book</button>
+    <br/>
+</a>
+<br/>
 
 <table class="books">
     <thead>
@@ -50,7 +52,9 @@
         <td th:text="${book.genre.name}">Genre 1</td>
         <td th:text="|${book.author.getLastName()} | + | ${book.author.getFirstName()}|">Author</td>
         <td>
-            <a href="edit.html" th:href="@{/edit(id=${book.id})}">Edit</a>
+            <a href="edit.html" th:href="@{/edit(id=${book.id})}">
+                Edit
+            </a>
         </td>
     </tr>
     </tbody>
