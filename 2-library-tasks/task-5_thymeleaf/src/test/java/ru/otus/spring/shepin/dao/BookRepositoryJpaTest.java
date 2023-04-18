@@ -12,6 +12,7 @@ import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,12 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @DisplayName("Dao для работы с книгами")
 class BookRepositoryJpaTest {
-    private static final int EXPECTED_NUMBER_OF_BOOKS = 3;
-    private static final long EXPECTED_QUERIES_COUNT  = 1;
+    private static final int               EXPECTED_NUMBER_OF_BOOKS = 3;
+    private static final long              EXPECTED_QUERIES_COUNT   = 1;
     @Autowired
-    private BookRepository    bookRepo;
+    private              BookRepository    bookRepo;
     @Autowired
-    private TestEntityManager em;
+    private              TestEntityManager em;
 
 
     @DisplayName("должен загружать список всех книг с полной информацией о них")
@@ -35,10 +36,7 @@ class BookRepositoryJpaTest {
 
         System.out.println("\n\n\n\n----------------------------------------------------------------------------------------------------------");
         val students = bookRepo.findAll();
-        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
-                            .allMatch(b -> !b.getName().equals(""))
-                            .allMatch(b -> b.getGenre() != null)
-                            .allMatch(b -> b.getAuthor() != null);
+        assertThat(students).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS).allMatch(b -> !b.getName().equals("")).allMatch(b -> b.getGenre() != null).allMatch(b -> b.getAuthor() != null);
         System.out.println("----------------------------------------------------------------------------------------------------------\n\n\n\n");
         assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
     }
@@ -54,7 +52,7 @@ class BookRepositoryJpaTest {
     void create() {
 
         Author author = Author.builder().firstName("firstName").lastName("lastName").build();
-        Genre genre = Genre.builder().name("Genre").build();
+        Genre  genre  = Genre.builder().name("Genre").build();
 
         Book book = Book.builder().name("NameBook").author(author).genre(genre).build();
 
@@ -70,8 +68,8 @@ class BookRepositoryJpaTest {
     @Test
     @DisplayName("Обновить книгу")
     void update() {
-        final Book book = bookRepo.findById(100L).get();
-        Book updatedBook = book.toBuilder().name("UpdateName").build();
+        final Book book        = bookRepo.findById(100L).get();
+        Book       updatedBook = book.toBuilder().name("UpdateName").build();
         bookRepo.save(updatedBook);
 
         Book bookUpdated = bookRepo.findById(100L).get();
@@ -97,9 +95,8 @@ class BookRepositoryJpaTest {
     void deleteById() {
         Book book = em.find(Book.class, 100L);
         bookRepo.deleteById(book.getId());
-        em.clear();
 
-         Book deletedBook = bookRepo.findById(book.getId()).get();
-        assertThat(deletedBook).isNull();
+        Optional<Book> deletedBook = bookRepo.findById(book.getId());
+        assertThat(deletedBook).isEmpty();
     }
 }

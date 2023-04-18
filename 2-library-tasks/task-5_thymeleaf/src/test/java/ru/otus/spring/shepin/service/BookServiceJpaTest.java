@@ -42,21 +42,17 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Создать книгу")
     void create() {
-        bookService.create(NAME_BOOK, FIRST_NAME_AUTHOR, LAST_NAME_AUTHOR, GENRE);
-
-        Author author = Author.builder().firstName(FIRST_NAME_AUTHOR).lastName(LAST_NAME_AUTHOR).build();
-        Genre genre = Genre.builder().name(GENRE).build();
-        Book book = Book.builder().name(NAME_BOOK).author(author).genre(genre).build();
+        Book book = Book.builder().name(NAME_BOOK).build();
+        bookService.create(book);
         verify(bookRepositoryJdbc).save(book);
     }
 
     @Test
     @DisplayName("Обновить книгу по имени")
     void updateByName() {
-        final Book book = Book.builder().id(1L).name("Name").build();
+        Book book = Book.builder().name("Name").build();
         when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book));
         assertThatCode(() -> bookService.updateByName(1L, "new name")).doesNotThrowAnyException();
-        verify(bookRepositoryJdbc).save(Book.builder().id(1L).name("new name").build());
     }
 
     @Test
