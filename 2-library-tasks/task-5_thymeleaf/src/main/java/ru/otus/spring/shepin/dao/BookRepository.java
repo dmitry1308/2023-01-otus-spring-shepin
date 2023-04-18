@@ -2,6 +2,7 @@ package ru.otus.spring.shepin.dao;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNullApi;
 import ru.otus.spring.shepin.entity.Book;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @EntityGraph(attributePaths = {"author", "genre"})
      Optional<Book> findById(Long id);
+
+     Book save(Book book);
 }
