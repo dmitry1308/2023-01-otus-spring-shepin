@@ -101,6 +101,7 @@ class BookControllerTest {
         BookDto bookDto = new BookDto("name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
+                        .param("id", String.valueOf(1L))
                         .param("update", "update")
                         .flashAttr("book", bookDto))
                 .andExpect(view().name("redirect:/list"));
@@ -113,6 +114,7 @@ class BookControllerTest {
         BookDto bookDto = new BookDto( "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
+                        .param("id", String.valueOf(1L))
                         .param("delete","delete")
                         .flashAttr("book", bookDto));
 

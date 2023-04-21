@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/edit", params = "update")
-    public String editBook(@RequestParam Long id  ,@Valid @ModelAttribute("book") BookDto bookDto,
+    public String editBook(@RequestParam("id") Long id  ,@Valid @ModelAttribute("book") BookDto bookDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
@@ -70,7 +70,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/edit", params = "delete")
-    public String deleteBook(@RequestParam Long id , @Valid @ModelAttribute("book") BookDto bookDto,
+    public String deleteBook(@RequestParam("id") Long id , @Valid @ModelAttribute("book") BookDto bookDto,
                              BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
