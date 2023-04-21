@@ -4,9 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Genre;
 
 @Data
 @AllArgsConstructor

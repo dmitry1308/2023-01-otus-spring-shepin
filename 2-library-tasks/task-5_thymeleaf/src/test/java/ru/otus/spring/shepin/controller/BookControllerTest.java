@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.otus.spring.shepin.dto.AuthorDto;
 import ru.otus.spring.shepin.dto.BookDto;
+import ru.otus.spring.shepin.dto.GenreDto;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -96,7 +98,7 @@ class BookControllerTest {
 
     @Test
     void test_update_book() throws Exception {
-        BookDto bookDto = new BookDto(1L, "name", new Genre(), new Author());
+        BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
                         .param("action", "update")
@@ -108,7 +110,7 @@ class BookControllerTest {
 
     @Test
     void test_delete_book() throws Exception {
-        BookDto bookDto = new BookDto(1L, "name", new Genre(), new Author());
+        BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
                         .param("action", "delete")

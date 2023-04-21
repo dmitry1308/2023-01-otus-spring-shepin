@@ -2,8 +2,6 @@ package ru.otus.spring.shepin.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,11 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.otus.spring.shepin.dto.BookDto;
-import ru.otus.spring.shepin.dto.BookDto1;
 import ru.otus.spring.shepin.dto.BookDto2;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
@@ -54,14 +49,7 @@ public class BookController {
 
     @PostMapping(path = "/create")
     public String createBook(@ModelAttribute BookDto2 dto) {
-        Genre selectedGenre = genreService.getByName(dto.getGenre().getName());
-
-        String[] firstNameAndLastNameAuthor    = dto.getAuthor().getFirstNameAndLastName().split(" ");
-        Author selectedAuthor = authorService.getByParams(firstNameAndLastNameAuthor[0], firstNameAndLastNameAuthor[1]);
-
-        Book book = Book.builder().name(dto.getName()).genre(selectedGenre).author(selectedAuthor).build();
-
-        bookService.create(book);
+        bookService.create(dto);
         return "redirect:/list";
     }
 
