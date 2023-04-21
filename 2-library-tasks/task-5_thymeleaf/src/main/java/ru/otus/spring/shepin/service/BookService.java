@@ -8,8 +8,6 @@ import java.util.List;
 public interface BookService {
     int count();
 
-    Book create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
-
     Book create(BookDto book);
 
     void updateByName(Long id, String name);

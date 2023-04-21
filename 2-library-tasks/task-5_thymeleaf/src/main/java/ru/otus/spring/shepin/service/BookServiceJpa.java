@@ -9,6 +9,7 @@ import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
+import ru.otus.spring.shepin.mapper.BookMapper;
 
 import java.util.List;
 
@@ -16,8 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookServiceJpa implements BookService {
     private final BookRepository bookRepository;
-    private final GenreService  genreService;
-    private final AuthorService authorService;
+    private final BookMapper     bookMapper;
 
     @Override
     public int count() {
@@ -26,26 +26,8 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @Transactional
-    public Book create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genreName) {
-
-        Author author = Author.builder().firstName(firstNameAuthor).lastName(lastNameAuthor).build();
-        Genre  genre  = Genre.builder().name(genreName).build();
-
-        Book book = Book.builder().name(nameBook).author(author).genre(genre).build();
-        return bookRepository.save(book);
-    }
-
-    @Override
-    @Transactional
     public Book create(BookDto dto) {
-        Genre selectedGenre = genreService.getByName(dto.getGenre().getName());
-
-        String[] firstNameAndLastNameAuthor    = dto.getAuthor().getFirstNameAndLastName().split(" ");
-        Author selectedAuthor = authorService.getByParams(firstNameAndLastNameAuthor[0], firstNameAndLastNameAuthor[1]);
-
-        Book book = Book.builder().name(dto.getName()).genre(selectedGenre).author(selectedAuthor).build();
-
-        return bookRepository.save(book);
+        return bookRepository.save(bookMapper.fromDomainToObject(dto));
     }
 
     @Override
