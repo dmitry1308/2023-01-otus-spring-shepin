@@ -25,7 +25,7 @@ import java.util.List;
 @Validated
 public class BookController {
 
-    private final BookService  bookService;
+    private final BookService   bookService;
     private final GenreService  genreService;
     private final AuthorService authorService;
 
@@ -38,8 +38,8 @@ public class BookController {
 
     @GetMapping("/create")
     public String createBook(Model model) {
-        List<Genre> genres = genreService.getAll();
-        List<Author> authors    = authorService.getAll();
+        List<Genre>  genres  = genreService.getAll();
+        List<Author> authors = authorService.getAll();
 
         model.addAttribute("genres", genres);
         model.addAttribute("authors", authors);
@@ -53,14 +53,16 @@ public class BookController {
     }
 
     @GetMapping("/edit")
-    public String editBook(@RequestParam("id") long id, Model model) {
+    public String editBook(@RequestParam("id") long id,
+                           Model model) {
         Book book = bookService.getById(id);
         model.addAttribute("book", book);
         return "edit";
     }
 
     @PostMapping(path = "/edit", params = "update")
-    public String editBook(@RequestParam("id") Long id  ,@Valid @ModelAttribute("book") BookDto bookDto,
+    public String editBook(@RequestParam("id") Long id,
+                           @Valid @ModelAttribute("book") BookDto bookDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
@@ -70,7 +72,8 @@ public class BookController {
     }
 
     @PostMapping(path = "/edit", params = "delete")
-    public String deleteBook(@RequestParam("id") Long id , @Valid @ModelAttribute("book") BookDto bookDto,
+    public String deleteBook(@RequestParam("id") Long id,
+                             @Valid @ModelAttribute("book") BookDto bookDto,
                              BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
