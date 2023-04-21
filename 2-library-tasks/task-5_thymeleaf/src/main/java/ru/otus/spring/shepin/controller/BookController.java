@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.dto.BookDto1;
+import ru.otus.spring.shepin.dto.BookDto2;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -52,13 +53,13 @@ public class BookController {
     }
 
     @PostMapping(path = "/create")
-    public String createBook(@ModelAttribute BookDto1 dto1) {
-        Genre selectedGenre = genreService.getByName(dto1.getGenre());
+    public String createBook(@ModelAttribute BookDto2 dto) {
+        Genre selectedGenre = genreService.getByName(dto.getGenre().getName());
 
-        String[] firstNameAndLastNameAuthor    = dto1.getAuthor().split(" ");
+        String[] firstNameAndLastNameAuthor    = dto.getAuthor().getFirstNameAndLastName().split(" ");
         Author selectedAuthor = authorService.getByParams(firstNameAndLastNameAuthor[0], firstNameAndLastNameAuthor[1]);
 
-        Book book = Book.builder().name(dto1.getName()).genre(selectedGenre).author(selectedAuthor).build();
+        Book book = Book.builder().name(dto.getName()).genre(selectedGenre).author(selectedAuthor).build();
 
         bookService.create(book);
         return "redirect:/list";

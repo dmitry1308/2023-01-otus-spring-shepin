@@ -18,9 +18,9 @@ public class BookDto {
     @Size(min = 2, max = 100000, message = "{name-field-should-has-expected-size}")
     private String name;
 
-    private Genre genre;
+    private GenreDto genre;
 
-    private Author author;
+    private AuthorDto author;
 
     public Book toDomainObject() {
         return Book.builder().id(id).name(name).build();
