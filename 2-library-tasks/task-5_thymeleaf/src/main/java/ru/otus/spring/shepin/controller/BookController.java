@@ -29,7 +29,7 @@ public class BookController {
     private final GenreService  genreService;
     private final AuthorService authorService;
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public String listBooks(Model model) {
         List<Book> books = bookService.getAll();
         model.addAttribute("books", books);
@@ -58,7 +58,7 @@ public class BookController {
         Book book = Book.builder().name(name).genre(selectedGenre).author(selectedAuthor).build();
 
         bookService.create(book);
-        return "redirect:/";
+        return "redirect:/list";
     }
 
     @GetMapping("/edit")
@@ -82,6 +82,6 @@ public class BookController {
             bookService.deleteById(bookDto.getId());
         }
 
-        return "redirect:/";
+        return "redirect:/list";
     }
 }
