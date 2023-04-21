@@ -60,20 +60,24 @@ public class BookController {
         return "edit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping(path = "/edit", params = "update")
     public String editBook(@Valid @ModelAttribute("book") BookDto bookDto,
-                           BindingResult bindingResult,
-                           @RequestParam(value = "action") String action) {
+                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
+        bookService.updateByName(bookDto.getId(), bookDto.getName());
+        return "redirect:/list";
+    }
 
-        if (action.equals("update")) {
-            bookService.updateByName(bookDto.getId(), bookDto.getName());
-        } else if (action.equals("delete")) {
-            bookService.deleteById(bookDto.getId());
+    @PostMapping(path = "/edit", params = "delete")
+    public String deleteBook(@Valid @ModelAttribute("book") BookDto bookDto,
+                             BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "edit";
         }
-
+        bookService.deleteById(bookDto.getId());
         return "redirect:/list";
     }
 }
