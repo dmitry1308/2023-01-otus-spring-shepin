@@ -98,7 +98,7 @@ class BookControllerTest {
 
     @Test
     void test_update_book() throws Exception {
-        BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
+        BookDto bookDto = new BookDto("name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
                         .param("update", "update")
@@ -110,7 +110,7 @@ class BookControllerTest {
 
     @Test
     void test_delete_book() throws Exception {
-        BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
+        BookDto bookDto = new BookDto( "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
                         .param("delete","delete")

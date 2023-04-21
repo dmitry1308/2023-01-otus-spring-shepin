@@ -1,21 +1,18 @@
 package ru.otus.spring.shepin.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
-@Data
+import java.io.Serializable;
+
+
 @AllArgsConstructor
-public class BookDto {
+@Builder
+@Getter
+public class BookDto implements Serializable {
 
-    private long id;
-
-    @NotBlank(message = "{name-field-should-not-be-blank}")
-    @Size(min = 2, max = 100000, message = "{name-field-should-has-expected-size}")
-    private String name;
-
-    private GenreDto genre;
-
-    private AuthorDto author;
+    private final String    name;
+    private final GenreDto  genre;
+    private final AuthorDto author;
 }

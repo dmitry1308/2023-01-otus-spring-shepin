@@ -9,11 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.shepin.dao.BookRepository;
 import ru.otus.spring.shepin.dto.AuthorDto;
-import ru.otus.spring.shepin.dto.BookDto2;
+import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.dto.GenreDto;
-import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +19,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,7 +49,7 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Создать книгу")
     void create() {
-        BookDto2 book = BookDto2.builder().name(NAME_BOOK).genre(GenreDto.builder().name("genreName").build()).author(AuthorDto.builder().firstNameAndLastName("firstName lastName").build()).build();
+        BookDto book = BookDto.builder().name(NAME_BOOK).genre(GenreDto.builder().name("genreName").build()).author(AuthorDto.builder().firstNameAndLastName("firstName lastName").build()).build();
         bookService.create(book);
         verify(bookRepositoryJdbc).save(Book.builder().name(NAME_BOOK).build());
     }

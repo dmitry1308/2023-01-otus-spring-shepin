@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.shepin.dao.BookRepository;
-import ru.otus.spring.shepin.dto.BookDto2;
+import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -37,7 +37,7 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @Transactional
-    public Book create(BookDto2 dto) {
+    public Book create(BookDto dto) {
         Genre selectedGenre = genreService.getByName(dto.getGenre().getName());
 
         String[] firstNameAndLastNameAuthor    = dto.getAuthor().getFirstNameAndLastName().split(" ");

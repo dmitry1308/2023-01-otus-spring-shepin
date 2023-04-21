@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.otus.spring.shepin.dto.BookDto;
-import ru.otus.spring.shepin.dto.BookDto2;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -48,7 +47,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/create")
-    public String createBook(@ModelAttribute BookDto2 dto) {
+    public String createBook(@ModelAttribute BookDto dto) {
         bookService.create(dto);
         return "redirect:/list";
     }
@@ -61,23 +60,23 @@ public class BookController {
     }
 
     @PostMapping(path = "/edit", params = "update")
-    public String editBook(@Valid @ModelAttribute("book") BookDto bookDto,
+    public String editBook(@RequestParam Long id  ,@Valid @ModelAttribute("book") BookDto bookDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        bookService.updateByName(bookDto.getId(), bookDto.getName());
+        bookService.updateByName(id, bookDto.getName());
         return "redirect:/list";
     }
 
     @PostMapping(path = "/edit", params = "delete")
-    public String deleteBook(@Valid @ModelAttribute("book") BookDto bookDto,
+    public String deleteBook(@RequestParam Long id , @Valid @ModelAttribute("book") BookDto bookDto,
                              BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        bookService.deleteById(bookDto.getId());
+        bookService.deleteById(id);
         return "redirect:/list";
     }
 }

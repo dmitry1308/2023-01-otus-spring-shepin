@@ -1,6 +1,6 @@
 package ru.otus.spring.shepin.service;
 
-import ru.otus.spring.shepin.dto.BookDto2;
+import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.entity.Book;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface BookService {
 
     Book create(String nameBook, String firstNameAuthor, String lastNameAuthor, String genre);
 
-    Book create(BookDto2 book);
+    Book create(BookDto book);
 
     void updateByName(Long id, String name);
 
