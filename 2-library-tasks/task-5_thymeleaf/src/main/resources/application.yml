@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8085
 
 spring:
 
@@ -35,4 +35,4 @@ spring:
 
 logging:
   level:
-    ROOT: INFO
+    ROOT: ERROR

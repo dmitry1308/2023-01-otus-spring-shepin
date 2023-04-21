@@ -50,7 +50,7 @@ class BookControllerTest {
 
         given(bookService.getAll()).willReturn(List.of(book));
 
-        this.mvc.perform(get("/")).andExpect(status().isOk())
+        this.mvc.perform(get("/list")).andExpect(status().isOk())
                 .andExpect(view().name("list"))
                 .andExpect(model().attributeExists("books"))
                 .andExpect(model().attribute("books", List.of(book)));
@@ -93,7 +93,7 @@ class BookControllerTest {
                 .param("name", "BookName")
                 .param("genre", "GenreName")
                 .param("author", "FirstName LastName"))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(view().name("redirect:/list"));
     }
 
     @Test
@@ -101,9 +101,9 @@ class BookControllerTest {
         BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
-                        .param("action", "update")
+                        .param("update", "update")
                         .flashAttr("book", bookDto))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(view().name("redirect:/list"));
 
         verify(bookService, times(1)).updateByName(1L,"name");
     }
@@ -113,9 +113,8 @@ class BookControllerTest {
         BookDto bookDto = new BookDto(1L, "name", new GenreDto(), new AuthorDto());
 
         this.mvc.perform(post("/edit")
-                        .param("action", "delete")
-                        .flashAttr("book", bookDto))
-                .andExpect(view().name("redirect:/"));
+                        .param("delete","delete")
+                        .flashAttr("book", bookDto));
 
         verify(bookService, times(1)).deleteById(1L);
     }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.shepin.dao.BookRepository;
+import ru.otus.spring.shepin.dto.AuthorDto;
 import ru.otus.spring.shepin.dto.BookDto2;
+import ru.otus.spring.shepin.dto.GenreDto;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
@@ -35,6 +37,12 @@ class BookServiceJpaTest {
     @MockBean
     private BookRepository bookRepositoryJdbc;
 
+    @MockBean
+    private AuthorService authorService;
+
+    @MockBean
+    private GenreService genreService;
+
     @Test
     void count() {
         when(bookRepositoryJdbc.count()).thenReturn(6L);
@@ -44,9 +52,9 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Создать книгу")
     void create() {
-        BookDto2 book = BookDto2.builder().name(NAME_BOOK).build();
+        BookDto2 book = BookDto2.builder().name(NAME_BOOK).genre(GenreDto.builder().name("genreName").build()).author(AuthorDto.builder().firstNameAndLastName("firstName lastName").build()).build();
         bookService.create(book);
-//        verify(bookRepositoryJdbc).save(book);
+        verify(bookRepositoryJdbc).save(Book.builder().name(NAME_BOOK).build());
     }
 
     @Test
