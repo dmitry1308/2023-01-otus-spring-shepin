@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +29,7 @@ import java.util.Objects;
 @Builder(toBuilder = true)
 @ToString
 @Entity
-@Table(name = "book")
+@Table(name = "book", uniqueConstraints = {@UniqueConstraint(name = "uc_book_name_author_id", columnNames = {"name", "author_id"})})
 
 public class Book {
     @Id

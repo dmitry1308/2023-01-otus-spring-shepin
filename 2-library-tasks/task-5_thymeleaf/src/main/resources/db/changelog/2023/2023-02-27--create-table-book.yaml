@@ -28,3 +28,16 @@ databaseChangeLog:
                 constraints:
                   foreignKeyName: fk_genre_book
                   references: genre(id)
+
+  - changeSet:
+      id: Create uniqueConstraint for author id and book name
+      author: dshepin
+      changes:
+        - addUniqueConstraint:
+            constraintName: book_name_author_id_unique
+            columnNames: name, author_id
+            tableName: book
+      rollback:
+        - dropUniqueConstraint:
+            constraintName: book_name_author_id_unique
+            tableName: book
