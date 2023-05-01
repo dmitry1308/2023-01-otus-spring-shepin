@@ -9,5 +9,7 @@ public interface AuthorService {
 
     Author create(String firstName, String lastName);
 
-    Author getById(Long id);
+    Author findByFirstAndLastName(String firstName, String lastName);
+
+    Author getById(String id);
 }

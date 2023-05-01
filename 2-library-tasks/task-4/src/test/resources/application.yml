@@ -2,17 +2,14 @@ server:
   port: 8082
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
 
   data:
     mongodb:
       authentication-database: admin
 #      username: root
 #      password: root
-      database: librarydb
-      port: 27017
-      host: localhost
+      database: librarydbTest
+      port: 0
 
 de:
   flapdoodle:
@@ -20,19 +17,23 @@ de:
       embedded:
         version: 4.0.2
 
-
+  shell:
+    interactive:
+      enabled: false
+    command:
+      stacktrace:
+        enabled: true
 
 mongock:
-#  runner-type: "ApplicationRunner" # default
-  runner-type: "InitializingBean"
+  runner-type: "Applicationrunner"
   change-logs-scan-package:
     - ru.otus.spring.shepin.mongock.changelog
   mongo-db:
     write-concern:
       journal: false
     read-concern: local
+  enabled: false
 
 logging:
   level:
-    root: info
-    de.flapdoodle.os.common.attributes: warn
+    ROOT: ERROR
