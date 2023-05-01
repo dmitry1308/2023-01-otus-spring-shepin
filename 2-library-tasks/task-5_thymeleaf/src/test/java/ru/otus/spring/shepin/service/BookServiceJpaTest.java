@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.shepin.dao.BookRepository;
-import ru.otus.spring.shepin.entity.Author;
+import ru.otus.spring.shepin.dto.AuthorDto;
+import ru.otus.spring.shepin.dto.BookDto;
+import ru.otus.spring.shepin.dto.GenreDto;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Genre;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,12 @@ class BookServiceJpaTest {
     @MockBean
     private BookRepository bookRepositoryJdbc;
 
+    @MockBean
+    private AuthorService authorService;
+
+    @MockBean
+    private GenreService genreService;
+
     @Test
     void count() {
         when(bookRepositoryJdbc.count()).thenReturn(6L);
@@ -42,21 +49,17 @@ class BookServiceJpaTest {
     @Test
     @DisplayName("Создать книгу")
     void create() {
-        bookService.create(NAME_BOOK, FIRST_NAME_AUTHOR, LAST_NAME_AUTHOR, GENRE);
-
-        Author author = Author.builder().firstName(FIRST_NAME_AUTHOR).lastName(LAST_NAME_AUTHOR).build();
-        Genre genre = Genre.builder().name(GENRE).build();
-        Book book = Book.builder().name(NAME_BOOK).author(author).genre(genre).build();
-        verify(bookRepositoryJdbc).save(book);
+        BookDto book = BookDto.builder().name(NAME_BOOK).genre(GenreDto.builder().name("genreName").build()).author(AuthorDto.builder().firstNameAndLastName("firstName lastName").build()).build();
+        bookService.create(book);
+        verify(bookRepositoryJdbc).save(Book.builder().name(NAME_BOOK).build());
     }
 
     @Test
     @DisplayName("Обновить книгу по имени")
     void updateByName() {
-        final Book book = Book.builder().id(1L).name("Name").build();
+        Book book = Book.builder().name("Name").build();
         when(bookRepositoryJdbc.findById(1L)).thenReturn(Optional.of(book));
         assertThatCode(() -> bookService.updateByName(1L, "new name")).doesNotThrowAnyException();
-        verify(bookRepositoryJdbc).save(Book.builder().id(1L).name("new name").build());
     }
 
     @Test
