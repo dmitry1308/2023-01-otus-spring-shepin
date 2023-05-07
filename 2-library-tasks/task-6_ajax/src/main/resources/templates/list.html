@@ -10,14 +10,14 @@
         }
 
         .books {
-            border: 1px solid steelblue;
-            width: 300px;
+            border: 3px solid #46b451;
+            width: 500px;
             border-collapse: collapse;
         }
 
         .books tr td, th {
             padding: 5px;
-            border: 1px solid steelblue;
+            border: 3px solid #46b451;
         }
 
         .books td:last-child, td:first-child {
@@ -29,11 +29,21 @@
 <body>
 <h1>Books:</h1>
 
+<a href="create.html" th:href="@{/create}">
+    <button type="button">Create book</button>
+    <br/>
+</a>
+<br/>
+
 <table class="books">
     <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Genre</th>
+        <th>Author</th>
+
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -42,12 +52,15 @@
 
 <script>
     $(function () {
-        $.get('/books').done(function (books) {
+        $.get('/list').done(function (books) {
             books.forEach(function (book) {
                 $('tbody').append(`
                     <tr>
                         <td>${book.id}</td>
                         <td>${book.name}</td>
+                        <td>${book.genre.name}</td>
+                        <td>${book.author.firstName + ", " + book.author.lastName}</td>
+                         <td><a href="edit.html" th:href="@{/edit(id=${book.id})}">edit</a></td>
                     </tr>
                 `)
             });
