@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.shepin.dao.BookRepository;
-import ru.otus.spring.shepin.dto.AuthorDto;
 import ru.otus.spring.shepin.dto.BookDto;
-import ru.otus.spring.shepin.dto.GenreDto;
 import ru.otus.spring.shepin.entity.Book;
 
 import java.util.Collections;
@@ -25,33 +23,15 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @DisplayName("Тестирование сервиса книги")
 class BookServiceJpaTest {
-    public static final String LAST_NAME_AUTHOR = "Last name author";
-    public static final String GENRE = "genre";
-    public static final String NAME_BOOK = "Name book";
-    public static final String FIRST_NAME_AUTHOR = "First name author";
     @Autowired
     private BookService    bookService;
     @MockBean
     private BookRepository bookRepositoryJdbc;
 
-    @MockBean
-    private AuthorService authorService;
-
-    @MockBean
-    private GenreService genreService;
-
     @Test
     void count() {
         when(bookRepositoryJdbc.count()).thenReturn(6L);
         Assertions.assertThat(bookService.count()).isEqualTo(6);
-    }
-
-    @Test
-    @DisplayName("Создать книгу")
-    void create() {
-        BookDto book = BookDto.builder().name(NAME_BOOK).genre(GenreDto.builder().name("genreName").build()).author(AuthorDto.builder().firstNameAndLastName("firstName lastName").build()).build();
-        bookService.create(book);
-        verify(bookRepositoryJdbc).save(Book.builder().name(NAME_BOOK).build());
     }
 
     @Test
@@ -76,7 +56,7 @@ class BookServiceJpaTest {
     @DisplayName("Получить все книги")
     void getAll() {
         when(bookRepositoryJdbc.findAll()).thenReturn(Collections.singletonList(Book.builder().name("Name").build()));
-        List<Book> bookList = bookService.getAll();
+        List<BookDto> bookList = bookService.getAll();
         assertThat(bookList).hasSize(1);
     }
 

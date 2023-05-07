@@ -18,13 +18,6 @@ public class BookMapper {
     private final GenreService  genreService;
     private final AuthorService authorService;
 
-    public static Book fromDomainToObject(BookDto dto) {
-        final Genre genre = GenreMapper.fromDtoToObject(dto.getGenre());
-        final Author author = AuthorMapper.fromDtoToObject(dto.getAuthor());
-
-        return new Book(dto.getName(), genre, author);
-    }
-
     public Book fromDomainToObject(BookDtoForSave dto) {
 
         final Genre  genre  = getGenre(dto);
@@ -49,7 +42,7 @@ public class BookMapper {
         return genre;
     }
 
-    public static BookDto fromObjectToDto(Book book) {
+    public  BookDto fromObjectToDto(Book book) {
         final AuthorDto authorDto = AuthorMapper.fromObjectToDto(book.getAuthor());
         final GenreDto  genreDto  = GenreMapper.fromObjectToDto(book.getGenre());
 

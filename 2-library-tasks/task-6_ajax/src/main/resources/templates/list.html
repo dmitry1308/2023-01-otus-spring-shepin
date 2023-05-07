@@ -19,10 +19,6 @@
             padding: 5px;
             border: 3px solid #46b451;
         }
-
-        .books td:last-child, td:first-child {
-            width: 50px;
-        }
     </style>
     <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
 </head>
@@ -42,8 +38,6 @@
         <th>Name</th>
         <th>Genre</th>
         <th>Author</th>
-
-        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -60,7 +54,6 @@
                         <td>${book.name}</td>
                         <td>${book.genre.name}</td>
                         <td>${book.author.firstName + ", " + book.author.lastName}</td>
-                         <td><a href="edit.html" th:href="@{/edit(id=${book.id})}">edit</a></td>
                     </tr>
                 `)
             });

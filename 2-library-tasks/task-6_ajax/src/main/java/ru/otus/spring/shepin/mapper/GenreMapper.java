@@ -10,11 +10,6 @@ import ru.otus.spring.shepin.entity.Genre;
 @Service
 @RequiredArgsConstructor
 public class GenreMapper {
-
-    public static Genre fromDtoToObject(GenreDto dto) {
-        return new Genre(dto.getName());
-    }
-
     public static GenreDto fromObjectToDto(Genre genre) {
         return new GenreDto(genre.getId(), genre.getName());
     }
