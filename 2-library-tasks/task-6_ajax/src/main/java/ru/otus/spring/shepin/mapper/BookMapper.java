@@ -20,26 +20,12 @@ public class BookMapper {
 
     public Book fromDomainToObject(BookDtoForSave dto) {
 
-        final Genre  genre  = getGenre(dto);
-        final Author author = getAuthor(dto.getFirstName(), dto.getLastName());
+        final Genre genre = genreService.getByName(dto.getGenre());
+
+        final String[] firstnameAndLastNameAuthor    = dto.getAuthor().split(" ");
+        final Author author = authorService.getByParams(firstnameAndLastNameAuthor[0], firstnameAndLastNameAuthor[1]);
 
         return new Book(dto.getName(), genre, author);
-    }
-
-    private Author getAuthor(String firstName, String lastName) {
-        try {
-            return authorService.getByParams(firstName, lastName);
-        } catch (Exception e) {
-           return authorService.create(firstName, lastName);
-        }
-    }
-
-    private Genre getGenre(BookDtoForSave dto) {
-        final Genre genre = genreService.getByName(dto.getGenre());
-        if (genre == null) {
-            return genreService.create(dto.getGenre());
-        }
-        return genre;
     }
 
     public  BookDto fromObjectToDto(Book book) {
