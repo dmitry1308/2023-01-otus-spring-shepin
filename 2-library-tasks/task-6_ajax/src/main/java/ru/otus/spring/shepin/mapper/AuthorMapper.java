@@ -13,8 +13,9 @@ import ru.otus.spring.shepin.service.GenreService;
 @Service
 @RequiredArgsConstructor
 public class AuthorMapper {
+    private final GenreMapper genreMapper;
 
-    public static AuthorDto fromObjectToDto(Author author) {
+    public  AuthorDto fromObjectToDto(Author author) {
         return new AuthorDto(author.getId(), author.getFirstName(), author.getLastName());
     }
 }

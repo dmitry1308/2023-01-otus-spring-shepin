@@ -24,16 +24,16 @@
     <script>
         function saveBook() {
             const savedPersonContainer = document.getElementById("saved-book")
+
             const nameInput = document.getElementById("book-name-input")
-            const genreInput = document.getElementById("genre-name-input")
-            const lastName = document.getElementById("author-lastname_input")
-            const firstName = document.getElementById("author-firstname_input")
+            const genre = document.getElementById("genre")
+            const author = document.getElementById("author")
+
 
             objectInBody = {
                 name: nameInput.value,
-                genre: genreInput.value,
-                lastName: lastName.value,
-                firstName: firstName.value
+                genre: genre.value,
+                author: author.value
             };
 
             fetch("/book", {
@@ -56,20 +56,27 @@
         <label for="book-name-input">Name:</label>
         <input id="book-name-input" name="name" type="text" value="Book 1"/>
     </div>
+
     <div class="row">
-        <label for="genre-name-input">Genre:</label>
-        <input id="genre-name-input" name="genre" type="text" value="Genre 1"/>
+        <label for="genre">Genre</label>
+        <select class="form-control" id="genre" name="genre">
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.name}"
+                    th:text="${genre.name}">
+            </option>
+        </select>
     </div>
 
     <div class="row">
-        <label for="author-lastname_input">Last Name Author:</label>
-        <input id="author-lastname_input" name="lastName" type="text" value="lastName"/>
+        <label for="genre">Author</label>
+        <select class="form-control" id="author" name="genre">
+            <option th:each="author : ${authors}"
+                    th:value="${author.firstName} +| | +${author.lastName}"
+                    th:text="${author.firstName} +| | +${author.lastName}">
+            </option>
+        </select>
     </div>
 
-    <div class="row">
-        <label for="author-firstname_input">First Name Author:</label>
-        <input id="author-firstname_input" name="firstName" type="text" value="firstName"/>
-    </div>
 
     <div class="row">
         <button type="button" onclick="saveBook()" >Save</button>

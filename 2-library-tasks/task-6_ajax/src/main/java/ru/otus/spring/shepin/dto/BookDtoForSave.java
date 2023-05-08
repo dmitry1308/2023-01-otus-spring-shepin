@@ -14,6 +14,6 @@ public class BookDtoForSave implements Serializable {
 
     private final String name;
     private final String genre;
-    private final String lastName;
-    private final String firstName;
+    private final String author;
+
 }

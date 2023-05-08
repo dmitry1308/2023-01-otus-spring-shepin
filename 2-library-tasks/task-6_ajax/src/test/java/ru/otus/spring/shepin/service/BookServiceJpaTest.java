@@ -10,6 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.spring.shepin.dao.BookRepository;
 import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.entity.Book;
+import ru.otus.spring.shepin.mapper.AuthorMapper;
+import ru.otus.spring.shepin.mapper.GenreMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +29,12 @@ class BookServiceJpaTest {
     private BookService    bookService;
     @MockBean
     private BookRepository bookRepositoryJdbc;
+
+    @MockBean
+    private  GenreMapper  genreMapper;
+
+    @MockBean
+    private  AuthorMapper authorMapper;
 
     @Test
     void count() {
