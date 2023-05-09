@@ -26,6 +26,10 @@ public class GenreServiceJpa implements GenreService {
         return genreDao.getByName(name);
     }
 
+    @Override public Genre getById(long id) {
+        return genreDao.getById(id);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Genre> getAll() {

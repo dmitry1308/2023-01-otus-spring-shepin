@@ -32,8 +32,8 @@
 
             objectInBody = {
                 name: nameInput.value,
-                genre: genre.value,
-                author: author.value
+                genreId: genre.value,
+                authorId: author.value
             };
 
             fetch("/api/books", {
@@ -61,7 +61,7 @@
         <label for="genre">Genre</label>
         <select class="form-control" id="genre" name="genre">
             <option th:each="genre : ${genres}"
-                    th:value="${genre.name}"
+                    th:value="${genre.id}"
                     th:text="${genre.name}">
             </option>
         </select>
@@ -71,7 +71,7 @@
         <label for="genre">Author</label>
         <select class="form-control" id="author" name="genre">
             <option th:each="author : ${authors}"
-                    th:value="${author.firstName} +| | +${author.lastName}"
+                    th:value="${author.id}"
                     th:text="${author.firstName} +| | +${author.lastName}">
             </option>
         </select>

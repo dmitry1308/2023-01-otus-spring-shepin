@@ -23,10 +23,8 @@ public class BookMapper {
 
     public Book fromDomainToObject(BookDtoForSave dto) {
 
-        final Genre genre = genreService.getByName(dto.getGenre());
-
-        final String[] firstnameAndLastNameAuthor    = dto.getAuthor().split(" ");
-        final Author author = authorService.getByParams(firstnameAndLastNameAuthor[0], firstnameAndLastNameAuthor[1]);
+        final Genre genre = genreService.getById(dto.getGenreId());
+        final Author author = authorService.getById(dto.getAuthorId());
 
         return new Book(dto.getName(), genre, author);
     }
