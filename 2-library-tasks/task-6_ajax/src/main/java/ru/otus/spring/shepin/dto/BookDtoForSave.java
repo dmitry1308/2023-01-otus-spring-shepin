@@ -10,11 +10,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Getter
-public class BookDto implements Serializable {
+public class BookDtoForSave implements Serializable {
 
-    private final Long      id;
-    private final String    name;
-    private final GenreDto  genre;
-    private final AuthorDto author;
+    private final String name;
+    private final long genreId;
+    private final long authorId;
 
 }

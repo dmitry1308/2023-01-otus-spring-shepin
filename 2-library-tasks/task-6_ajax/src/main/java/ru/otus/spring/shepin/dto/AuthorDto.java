@@ -1,5 +1,8 @@
 package ru.otus.spring.shepin.dto;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,5 +18,8 @@ import java.io.Serializable;
 @Getter
 @Builder
 public class AuthorDto implements Serializable {
-    private String firstNameAndLastName;
+
+    private Long   id;
+    private String lastName;
+    private String firstName;
 }

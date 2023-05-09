@@ -2,25 +2,29 @@ package ru.otus.spring.shepin.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.otus.spring.shepin.dto.AuthorDto;
 import ru.otus.spring.shepin.dto.BookDto;
+import ru.otus.spring.shepin.dto.BookDtoForSave;
+import ru.otus.spring.shepin.dto.GenreDto;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
-import ru.otus.spring.shepin.service.AuthorService;
-import ru.otus.spring.shepin.service.GenreService;
 
 @Service
 @RequiredArgsConstructor
 public class BookMapper {
-    private final GenreService  genreService;
-    private final AuthorService authorService;
 
-    public Book fromDomainToObject(BookDto dto) {
-        Genre selectedGenre = genreService.getByName(dto.getGenre().getName());
+    private final GenreMapper genreMapper;
+    private final AuthorMapper authorMapper;
 
-        String[] firstNameAndLastNameAuthor = dto.getAuthor().getFirstNameAndLastName().split(" ");
-        Author   selectedAuthor             = authorService.getByParams(firstNameAndLastNameAuthor[0], firstNameAndLastNameAuthor[1]);
+    public Book fromDomainToObject(BookDtoForSave dto, Genre genre, Author author) {
+        return new Book(dto.getName(), genre, author);
+    }
 
-        return new Book(dto.getName(), selectedGenre, selectedAuthor);
+    public  BookDto fromObjectToDto(Book book) {
+        final AuthorDto authorDto = authorMapper.fromObjectToDto(book.getAuthor());
+        final GenreDto  genreDto  = genreMapper.fromObjectToDto(book.getGenre());
+
+        return new BookDto(book.getId(), book.getName(), genreDto, authorDto);
     }
 }

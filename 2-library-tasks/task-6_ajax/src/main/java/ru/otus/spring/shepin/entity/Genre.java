@@ -28,4 +28,9 @@ public class Genre {
     private Long   id;
     @Column(nullable = false,unique = true)
     private String name;
+
+
+    public Genre(String name) {
+        this.name = name;
+    }
 }

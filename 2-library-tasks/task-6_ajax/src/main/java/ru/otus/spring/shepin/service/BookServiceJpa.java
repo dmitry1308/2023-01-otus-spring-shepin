@@ -6,18 +6,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.shepin.dao.BookRepository;
 import ru.otus.spring.shepin.dto.BookDto;
+import ru.otus.spring.shepin.dto.BookDtoForSave;
 import ru.otus.spring.shepin.entity.Author;
 import ru.otus.spring.shepin.entity.Book;
 import ru.otus.spring.shepin.entity.Genre;
 import ru.otus.spring.shepin.mapper.BookMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookServiceJpa implements BookService {
     private final BookRepository bookRepository;
-    private final BookMapper     bookMapper;
+
+    private final GenreService  genreService;
+    private final AuthorService authorService;
+
+    private final BookMapper bookMapper;
 
     @Override
     public int count() {
@@ -26,8 +32,12 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @Transactional
-    public Book create(BookDto dto) {
-        return bookRepository.save(bookMapper.fromDomainToObject(dto));
+    public BookDto create(BookDtoForSave dto) {
+        final Genre  genre  = genreService.getById(dto.getGenreId());
+        final Author author = authorService.getById(dto.getAuthorId());
+
+        final Book book = bookRepository.save(bookMapper.fromDomainToObject(dto, genre, author));
+        return bookMapper.fromObjectToDto(book);
     }
 
     @Override
@@ -46,8 +56,12 @@ public class BookServiceJpa implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Book> getAll() {
-        return bookRepository.findAll();
+    public List<BookDto> getAll() {
+        final List<Book> books = bookRepository.findAll();
+
+        return books.stream()
+                    .map(bookMapper::fromObjectToDto)
+                    .collect(Collectors.toList());
     }
 
     @Override
