@@ -19,7 +19,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookServiceJpa implements BookService {
     private final BookRepository bookRepository;
-    private final BookMapper     bookMapper;
+
+    private final GenreService  genreService;
+    private final AuthorService authorService;
+
+    private final BookMapper bookMapper;
 
     @Override
     public int count() {
@@ -29,7 +33,10 @@ public class BookServiceJpa implements BookService {
     @Override
     @Transactional
     public BookDto create(BookDtoForSave dto) {
-        final Book book = bookRepository.save(bookMapper.fromDomainToObject(dto));
+        final Genre  genre  = genreService.getById(dto.getGenreId());
+        final Author author = authorService.getById(dto.getAuthorId());
+
+        final Book book = bookRepository.save(bookMapper.fromDomainToObject(dto, genre, author));
         return bookMapper.fromObjectToDto(book);
     }
 
