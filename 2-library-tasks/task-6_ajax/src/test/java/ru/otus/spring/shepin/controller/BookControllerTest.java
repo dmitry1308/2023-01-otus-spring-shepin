@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.otus.spring.shepin.page.BookPagesController;
 import ru.otus.spring.shepin.service.AuthorService;
 import ru.otus.spring.shepin.service.GenreService;
 
@@ -28,12 +27,12 @@ class BookControllerTest {
     @Test
     void test_display_list_books() throws Exception {
         this.mvc.perform(get("/")).andExpect(status().isOk())
-                .andExpect(view().name("list"));
+                .andExpect(view().name("books"));
     }
 
     @Test
     void test_display_page_create_book() throws Exception {
         this.mvc.perform(get("/createBook")).andExpect(status().isOk())
-                .andExpect(view().name("create"));
+                .andExpect(view().name("createBook"));
     }
 }

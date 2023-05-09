@@ -19,11 +19,11 @@ public class BookController {
 
     private final BookService   bookService;
 
-    @GetMapping("/list")
+    @GetMapping("/api/books")
     public List<BookDto> listBooks() {
         return bookService.getAll();
     }
-    @PostMapping("/book")
+    @PostMapping("/api/books")
     public BookDto addBook(@RequestBody BookDtoForSave bookDto) {
          return bookService.create(bookDto);
     }

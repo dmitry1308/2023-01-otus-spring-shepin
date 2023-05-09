@@ -1,4 +1,4 @@
-package ru.otus.spring.shepin.page;
+package ru.otus.spring.shepin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class BookPagesController {
 
     @GetMapping("/")
     public String listBooksPage() {
-        return "list";
+        return "books";
     }
 
     @GetMapping("/createBook")
@@ -32,6 +32,6 @@ public class BookPagesController {
         model.addAttribute("genres", genres);
         model.addAttribute("authors", authors);
 
-        return "create";
+        return "createBook";
     }
 }

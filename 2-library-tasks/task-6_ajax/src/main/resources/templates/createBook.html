@@ -36,7 +36,7 @@
                 author: author.value
             };
 
-            fetch("/book", {
+            fetch("/api/books", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -80,7 +80,7 @@
 
     <div class="row">
         <button type="button" onclick="saveBook()" >Save</button>
-        <a href="list.html" th:href="@{/}"><button type="button">Go Back</button></a>
+        <a href="books.html" th:href="@{/}"><button type="button">Go Back</button></a>
     </div>
 </form>
 
