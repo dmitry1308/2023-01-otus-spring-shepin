@@ -1,4 +1,4 @@
-package ru.otus.spring.shepin.page;
+package ru.otus.spring.shepin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
