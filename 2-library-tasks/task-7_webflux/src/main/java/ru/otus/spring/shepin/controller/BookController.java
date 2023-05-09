@@ -2,10 +2,7 @@ package ru.otus.spring.shepin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.shepin.dto.BookDto;
 import ru.otus.spring.shepin.dto.BookDtoForSave;
 import ru.otus.spring.shepin.service.BookService;
@@ -26,5 +23,11 @@ public class BookController {
     @PostMapping("/api/books")
     public BookDto addBook(@RequestBody BookDtoForSave bookDto) {
          return bookService.create(bookDto);
+    }
+
+    @DeleteMapping("/api/books/{id}")
+    public void deleteBook(@PathVariable long id) {
+        bookService.deleteById(id);
+        bookService.getAll();
     }
 }

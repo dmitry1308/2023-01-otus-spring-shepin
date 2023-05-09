@@ -38,6 +38,7 @@
         <th>Name</th>
         <th>Genre</th>
         <th>Author</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -54,11 +55,22 @@
                         <td>${book.name}</td>
                         <td>${book.genre.name}</td>
                         <td>${book.author.firstName + ", " + book.author.lastName}</td>
+                         <td><input type="button" value="Delete Row" onclick="deleteBook(${book.id})"></td>
                     </tr>
                 `)
             });
         })
     });
+
+    function deleteBook(id){
+        $.ajax({
+            url: '/api/books/'+id,
+            method: 'DELETE',
+            success: function(){
+                window.location = "/";
+            }
+        })
+    }
 </script>
 
 </body>
