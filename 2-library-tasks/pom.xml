@@ -12,5 +12,11 @@
 
     <modules>
         <module>task-1</module>
+        <module>task-2</module>
+        <module>task-3</module>
+        <module>task-4</module>
+        <module>task-5_thymeleaf</module>
+        <module>task-6_ajax</module>
+        <module>task-7_webflux</module>
     </modules>
 </project>
