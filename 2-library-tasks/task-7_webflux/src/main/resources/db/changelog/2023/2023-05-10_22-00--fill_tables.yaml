@@ -1,0 +1,132 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill tables
+      author: dshepin
+      changes:
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: Genre-1
+            schemaName: public
+            tableName: genre
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: Genre-2
+            schemaName: public
+            tableName: genre
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: Genre-3
+            schemaName: public
+            tableName: genre
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: first_name
+                  value: First-name-1
+              - column:
+                  name: last_name
+                  value: Last-name-1
+            schemaName: public
+            tableName: author
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: first_name
+                  value: First-name-2
+              - column:
+                  name: last_name
+                  value: Last-name-3
+            schemaName: public
+            tableName: author
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: first_name
+                  value: First-name-3
+              - column:
+                  name: last_name
+                  value: Last-name-3
+            schemaName: public
+            tableName: author
+
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: Book 1
+              - column:
+                  name: author_id
+                  value: 1
+              - column:
+                  name: genre_id
+                  value: 1
+            schemaName: public
+            tableName: book
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: Book 2
+              - column:
+                  name: author_id
+                  value: 2
+              - column:
+                  name: genre_id
+                  value: 2
+            schemaName: public
+            tableName: book
+
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: Book 3
+              - column:
+                  name: author_id
+                  value: 3
+              - column:
+                  name: genre_id
+                  value: 3
+            schemaName: public
+            tableName: book
+

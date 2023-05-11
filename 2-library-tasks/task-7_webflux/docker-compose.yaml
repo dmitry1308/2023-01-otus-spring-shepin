@@ -1,0 +1,13 @@
+version: '1'
+services:
+  library-db:
+    container_name: library-db
+    image: "postgres:latest"
+    restart: always
+    ports:
+      - "5404:5432"
+    environment:
+      POSTGRES_DB: library_db
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      PGPASSWORD: root
