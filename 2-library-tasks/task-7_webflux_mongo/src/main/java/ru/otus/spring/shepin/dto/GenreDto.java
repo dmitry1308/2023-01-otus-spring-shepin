@@ -15,6 +15,6 @@ import java.io.Serializable;
 @Builder
 @Getter
 public class GenreDto implements Serializable {
-    private Long id;
+    private String id;
     private String name;
 }

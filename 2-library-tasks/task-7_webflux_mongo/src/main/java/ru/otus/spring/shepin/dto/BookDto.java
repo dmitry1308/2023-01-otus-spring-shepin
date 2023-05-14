@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 public class BookDto implements Serializable {
 
-    private final Long      id;
+    private final String      id;
     private final String    name;
     private final GenreDto  genre;
     private final AuthorDto author;
