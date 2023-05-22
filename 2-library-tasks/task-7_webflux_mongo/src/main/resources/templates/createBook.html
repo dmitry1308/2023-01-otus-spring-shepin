@@ -26,14 +26,14 @@
             const savedPersonContainer = document.getElementById("saved-book")
 
             const nameInput = document.getElementById("book-name-input")
-            const genre = document.getElementById("genre")
-            const author = document.getElementById("author")
+            // const genre = document.getElementById("genre")
+            // const author = document.getElementById("author")
 
 
             objectInBody = {
                 name: nameInput.value,
-                genreId: genre.value,
-                authorId: author.value
+                // genreId: genre.value,
+                // authorId: author.value
             };
 
             fetch("/api/books", {
@@ -57,25 +57,25 @@
         <input id="book-name-input" name="name" type="text" value="Book 1"/>
     </div>
 
-    <div class="row">
-        <label for="genre">Genre</label>
-        <select class="form-control" id="genre" name="genre">
-            <option th:each="genre : ${genres}"
-                    th:value="${genre.id}"
-                    th:text="${genre.name}">
-            </option>
-        </select>
-    </div>
+<!--    <div class="row">-->
+<!--        <label for="genre">Genre</label>-->
+<!--        <select class="form-control" id="genre" name="genre">-->
+<!--            <option th:each="genre : ${genres}"-->
+<!--                    th:value="${genre.id}"-->
+<!--                    th:text="${genre.name}">-->
+<!--            </option>-->
+<!--        </select>-->
+<!--    </div>-->
 
-    <div class="row">
-        <label for="genre">Author</label>
-        <select class="form-control" id="author" name="genre">
-            <option th:each="author : ${authors}"
-                    th:value="${author.id}"
-                    th:text="${author.firstName} +| | +${author.lastName}">
-            </option>
-        </select>
-    </div>
+<!--    <div class="row">-->
+<!--        <label for="genre">Author</label>-->
+<!--        <select class="form-control" id="author" name="genre">-->
+<!--            <option th:each="author : ${authors}"-->
+<!--                    th:value="${author.id}"-->
+<!--                    th:text="${author.firstName} +| | +${author.lastName}">-->
+<!--            </option>-->
+<!--        </select>-->
+<!--    </div>-->
 
 
     <div class="row">

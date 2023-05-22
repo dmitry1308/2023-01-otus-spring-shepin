@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class BookDtoForSave implements Serializable {
 
     private final String name;
-    private final long genreId;
-    private final long authorId;
+    private final String genreId;
+    private final String authorId;
 
 }
