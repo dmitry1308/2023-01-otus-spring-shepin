@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.shepin.dao.BookRepository;
-import ru.otus.spring.shepin.dao.CommentRepository;
 import ru.otus.spring.shepin.entity.Book;
-import ru.otus.spring.shepin.entity.Comment;
 
 import java.util.List;
 
