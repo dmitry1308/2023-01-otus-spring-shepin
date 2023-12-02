@@ -4,7 +4,7 @@ server:
 spring:
 
   datasource:
-    url: jdbc:h2:mem:librarydb
+    url: jdbc:h2:file:/Users/d.schepin/IdeaProjects/otus/2023-01-otus-spring-shepin/2-library-tasks/task-3/dbbase/lybrary-db;AUTO_SERVER=true
     driver-class-name: org.h2.Driver
 
   jpa:
